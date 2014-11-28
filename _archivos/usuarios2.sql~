@@ -1,0 +1,16 @@
+insert into users (name, email, password, id_distribuidor) values ('irenesatchuano','irenesatchuano','clientevip2015', (select id from distribuidor where telefono = '41-2480029' and id_comuna = 60));
+insert into users (name, email, password, id_distribuidor) values ('irenesaconcepcion','irenesaconcepcion','clientevip2015', (select id from distribuidor where telefono = '41-2480029' and id_comuna = 37));
+insert into users (name, email, password, id_distribuidor) values ('irenesalosangeles','irenesalosangeles','clientevip2015', (select id from distribuidor where telefono = '43-320437'));
+insert into users (name, email, password, id_distribuidor) values ('irenesatemuco','irenesatemuco','clientevip2015', (select id from distribuidor where telefono = '45-232573'));
+insert into users (name, email, password, id_distribuidor) values ('irenesaosorno','irenesaosorno','clientevip2015', (select id from distribuidor where telefono = '64-313200'));
+insert into users (name, email, password, id_distribuidor) values ('irenesapuertomontt','irenesapuertomontt','clientevip2015', (select id from distribuidor where telefono = '65-311919'));
+insert into users (name, email, password, id_distribuidor) values ('oriospaicavi','oriospaicavi','clientevip2015', (select id from distribuidor where telefono = '41-2240910'));
+insert into users (name, email, password, id_distribuidor) values ('oriosrepullo','oriosrepullo','clientevip2015', (select id from distribuidor where telefono = '41-2592253'));
+insert into users (name, email, password, id_distribuidor) values ('pronsacopiapo','pronsacopiapo','clientevip2015', (select id from distribuidor where telefono = '52-2225978'));
+insert into users (name, email, password, id_distribuidor) values ('pronsaserena','pronsaserena','clientevip2015', (select id from distribuidor where telefono = '51-2219892 / 2221232'));
+insert into users (name, email, password, id_distribuidor) values ('pronsastaamalia','pronsastaamalia','clientevip2015', (select id from distribuidor where telefono = '2-22876384'));
+insert into users (name, email, password, id_distribuidor) values ('pronsavicuna','pronsavicuna','clientevip2015', (select id from distribuidor where telefono = ' 2-22219704 '));
+insert into users (name, email, password, id_distribuidor) values ('pronsachillan','pronsachillan','clientevip2015', (select id from distribuidor where telefono = '42-248636 '));
+insert into users (name, email, password, id_distribuidor) values ('riosantucapel','riosantucapel','clientevip2015', (select id from distribuidor where telefono = '41-2225217'));
+insert into users (name, email, password, id_distribuidor) values ('riosanmayo','riosanmayo','clientevip2015', (select id from distribuidor where telefono = '41-2521910'));
+insert into users (name, email, password, id_distribuidor) values ('riosanmaipu','riosanmaipu','clientevip2015', (select id from distribuidor where telefono = '41-2240911'));

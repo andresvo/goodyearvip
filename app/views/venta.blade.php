@@ -1,0 +1,50 @@
+@extends('layoutservi')
+
+@section('content')
+
+	@if(isset($ingresada))
+		<p class="error">
+			<a href="{{ URL::to('/serviteca') }}" class="x"></a>
+			<span>La venta ha sido registrada</span>
+		</p>
+			<p><a href="{{ URL::to('/logout') }}" class="fuera">Cerrar sesión</a></p>
+	
+	@else
+		{{ Form::open(array('url' => 'compra/crear')) }}
+		<a href="{{ URL::to('/serviteca') }}" class="x" onclick="$('#volver').submit();return false"></a>
+		<div id="revisar">
+		<table class="revisar">
+			<tr>
+			<td style="text-align:right">Diseño:</td><td style="text-align:left">{{ $producto->nombre }}</td>
+			</tr>
+			<tr>
+			<td style="text-align:right">Medida:</td><td style="text-align:left">{{ $medida->nombre }}</td>
+			</tr>
+			<tr>
+			<td style="text-align:right">Cantidad:</td><td style="text-align:left">{{ $cantidad }}</td>
+			</tr>
+			<tr>
+			<td style="text-align:right">Boleta:</td><td style="text-align:left">{{ $boleta }}</td>
+			</tr>
+			<tr>
+			<td style="text-align:right">Factura:</td><td style="text-align:left">{{ $factura }}</td>
+			</tr>
+		</table>
+		</div>
+			
+			<input type="hidden" name="id_tarjeta" value="{{ $id_tarjeta }}" />
+			<input type="hidden" name="producto" value="{{ $producto->id }}" />
+			<input type="hidden" name="medida" value="{{ $medida->id }}" />
+			<input type="hidden" name="cantidad" value="{{ $cantidad }}" />
+			<input type="hidden" name="boleta" value="{{ $boleta }}" />
+			<input type="hidden" name="factura" value="{{ $factura }}" />
+			<input type="submit" value="Ingresar" />
+		{{ Form::close() }}
+		
+		{{ Form::open(array('url' => 'serviteca', 'id' => 'volver')) }}
+			<input type="hidden" name="codigo" value="{{ $codigo }}" />
+		{{ Form::close() }}
+	
+	@endif
+
+@stop

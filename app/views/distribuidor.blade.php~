@@ -1,0 +1,22 @@
+@extends('layout')
+
+@section('content')
+
+<? $count = 0 ?>
+
+<table id="distribuidores">
+	<tr>
+	@foreach($distribuidores as $dist)
+	<? $count++ ?>
+		<td>
+			<strong>{{ $dist->nombre }}</strong><br>
+			{{ $dist->direccion }}<br>
+			<strong>Teléfono</strong><br>
+			{{ $dist->telefono }}<br>
+			<strong>Web</strong> {{ $dist->web }}
+		</td>
+	<? if($count % 3 == 0) echo '</tr><tr>' ?>
+	@endforeach
+	</tr>
+</table>
+@stop

@@ -1,0 +1,80 @@
+@extends('layout')
+
+@section('content')
+	{{ Form::open(array('url' => 'distribuidores')) }}
+		
+		<select name="region" id="region">
+			<option value="0">Selecciona región</option>
+		@foreach($regiones as $region)
+		    <option value="{{ $region->id }}">{{ $region->nombre }}</option>
+		@endforeach
+		</select>
+		
+		<select name="ciudad" id="ciudad">
+			<option value="0">Selecciona ciudad</option>
+		</select>
+		
+		<select name="comuna" id="comuna">
+			<option value="0">Selecciona comuna</option>
+		</select>
+		
+		<input type="submit" value="Continuar" />
+	{{ Form::close() }}
+	
+	<script type="text/javascript">
+       (function() {
+          $("#region").change(function() {
+             $.ajax({
+                url: '{{ URL::to('/ciudad/listar') }}/' + $("#region").val(),
+                type: 'GET',
+                dataType: 'JSON',
+                beforeSend: function() {
+                   $("#ciudad").html('<option>Buscando...</option>');
+                },
+                error: function() {
+                   alert('Ha surgido un error.');
+                },
+                success: function(respuesta) {
+                   if (respuesta) {
+                   var html = '<option>Selecciona ciudad</option>';
+                   respuesta.forEach(function(entry) {
+						html += '<option value="' + entry.id + '">' + entry.nombre + '</option>';
+					});
+                      
+                      $("#ciudad").html(html);
+                   } else {
+                      $("#ciudad").html('<option>No se encontraron registros.</option>');
+                   }
+                }
+             });
+          });
+          
+          $("#ciudad").change(function() {
+             $.ajax({
+                url: '{{ URL::to('/comuna/listar') }}/' + $("#ciudad").val(),
+                type: 'GET',
+                dataType: 'JSON',
+                beforeSend: function() {
+                   $("#comuna").html('<option>Buscando...</option>');
+                },
+                error: function() {
+                   alert('Ha surgido un error.');
+                },
+                success: function(respuesta) {
+                   if (respuesta) {
+                   var html = '<option>Selecciona comuna</option>';
+                   respuesta.forEach(function(entry) {
+						html += '<option value="' + entry.id + '">' + entry.nombre + '</option>';
+					});
+                      
+                      $("#comuna").html(html);
+                   } else {
+                      $("#comuna").html('<option>No se encontraron registros. </option>');
+                   }
+                }
+             });
+          });
+          
+       }).call(this);
+    </script>
+@stop

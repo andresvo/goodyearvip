@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Goodyear VIP</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.8">
+	{{HTML::script('jquery-1.11.1.min.js')}}
+	{{HTML::style('principal.css')}}
+</head>
+<body>
+<div id="header">
+	<div id="serviteca">
+		<a id="adistribuidores" href="{{ URL::to('/') }}"></a>
+	</div>
+</div>
+
+<div id="caja">
+	{{ HTML::image('images/titulo.png') }}
+	
+	@yield('content')
+</div>
+
+<div id="footer">
+	<div></div>
+</div>
+</body>
+</html>
