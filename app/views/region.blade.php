@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-	{{ Form::open(array('url' => 'distribuidores')) }}
+	{{ Form::open(array('url' => 'distribuidores', 'onsubmit' => 'return validar()')) }}
 		
 		<select name="region" id="region">
 			<option value="0">Selecciona región</option>
@@ -22,9 +22,22 @@
 	{{ Form::close() }}
 	
 	<script type="text/javascript">
-       (function() {
+		$(function() {
+			cargarCiudades();
+		});
+
+
           $("#region").change(function() {
-             $.ajax({
+             cargarCiudades();
+          });
+          
+          $("#ciudad").change(function() {
+             cargarComunas();
+          });
+          
+       	
+       	function cargarCiudades() {
+			$.ajax({
                 url: '{{ URL::to('/ciudad/listar') }}/' + $("#region").val(),
                 type: 'GET',
                 dataType: 'JSON',
@@ -36,21 +49,24 @@
                 },
                 success: function(respuesta) {
                    if (respuesta) {
-                   var html = '<option>Selecciona ciudad</option>';
+                   if(respuesta.length != 1) var html = '<option value="0">Selecciona ciudad</option>';
+                   else var html = '';
                    respuesta.forEach(function(entry) {
 						html += '<option value="' + entry.id + '">' + entry.nombre + '</option>';
 					});
                       
                       $("#ciudad").html(html);
+                      cargarComunas();
                    } else {
                       $("#ciudad").html('<option>No se encontraron registros.</option>');
                    }
                 }
              });
-          });
-          
-          $("#ciudad").change(function() {
-             $.ajax({
+
+       	}
+       	
+       	function cargarComunas() {
+			$.ajax({
                 url: '{{ URL::to('/comuna/listar') }}/' + $("#ciudad").val(),
                 type: 'GET',
                 dataType: 'JSON',
@@ -62,8 +78,8 @@
                 },
                 success: function(respuesta) {
                    if (respuesta) {
-                   //var html = '<option>Selecciona comuna</option>';
-                   var html = '';
+                   if(respuesta.length != 1) var html = '<option value="0">Selecciona comuna</option>';
+                   else var html = '';
                    respuesta.forEach(function(entry) {
 						html += '<option value="' + entry.id + '">' + entry.nombre + '</option>';
 					});
@@ -74,8 +90,15 @@
                    }
                 }
              });
-          });
-          
-       }).call(this);
+       	}
+       
+   		function validar() {
+			var valido = true;
+			if($('#region').val() == '0') {alert('Por favor selecciona una región'); valido = false;}
+			else if($('#ciudad').val() == '0') {alert('Por favor selecciona una ciudad'); valido = false;}
+			else if($('#comuna').val() == '0') {alert('Por favor selecciona una comuna'); valido = false;}
+			return valido;
+		}
+
     </script>
 @stop
