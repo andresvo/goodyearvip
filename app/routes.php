@@ -61,20 +61,24 @@ Route::get('logout', function()
 Route::any('serviteca', array('before' => 'auth', function()
 {
 	$codigo = Input::get('codigo');
+	$mensaje = '';
 	if($codigo) {
 		$productos = Producto::orderBy('nombre')->get();
-		$tarjeta = Tarjeta::where('codigo','=',$codigo)->get();
+		$tarjeta = Tarjeta::where('codigo','=',strtoupper($codigo))->get();
 		if(isset($tarjeta[0])) {
 			$cupo = $tarjeta[0]->cupo_actual;
 			$id_tarjeta = $tarjeta[0]->id;
 		}
-		else return 'código no válido';
+		else {
+			$mensaje = 'sasdca';
+			return View::make('serviteca', array('mensaje' => $mensaje));
+		}
 	} else {
 		$productos = null;
 		$cupo = null;
 		$id_tarjeta = null;
 	}
-	return View::make('serviteca', array('codigo' => $codigo, 'productos' => $productos, 'cupo' => $cupo, 'id_tarjeta' => $id_tarjeta));
+	return View::make('serviteca', array('codigo' => $codigo, 'mensaje' => $mensaje, 'productos' => $productos, 'cupo' => $cupo, 'id_tarjeta' => $id_tarjeta));
 }));
 
 Route::get('usuario/crear/{email}/{pwd}/{id_distribuidor}', function($email, $pwd, $id_distribuidor)

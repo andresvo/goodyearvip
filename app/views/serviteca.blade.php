@@ -3,12 +3,19 @@
 @section('content')
 	
 	@if (!isset($codigo))	
+		@if($mensaje != '')
+			<p class="error">
+				<span>Código de tarjeta no válido</span>
+			</p>
+			
+		@endif
 		{{ Form::open(array('url' => 'serviteca')) }}
-			<input type="text" name="codigo" placeholder="Ingresar código" /><br>
+			<input type="text" name="codigo" placeholder="Ingresar código" style="text-transform:uppercase" /><br>
 			<input type="submit" value="Continuar" />
 		{{ Form::close() }}
+
 	@else
-	
+
 		@if ($cupo == 0)
 			<p class="error">
 				<a href="{{ URL::to('/serviteca') }}" class="x"></a>
