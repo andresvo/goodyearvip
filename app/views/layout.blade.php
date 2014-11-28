@@ -10,6 +10,7 @@
 <body>
 <div id="header">
 	<div>
+		<a id="avolver" href="{{ URL::to('/') }}"></a>
 		<a id="aserviteca" href="{{ URL::to('/serviteca') }}"></a>
 	</div>
 </div>
@@ -21,7 +22,10 @@
 </div>
 
 <div id="footer">
-	<div></div>
+	<div>
+		<a href="http://goodyear.cl" id="web"></a>
+		<a href="{{ URL::to('files/bases.pdf') }}" id="bases" target="_blank"></a>
+	</div>
 </div>
 </body>
 </html>
