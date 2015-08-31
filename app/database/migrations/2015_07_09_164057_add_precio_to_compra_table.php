@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPasswordToUsers extends Migration {
+class AddPrecioToCompraTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,10 @@ class AddPasswordToUsers extends Migration {
 	 */
 	public function up()
 	{
-    Schema::create('users', function($table)
-    {
-        $table->string('password');
-    });
-
+		Schema::table('compra', function(Blueprint $table)
+		{
+			$table->integer('precio');
+		});
 	}
 
 	/**
@@ -26,7 +25,10 @@ class AddPasswordToUsers extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::table('compra', function(Blueprint $table)
+		{
+			//
+		});
 	}
 
 }

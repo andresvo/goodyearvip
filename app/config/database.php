@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'goodyear_vip',
 			'username'  => 'root',
-			'password'  => '01arvo',
+			'password'  => 'andres2015',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

@@ -8,14 +8,17 @@
 	{{HTML::style('principal.css')}}
 </head>
 <body>
-<div id="header">
-</div>
 
 <div class="contenido">
 	<p style="float:right">
 		<a href="{{ URL::to('/logout') }}">Cerrar sesión</a>
 	</p>
-	<h3>Administrador</h3>
+	<h2>Administrador</h2>
+
+	<nav>
+		<a href="{{ URL::to('admin') }}">Ventas</a>
+		<a href="{{ URL::to('admin/tarjetas') }}">Tarjetas</a>
+	</nav>
 	@yield('content')
 </div>
 

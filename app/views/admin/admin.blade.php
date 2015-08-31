@@ -1,16 +1,22 @@
-@extends('layoutadmin')
+@extends('admin/layoutadmin')
 
 @section('content')
 
-	<a href="{{ URL::to('/excel') }}">Descargar Excel</a>
-	
+
 	<div class="filtro">
 		<div><strong>Ventas</strong></div>
 		{{ Form::open(array('url' => 'admin')) }}
+		{{ Form::select('id_empresa', $opcionesemp, $id_empresa) }} &nbsp;
 		{{ Form::select('id_usuario', $opciones, $id_usuario) }}
 		{{ Form::submit('Filtrar') }}
 		{{ Form::close() }}
 	</div>
+
+	@if($id_empresa != null)
+	<p><a href="{{ URL::to('/excel') . '/' . $id_empresa }}">Descargar Excel</a></p>
+	@else
+	<p><a href="{{ URL::to('/excel') }}">Descargar Excel</a></p>
+	@endif
 
 	@if(count($compras) == 0)
 		<table border="1">

@@ -17,6 +17,12 @@ Route::get('/', function()
     return View::make('region')->with('regiones', $regiones);
 });
 
+Route::get('migrate', function() {
+	define('STDIN',fopen("php://stdin","r"));
+	$output = Artisan::call('migrate', ['--quiet' => true, '--force' => true]);
+	dd($output);
+});
+
 Route::get('ciudad/listar/{id_region}', function($id_region)
 {
     $ciudades = Ciudad::where('id_region', '=', $id_region)->orderBy('nombre')->get();
@@ -58,12 +64,13 @@ Route::get('logout', function()
 	return Redirect::to('login');
 });
 
+
 Route::any('serviteca', array('before' => 'auth', function()
 {
 	$codigo = Input::get('codigo');
 	$mensaje = '';
 	if($codigo) {
-		$productos = Producto::orderBy('nombre')->get();
+		$productos = Producto::where('activo',1)->orderBy('nombre')->get();
 		$tarjeta = Tarjeta::where('codigo','=',strtoupper($codigo))->get();
 		if(isset($tarjeta[0])) {
 			$cupo = $tarjeta[0]->cupo_actual;
@@ -95,7 +102,7 @@ Route::get('usuario/crear/{email}/{pwd}/{id_distribuidor}', function($email, $pw
 
 Route::get('medida/listar/{id_producto}', function($id_producto)
 {
-    $medidas = Medida::where('id_producto', '=', $id_producto)->orderBy('nombre')->get();
+    $medidas = Medida::where('activo',1)->where('id_producto', '=', $id_producto)->orderBy('nombre')->get();
     return Response::json($medidas);
 });
 
@@ -109,9 +116,10 @@ Route::post('compra/revisar', array('before' => 'auth', function()
 	$id_medida = Input::get('medida');
 	$m = Medida::find($id_medida);
 	$boleta = Input::get('boleta');
-	$factura = Input::get('factura');
-	
-	return View::make('venta', array('id_tarjeta' => $id_tarjeta, 'codigo' => $t->codigo, 'cantidad' => $cantidad, 'producto' => $p, 'medida' => $m, 'boleta' => $boleta, 'factura' => $factura));
+    $factura = Input::get('factura');
+    $precio = Input::get('precio');
+
+	return View::make('venta', array('id_tarjeta' => $id_tarjeta, 'codigo' => $t->codigo, 'cantidad' => $cantidad, 'producto' => $p, 'medida' => $m, 'boleta' => $boleta, 'factura' => $factura, 'precio' => $precio));
 
 }));
 
@@ -119,16 +127,17 @@ Route::post('compra/crear', array('before' => 'auth', function()
 {
 	$id_tarjeta = Input::get('id_tarjeta');
 	$cantidad = Input::get('cantidad');
-	
+
 	$compra = new Compra;
 	$compra->id_usuario = Auth::user()->id;
 	$compra->id_medida = Input::get('medida');
 	$compra->id_tarjeta = $id_tarjeta;
 	$compra->cantidad = $cantidad;
 	$compra->boleta = Input::get('boleta');
-	$compra->factura = Input::get('factura');
+    $compra->factura = Input::get('factura');
+    $compra->precio = Input::get('precio');
 	$compra->save();
-	
+
 	$tarjeta = Tarjeta::find($id_tarjeta);
 	$cupo = $tarjeta->cupo_actual;
 	$tarjeta->cupo_actual = $cupo - $cantidad;
@@ -137,13 +146,13 @@ Route::post('compra/crear', array('before' => 'auth', function()
 }));
 
 Route::get('compra/anular/{id_compra}', array('before' => 'auth', function($id_compra)
-{	
+{
 	$compra = Compra::find($id_compra);
 	$cantidad = $compra->cantidad;
 	$id_tarjeta = $compra->id_tarjeta;
 	$compra->cantidad = 0;
 	$compra->save();
-	
+
 	$tarjeta = Tarjeta::find($id_tarjeta);
 	$cupo = $tarjeta->cupo_actual;
 	$tarjeta->cupo_actual = $cupo + $cantidad;
@@ -159,33 +168,99 @@ Route::get('venta', array('before' => 'auth', function()
 Route::any('admin', array('before' => 'auth', function()
 {
 	if(Auth::user()->profile == 2) {
-		$id_usuario = Input::get('id_usuario');
 		$where = '';
-		if($id_usuario) $where = 'WHERE compra.id_usuario = ' . intval($id_usuario);
-		$compras = DB::select( DB::raw("SELECT compra.id, usuario.email, medida.nombre AS mnombre, producto.nombre AS pnombre, cantidad, tarjeta.codigo, compra.created_at FROM compra JOIN usuario ON compra.id_usuario = usuario.id JOIN medida ON compra.id_medida = medida.id JOIN producto ON medida.id_producto = producto.id JOIN tarjeta ON compra.id_tarjeta = tarjeta.id $where ORDER BY compra.id DESC") );
-		$usuarios = User::all();
+        $id_empresa = Input::get('id_empresa');
+		if($id_empresa) $where .= ' AND tarjeta.id_empresa = ' . intval($id_empresa);
+        $id_usuario = Input::get('id_usuario');
+		if($id_usuario) $where .= ' AND compra.id_usuario = ' . intval($id_usuario);
+
+		$compras = DB::select( DB::raw("SELECT compra.id, usuario.email, medida.nombre AS mnombre, producto.nombre AS pnombre, cantidad, tarjeta.codigo, compra.created_at FROM compra JOIN usuario ON compra.id_usuario = usuario.id JOIN medida ON compra.id_medida = medida.id JOIN producto ON medida.id_producto = producto.id JOIN tarjeta ON compra.id_tarjeta = tarjeta.id WHERE true $where ORDER BY compra.id DESC") );
+
+        $empresas = Empresa::all();
+		$opcionesemp = array('' => 'Todas las empresas');
+		foreach($empresas as $e) $opcionesemp[$e->id] = $e->nombre;
+
+        $usuarios = User::all();
 		$opciones = array('' => 'Todos los usuarios');
 		foreach($usuarios as $u) $opciones[$u->id] = $u->email;
-		return View::make('admin', array('compras' => $compras, 'id_usuario' => $id_usuario, 'opciones' => $opciones));
+
+		return View::make('admin/admin', array('compras' => $compras, 'id_usuario' => $id_usuario, 'id_empresa' => $id_empresa, 'opciones' => $opciones, 'opcionesemp' => $opcionesemp));
 	} else return 'No autorizado para acceder a esta sección';
 }));
 
-Route::get('excel', array('before' => 'auth', function()
+Route::any('admin/tarjetas', array('before' => 'auth', function()
 {
 	if(Auth::user()->profile == 2) {
-		$compras = DB::select( DB::raw("SELECT usuario.email, medida.nombre AS mnombre, producto.nombre AS pnombre, cantidad, tarjeta.codigo, compra.created_at FROM compra JOIN usuario ON compra.id_usuario = usuario.id JOIN medida ON compra.id_medida = medida.id JOIN producto ON medida.id_producto = producto.id JOIN tarjeta ON compra.id_tarjeta = tarjeta.id ORDER BY compra.id DESC") );
+		$empresas = DB::select( DB::raw("SELECT e.*, count(t.id) as tarjetas, min(codigo) as minimo, max(codigo) as maximo FROM empresa e LEFT JOIN tarjeta t ON t.id_empresa = e.id GROUP BY e.id ORDER BY e.id") );
+		return View::make('admin/tarjetas', array('empresas' => $empresas));
+	} else return 'No autorizado para acceder a esta sección';
+}));
+
+Route::post('admin/empresa/crear', array('before' => 'auth', function()
+{
+    $nombre = Input::get('nombre');
+
+    $emp = Empresa::select(DB::raw('max(sufijo) as sufijo'))->first();
+    $sufijo = 'E' . (substr($emp->sufijo,1) + 1);
+	$emp = new Empresa;
+    $emp->nombre = $nombre;
+    $emp->sufijo = $sufijo;
+	$emp->save();
+    return Redirect::to('admin/tarjetas');
+}));
+
+Route::post('admin/empresa/renombrar', array('before' => 'auth', function()
+{
+    $id = Input::get('id');
+    $nombre = Input::get('nombre');
+
+    $emp = Empresa::find($id);
+    $emp->nombre = $nombre;
+	$emp->save();
+    return Redirect::to('admin/tarjetas');
+}));
+
+Route::post('admin/tarjetas/crear', array('before' => 'auth', function()
+{
+    $id_empresa = Input::get('id_empresa');
+    $cantidad = Input::get('cantidad');
+
+    $emp = Empresa::find($id_empresa);
+    $sufijo = $emp->sufijo;
+    $cant_actual = Tarjeta::where('id_empresa', $id_empresa)->count();
+    $primera_nueva = $cant_actual + 1;
+    $ultima_nueva = $cant_actual + $cantidad;
+    for($i=$primera_nueva; $i<=$ultima_nueva; $i++) {
+        $numero = 'GY' . str_pad($i, 4, '0', STR_PAD_LEFT) . $sufijo;
+        $tarj = new Tarjeta;
+        $tarj->codigo = $numero;
+        $tarj->cupo_inicial = 4;
+        $tarj->cupo_actual = 4;
+        $tarj->id_empresa = $id_empresa;
+        $tarj->save();
+    }
+    return Redirect::to('admin/tarjetas');
+}));
+
+
+Route::get('excel/{id_empresa?}', array('before' => 'auth', function($id_empresa = null)
+{
+	if(Auth::user()->profile == 2) {
+        $where = '';
+		if($id_empresa != null) $where = ' WHERE tarjeta.id_empresa = ' . intval($id_empresa);
+
+		$compras = DB::select( DB::raw("SELECT usuario.email, medida.nombre AS mnombre, producto.nombre AS pnombre, cantidad, tarjeta.codigo, compra.created_at, precio, boleta, factura FROM compra JOIN usuario ON compra.id_usuario = usuario.id JOIN medida ON compra.id_medida = medida.id JOIN producto ON medida.id_producto = producto.id JOIN tarjeta ON compra.id_tarjeta = tarjeta.id $where ORDER BY compra.id DESC") );
 
 		Excel::create('ClienteVIP', function($excel) use($compras) {
-		
+
 			$excel->sheet('Ventas', function ($sheet) use($compras) {
 			 	$row=1;
-			 	$sheet->row($row, array('Usuario', 'Diseño', 'Medida', 'Cantidad', 'Tarjeta', 'Fecha creación'));
+			 	$sheet->row($row, array('Usuario', 'Diseño', 'Medida', 'Cantidad', 'Tarjeta', 'Precio unitario', 'Boleta', 'Factura', 'Fecha creación'));
 			 	foreach($compras as $c) {
 			 		$row++;
-			 		$sheet->row($row, array($c->email, $c->pnombre, $c->mnombre, $c->cantidad, $c->codigo, $c->created_at));
+			 		$sheet->row($row, array($c->email, $c->pnombre, $c->mnombre, $c->cantidad, $c->codigo, $c->precio, $c->boleta, $c->factura, $c->created_at));
 			 	}
 			});
 		})->export('xls');
 	} else return 'No autorizado para acceder a esta sección';
 }));
-

@@ -8,7 +8,7 @@
 			<span>La venta ha sido registrada</span>
 		</p>
 			<p><a href="{{ URL::to('/logout') }}" class="fuera">Cerrar sesión</a></p>
-	
+
 	@else
 		{{ Form::open(array('url' => 'compra/crear')) }}
 		<a href="{{ URL::to('/serviteca') }}" class="x" onclick="$('#volver').submit();return false"></a>
@@ -29,22 +29,26 @@
 			<tr>
 			<td style="text-align:right">Factura:</td><td style="text-align:left">{{ $factura }}</td>
 			</tr>
+			<tr>
+			<td style="text-align:right">Precio unitario:</td><td style="text-align:left">{{ $precio }}</td>
+			</tr>
 		</table>
 		</div>
-			
+
 			<input type="hidden" name="id_tarjeta" value="{{ $id_tarjeta }}" />
 			<input type="hidden" name="producto" value="{{ $producto->id }}" />
 			<input type="hidden" name="medida" value="{{ $medida->id }}" />
 			<input type="hidden" name="cantidad" value="{{ $cantidad }}" />
 			<input type="hidden" name="boleta" value="{{ $boleta }}" />
 			<input type="hidden" name="factura" value="{{ $factura }}" />
+			<input type="hidden" name="precio" value="{{ $precio }}" />
 			<input type="submit" value="Ingresar" />
 		{{ Form::close() }}
-		
+
 		{{ Form::open(array('url' => 'serviteca', 'id' => 'volver')) }}
 			<input type="hidden" name="codigo" value="{{ $codigo }}" />
 		{{ Form::close() }}
-	
+
 	@endif
 
 @stop

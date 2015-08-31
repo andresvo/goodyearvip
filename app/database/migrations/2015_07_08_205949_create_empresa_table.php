@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddProfileToUser extends Migration {
+class CreateEmpresaTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,12 @@ class AddProfileToUser extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('users', function($table)
+		Schema::create('empresa', function(Blueprint $table)
 		{
-		    $table->integer('profile');
+			$table->increments('id');
+			$table->string('nombre');
+			$table->string('sufijo');
+			$table->timestamps();
 		});
 	}
 
@@ -25,7 +28,7 @@ class AddProfileToUser extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('empresa');
 	}
 
 }
