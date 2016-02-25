@@ -72,6 +72,11 @@ Route::any('serviteca', array('before' => 'auth', function()
 	if($codigo) {
 		$productos = Producto::where('activo',1)->orderBy('nombre')->get();
         if(strlen($codigo) == 4) $codigo = 'GY'.$codigo;
+        if(substr($codigo, 0, 1) == 'E') {
+            $codigo = str_replace('-','', $codigo);
+            $empresa = substr($codigo, 0, 2);
+            $codigo = 'GY' . substr($codigo, 2) . $empresa;
+        }
 		$tarjeta = Tarjeta::where('codigo','=',strtoupper($codigo))->get();
 		if(isset($tarjeta[0])) {
 			$cupo = $tarjeta[0]->cupo_actual;
