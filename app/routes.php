@@ -206,8 +206,8 @@ Route::post('admin/empresa/crear', array('before' => 'auth', function()
 {
     $nombre = Input::get('nombre');
 
-    $emp = Empresa::select(DB::raw('max(sufijo) as sufijo'))->first();
-    $sufijo = 'E' . (substr($emp->sufijo,1) + 1);
+    $emp = Empresa::select(DB::raw('max(CAST(substring(sufijo,2) AS UNSIGNED)) as sufijo'))->first();
+    $sufijo = 'E' . ($emp->sufijo + 1);
 	$emp = new Empresa;
     $emp->nombre = $nombre;
     $emp->sufijo = $sufijo;
