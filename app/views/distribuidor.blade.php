@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id="distribuidores">
+<div class="container distribuidores">
 	@foreach($distribuidores as $dist)
 		<div>
 			<table><tr><td>
@@ -14,5 +14,6 @@
 			</td></tr></table>
 		</div>
 	@endforeach
+</div>
 
 @stop

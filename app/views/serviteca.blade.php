@@ -1,8 +1,11 @@
-@extends('layoutservi')
+@extends('layout')
 
 @section('content')
 
+<div class="container form-pasos">
+
 	@if (!isset($codigo))
+		<h3>Paso 2<br><b>Ingreso de código</b></h3>
 		@if($mensaje != '')
 			<p class="error">
 				<span>Código de tarjeta no válido</span>
@@ -10,12 +13,18 @@
 
 		@endif
 		{{ Form::open(array('url' => 'serviteca')) }}
-			<input type="text" name="codigo" placeholder="Ingresar código" style="text-transform:uppercase" /><br>
-			<input type="submit" value="Continuar" />
+			<div class="row">
+			<div class="form-group col-md-12">
+				<input class="form-control" type="text" name="codigo" placeholder="Ingresar código" style="text-transform:uppercase" />
+			</div>
+			<div class="form-group col-md-12">
+				<input type="submit" class="btn btn-block btn-primary" value="Continuar">
+			</div>
+			</div>
 		{{ Form::close() }}
 
 	@else
-
+		<h3>Paso 3<br><b>Detalle de venta.</b></h3>
 		@if ($cupo == 0)
 			<p class="error">
 				<a href="{{ URL::to('/serviteca') }}" class="x"></a>
@@ -23,38 +32,58 @@
 			</p>
 		@else
 		{{ Form::open(array('url' => 'compra/revisar', 'onsubmit' => 'return validar()', 'id' => 'venta')) }}
-			<input type="hidden" name="id_tarjeta" value="{{ $id_tarjeta }}" />
-			<select name="producto" id="producto">
-				<option value="0">Selecciona diseño</option>
-			@foreach($productos as $producto)
-				<option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
-			@endforeach
-			</select>
-
-			<select name="medida" id="medida">
-				<option value="0">Selecciona medida</option>
-			</select>
-
-			<select name="cantidad" id="cantidad">
-				<option value="0">Selecciona cantidad</option>
-			@for($cant=$cupo;$cant>0;$cant--)
-				<option value="{{ $cant }}">{{ $cant }}</option>
-			@endfor
-			</select><br>
-
-			<input type="radio" name="bof" id="rboleta" value="b" checked="checked" />
-			<input type="text" name="boleta" id="boleta" placeholder="Ingresa boleta" />
-
-			<input type="radio" name="bof" id="rfactura" value="f" />
-			<input type="text" name="factura" id="factura" placeholder="Ingresa factura" /><br>
-
-			<input type="text" name="precio" id="precio" placeholder="Ingresa precio unitario" />
-			<br>
-			<input type="submit" value="Continuar" />
+		<input type="hidden" name="id_tarjeta" value="{{ $id_tarjeta }}" />
+		<div class="row">
+			<div class="form-group col-md-12">
+				<select class="form-control" name="producto" id="producto">
+					<option value="0">Selecciona diseño</option>
+				@foreach($productos as $producto)
+					<option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+				@endforeach
+				</select>
+			</div>
+			<div class="form-group col-md-6">
+				<select name="medida" id="medida" class="form-control">
+					<option value="0">Selecciona medida</option>
+				</select>
+			</div>
+			<div class="form-group col-md-6">
+				<select name="cantidad" id="cantidad" class="form-control">
+					<option value="0">Selecciona cantidad</option>
+				@for($cant=$cupo;$cant>0;$cant--)
+					<option value="{{ $cant }}">{{ $cant }}</option>
+				@endfor
+				</select>
+			</div>
+			<div class="form-group col-md-6">
+			<div class="input-group">
+				<span class="input-group-addon">
+					<input type="radio" name="bof" id="rboleta" value="b" checked="checked" />
+				</span>
+				<input type="text" class="form-control" name="boleta" id="boleta" placeholder="Ingresa boleta" />
+			</div><!-- /input-group -->
+			</div><!-- /.col-lg-6 -->
+			<div class="form-group col-md-6">
+			<div class="input-group">
+				<span class="input-group-addon">
+					<input type="radio" name="bof" id="rfactura" value="f" />
+				</span>
+				<input type="text" class="form-control" name="factura" id="factura" placeholder="Ingresa factura" /><br>
+			</div><!-- /input-group -->
+			</div><!-- /.col-lg-6 -->
+			<div class="form-group col-md-12">
+				<input type="text" class="form-control" name="precio" id="precio" placeholder="Ingresa precio unitario" />
+			</div>
+			<div class="form-group col-md-12">
+			<input type="submit" class="btn btn-block btn-primary" value="Continuar">
+			</div>
+		</div>
 		{{ Form::close() }}
+
 		@endif
 
 	@endif
+</div>
 
 	<script type="text/javascript">
        (function() {

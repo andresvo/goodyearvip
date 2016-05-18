@@ -7,20 +7,20 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
-  min-width:1000px; 
+  min-width:1000px;
   background-color: #000;
 }
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   min-width: 1000px;
   /* Set the fixed height of the footer here */
-  height: 160px;
+  height: 216px;
   background-image: url('../img/footer.png');
-  background-size:100% auto;
+  background-size:1920px auto;
   background-repeat: no-repeat;
-  background-position:left bottom; 
+  background-position:center bottom;
 }
 
 
@@ -33,6 +33,7 @@ body {
   padding: 180px 0px;
   color: #fff;
   margin-left: 50px;
+  margin-bottom: 100px;
 }
 .container .text-muted {
   margin: 20px 0;
@@ -53,7 +54,7 @@ body {
   left: 0;
   width: 50%;
   height: 90%;
-  background-position:right top;
+  background-position:right center;
   background-repeat: no-repeat;
   z-index: -10000;
 }
@@ -78,14 +79,40 @@ body {
   height: 100%;
   background-position:left top;
   background-repeat: no-repeat;
-  z-index: -9000;  
+  z-index: -9000;
+}
+
+.boton-serviteca a {
+    display: block;
+    width: 97px;
+    height: 95px;
+}
+
+.distribuidores {
+    width: 425px;
+}
+
+.distribuidores > div {
+    width: 178px;
+    height: 105px;
+    float: left;
+    min-height: 79px;
+    padding: 5px 6px;
+    margin: 15px;
+    background-color: #ffc700;
+    font-size: 9pt;
+    border-radius: 12px;
+    text-align: left;
+    display: table-cell;
+    vertical-align: middle;
+    color:#000;
 }
 
 .logo-cliente-vip{
   position: absolute;
   background: url('../img/cliente-vip.png');
   top:30px;
-  left: 50%;
+  left: 475px;
   width: 196px;
   height: 100%;
   background-position:left top;
@@ -150,7 +177,7 @@ input[type='radio'] {
   border-radius:50%;
   outline:none;
   background: #fff;
-  
+
 }
 
 input[type='radio']:before {
@@ -160,7 +187,7 @@ input[type='radio']:before {
   height:14px;
   margin-top: -2px;
   margin-left: -2px;
-  border-radius:50%;    
+  border-radius:50%;
 }
 
 input[type='radio']:checked:before {
