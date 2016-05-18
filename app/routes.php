@@ -54,7 +54,20 @@ Route::get('como-funciona', function()
 
 Route::get('contacto', function()
 {
-    return View::make('contacto');
+    return View::make('contacto')->with('enviado', false);;
+});
+
+Route::post('contacto', function()
+{
+    $nombre = Input::get('nombre');
+    $email = Input::get('email');
+    $comentario = Input::get('comentario');
+    Mail::send('emails.contacto', array('nombre' => $nombre, 'email' => $email, 'comentario' => $comentario), function($message)
+    {
+        $message->from('noresponder@clientevipgoodyear.cl', 'Web Cliente VIP');
+        $message->to('clientevipgoodyear@clientevipgoodyear.cl', 'Goodyear Cliente VIP')->subject('Contacto');
+    });
+    return View::make('contacto')->with('enviado', true);
 });
 
 
