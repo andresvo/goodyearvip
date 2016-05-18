@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,21 +9,20 @@
   <meta name="author" content="">
   <link rel="icon" href="favicon.ico">
 
-  <title>Cliente VIP Goodyear</title>
+  <title>Cliente VIP :: Goodyear</title>
 
   <!-- Bootstrap core CSS -->
-	{{HTML::style('dist/css/bootstrap.css')}}
+  <link href="dist/css/bootstrap.css" rel="stylesheet">
+
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	{{HTML::style('assets/css/ie10-viewport-bug-workaround.css')}}
+  <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-	{{HTML::style('assets/css/main.css')}}
-
-	{{HTML::script('jquery-1.11.1.min.js')}}
+  <link href="assets/css/main.css" rel="stylesheet">
 
   <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
   <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-	{{HTML::script('assets/js/ie-emulation-modes-warning.js')}}
+  <script src="assets/js/ie-emulation-modes-warning.js"></script>
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -32,24 +31,42 @@
   <![endif]-->
 </head>
 <body>
-
-  <div class="boton-serviteca"><a id="aserviteca" href="{{ URL::to('/serviteca') }}"></a></div>
+  <div class="boton-serviteca"></div>
   <div class="background-person"></div>
   <div class="background-fondo-superior">
     <div class="logo-cliente-vip"></div>
     <!-- Begin page content -->
-	@yield('content')
-
+    <div class="container">
+      <h3>Encuentra tu serviteca<br><b>más cercana</b></h3>
+      <form method="post" action="">
+        <div class="row">
+          <div class="form-group col-md-12">
+            <input class="form-control" placeholder="Región" name="region"></input>
+          </div>
+          <div class="form-group col-md-6">
+            <input class="form-control" placeholder="Comuna" name="comuna"></input>
+          </div>
+          <div class="form-group col-md-6">
+            <input class="form-control" placeholder="Ciudad" name="ciudad"></input>
+          </div>
+          <div class="form-group col-md-12">
+            <button type="submit" class="btn btn-block btn-primary">Consultar</button>
+          </div>
+          <div class="form-group col-md-12">
+            <img src="assets/img/20-dcsto.png" width="100%">
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 
-<?php $ruta = Route::getCurrentRoute()->getPath(); $sufijo = ''; ?>
   <footer class="footer">
     <div class="menu">
-      <a href="{{ URL::to('/') }}"><img class="btn-menu <?php if($ruta == '/') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-01' . $sufijo . '.png')}}"></a>
-      <a href="{{ URL::to('/la-tarjeta-vip') }}"><img class="btn-menu <?php if($ruta == 'la-tarjeta-vip') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-02' . $sufijo . '.png')}}"></a>
-      <a href="{{ URL::to('/como-funciona') }}"><img class="btn-menu <?php if($ruta == 'como-funciona') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-03' . $sufijo . '.png')}}"></a>
-      <img src="{{asset('assets/img/btn-04.png')}}" data-globo= "glb-01" data-toggle="tooltip" data-placement="top" title="." id="opcion4"/>
-      <a href="{{ URL::to('/contacto') }}"><img class="btn-menu <?php if($ruta == 'contacto') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-05' . $sufijo . '.png')}}"></a>
+      <a href="buscar-distribuidores.html"><img class="btn-menu btn-active" src="assets/img/btn-01.png"></a>
+      <a href="la-tarjeta-vip.html"><img class="btn-menu" src="assets/img/btn-02-in.png"></a>
+      <a href="como-funciona.html"><img class="btn-menu" src="assets/img/btn-03-in.png"></a>
+      <img src="assets/img/btn-04-in.png" data-globo= "glb-01" data-toggle="tooltip" data-placement="top" title="." id="opcion4"/>
+      <a href="contacto.html"><img class="btn-menu" src="assets/img/btn-05-in.png"></a>
     </div>
   </footer>
 
@@ -68,17 +85,6 @@
       template:'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner glb-01"></div></div>'
     })
   })
-</script>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-58028509-2', 'auto');
-  ga('send', 'pageview');
-
 </script>
 </body>
 </html>

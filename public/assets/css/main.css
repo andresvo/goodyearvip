@@ -1,0 +1,174 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+  min-width:1000px; 
+  background-color: #000;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  min-width: 1000px;
+  /* Set the fixed height of the footer here */
+  height: 160px;
+  background-image: url('../img/footer.png');
+  background-size:100% auto;
+  background-repeat: no-repeat;
+  background-position:left bottom; 
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: 300px;
+  padding: 180px 0px;
+  color: #fff;
+  margin-left: 50px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.container .form-main{
+  width: 35%;
+}
+.container .push-padding{
+  padding-left: 15px;
+}
+
+
+.background-person{
+  position: absolute;
+  background: url('../img/foto.png');
+  top:0;
+  left: 0;
+  width: 50%;
+  height: 90%;
+  background-position:right top;
+  background-repeat: no-repeat;
+  z-index: -10000;
+}
+.background-fondo-superior{
+  position: absolute;
+  background: url('../img/fondo-superior.png');
+  top:0;
+  right: 0;
+  width: 50%;
+  height: 90%;
+  background-position:left top;
+  background-repeat: no-repeat;
+  z-index: -10000;
+}
+
+.boton-serviteca{
+  position: absolute;
+  background: url('../img/boton-serviteca.png');
+  top:0;
+  left: 0;
+  width: 97px;
+  height: 100%;
+  background-position:left top;
+  background-repeat: no-repeat;
+  z-index: -9000;  
+}
+
+.logo-cliente-vip{
+  position: absolute;
+  background: url('../img/cliente-vip.png');
+  top:30px;
+  left: 50%;
+  width: 196px;
+  height: 100%;
+  background-position:left top;
+  background-repeat: no-repeat;
+  z-index: -9000;
+}
+
+.menu{
+  margin-top: -50px;
+  text-align: center;
+  position: relative;
+}
+
+.btn-menu{
+  transition: all .2s ease-in-out;
+}
+.btn-active{
+  transform: translate(0,-1em);
+}
+
+.btn-menu:hover{
+  transform: translate(0,-1em);
+}
+
+.glb-01 {
+  position: absolute;
+  background-image: url('../img/globo-01.png');
+  width: 258px;
+  height: 45px;
+  background-position:left top;
+  background-repeat: no-repeat;
+  margin-top: -42px;
+  left:-100px;
+}
+
+.icon-float{
+  float:right;
+  padding-right: 195px;
+  margin-top: 10px;
+}
+
+.icon-float-carta{
+  float:right;
+  padding-right: 210px;
+  margin-top: 29px;
+}
+
+.list-custom{
+  list-style-image: url('../img/square.png');
+  margin-left: -30px;
+}
+
+.form-pasos{
+  width: 365px;"
+}
+
+input[type='radio'] {
+  -webkit-appearance:none;
+  width:14px;
+  height:14px;
+  border:2px solid white;
+  border-radius:50%;
+  outline:none;
+  background: #fff;
+  
+}
+
+input[type='radio']:before {
+  content:'';
+  display:block;
+  width:14px;
+  height:14px;
+  margin-top: -2px;
+  margin-left: -2px;
+  border-radius:50%;    
+}
+
+input[type='radio']:checked:before {
+  -webkit-appearance:none;
+  width:14px;
+  height:14px;
+  border:2px solid #FFC200;
+  border-radius:50%;
+  outline:none;
+  background: #FFC200;
+}

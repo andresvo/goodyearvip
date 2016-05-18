@@ -42,6 +42,23 @@ Route::post('distribuidores', function()
     return View::make('distribuidor')->with('distribuidores', $distribuidores);
 });
 
+Route::get('la-tarjeta-vip', function()
+{
+    return View::make('la-tarjeta-vip');
+});
+
+Route::get('como-funciona', function()
+{
+    return View::make('como-funciona');
+});
+
+Route::get('contacto', function()
+{
+    return View::make('contacto');
+});
+
+
+
 Route::any('login', function()
 {
 	$email = Input::get('email');
