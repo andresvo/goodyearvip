@@ -2,9 +2,9 @@
 
 @section('content')
 
-<div class="container" style="margin-top: -50px; width: 330px;">
+<div class="container grande">
 <img src="assets/img/interroga-icon.png" alt="?" class="icon-float" style="padding-right: 145px;">
-<h3>¿Como<br><b>funciona?</b></h3><br>
+<h3>¿Cómo<br><b>funciona?</b></h3><br>
 <br>
 <ul class="list-custom">
 	<li>Cada colaborador recibe su tarjeta Cliente VIP</li><br>

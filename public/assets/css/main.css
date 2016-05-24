@@ -35,6 +35,12 @@ body {
   margin-left: 50px;
   margin-bottom: 100px;
 }
+.container.grande {
+    margin-top: -30px;
+    width: 360px;
+    text-align: justify;
+}
+
 .container .text-muted {
   margin: 20px 0;
 }
@@ -150,7 +156,7 @@ body {
 
 .icon-float{
   float:right;
-  padding-right: 195px;
+  padding-right: 175px;
   margin-top: 10px;
 }
 
@@ -198,4 +204,19 @@ input[type='radio']:checked:before {
   border-radius:50%;
   outline:none;
   background: #FFC200;
+}
+
+@media screen and (max-width: 1599px) {
+
+    .footer {
+        height: 164px;
+        background-image: url('../img/footer.png');
+        background-size:1366px auto;
+    }
+    .container {
+        padding-top:60px;
+    }
+    .logo-cliente-vip {
+        left: 450px;
+    }
 }

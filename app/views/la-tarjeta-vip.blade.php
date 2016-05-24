@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container" style="margin-top: -50px; width: 380px;">
+<div class="container grande">
 <img src="assets/img/vip-icon.png" alt="VIP" class="icon-float">
 <h3>La tarjeta<br><div style="color:#FFC200">cliente VIP</div></h3><br>
 <p>Es un programa de marketing enfocado a entregar beneficios en descuentos para el circulo de amigos de los colaboradores de Goodyear Chile y compañías asociadas al programa.</p>
