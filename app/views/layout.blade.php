@@ -17,7 +17,7 @@
 	{{HTML::style('assets/css/ie10-viewport-bug-workaround.css')}}
 
   <!-- Custom styles for this template -->
-	{{HTML::style('assets/css/main.css')}}
+	{{HTML::style('assets/css/main.css?v=2')}}
 
 	{{HTML::script('jquery-1.11.1.min.js')}}
 
@@ -30,6 +30,37 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script>
+    var styles = [
+      {
+        "featureType": "road.arterial",
+        "elementType": "geometry.fill",
+        "stylers": [
+          { "color": "#fee100" }
+        ]
+      },{
+        "featureType": "road.arterial",
+        "elementType": "geometry.stroke",
+        "stylers": [
+          { "color": "#0c3a74" }
+        ]
+      },{
+        "featureType": "road.local",
+        "elementType": "geometry.fill",
+        "stylers": [
+          { "color": "#fee100" }
+        ]
+      },{
+        "featureType": "road.local",
+        "elementType": "geometry.stroke",
+        "stylers": [
+          { "color": "#0c3a74" }
+        ]
+      }
+    ];
+</script>
 </head>
 <body>
 

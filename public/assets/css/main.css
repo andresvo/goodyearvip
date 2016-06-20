@@ -100,7 +100,7 @@ body {
 
 .distribuidores > div {
     width: 178px;
-    height: 105px;
+    height: 257px;
     float: left;
     min-height: 79px;
     padding: 5px 6px;
@@ -112,6 +112,11 @@ body {
     display: table-cell;
     vertical-align: middle;
     color:#000;
+}
+
+.mapa {
+    width: 166px;
+    height: 160px;
 }
 
 .logo-cliente-vip{
