@@ -21,6 +21,8 @@
 		</div>
 		<div class="form-group col-md-12">
 			<input type="submit" class="btn btn-block btn-primary" value="Enviar">
+			<br>
+			clientevipgoodyear@clientevipgoodyear.cl
 		</div>
 		</div>
 	{{ Form::close() }}

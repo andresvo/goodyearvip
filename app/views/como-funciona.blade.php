@@ -9,8 +9,8 @@
 <ul class="list-custom">
 	<li>Cada colaborador recibe su tarjeta Cliente VIP</li><br>
 	<li>Cada tarjeta VIP tiene un código único al respaldo de la tarjeta</li><br>
-	<li>La tarjeta tiene el beneficio para comprar hasta 4 neumáticos con un descuento excepcional.</li><br>
-	<li>Las tarjetas tienen vigencia de un año</li><br>
+	<li>Obtén un 20 % de descuento en todos los neumáticos de autos y camionetas Goodyear</li><br>
+	<li>En el reverso de cada tarjeta se encontrará la vigencia</li><br>
 </ul>
 </div>
 
