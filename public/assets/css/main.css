@@ -54,7 +54,7 @@ body {
 
 
 .background-person{
-  position: absolute;
+  position: fixed;
   background: url('../img/foto.png');
   top:0;
   left: 0;
@@ -70,14 +70,13 @@ body {
   top:0;
   right: 0;
   width: 50%;
-  height: 90%;
+  min-height: 90%;
   background-position:left top;
-  background-repeat: no-repeat;
   z-index: -10000;
 }
 
 .boton-serviteca{
-  position: absolute;
+  position: fixed;
   background: url('../img/boton-serviteca.png');
   top:0;
   left: 0;
@@ -100,7 +99,7 @@ body {
 
 .distribuidores > div {
     width: 178px;
-    height: 257px;
+    height: 272px;
     float: left;
     min-height: 79px;
     padding: 5px 6px;
