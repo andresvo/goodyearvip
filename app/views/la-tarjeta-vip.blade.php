@@ -5,9 +5,11 @@
 <div class="container grande">
 <img src="assets/img/vip-icon.png" alt="VIP" class="icon-float">
 <h3>La tarjeta<br><div style="color:#FFC200">cliente VIP</div></h3><br>
-<p>Es un programa de marketing enfocado a entregar beneficios en descuentos para el circulo de amigos de los colaboradores de Goodyear Chile y compañías asociadas al programa.</p>
-<p>El programa pretende potenciar los beneficios del colaborador de Goodyear y las empresas asociadasa para su circulo de amigos interesados en comprar neumáticos</p>
-<p>Este permite ganar nuevos compradores para la marca Goodyear y motivar a los colaboradores de las empresas asociadas al programa a convertirse en embajadores de nuestra marca.</p>
+
+<p>Si eres portador de una de estas tarjetas, ya eres parte del programa Cliente VIP Goodyear, enfocado en entregar una experiencia mejorada a nuestros clientes en todas las servitecas adheridas al programa. El usuario de la tarjeta podrá contar con un descuento de un 20% en la compra de sus neumáticos, además de recibir una atención mejorada en nuestros puntos de venta.</p>
+
+<p>Los invitamos a navegar en el sitio de Cliente VIP y descubrir los beneficios o detalles del programa. También podrás descubrir cómo utilizar la tarjeta VIP de Goodyear. </p>
+
 <div class="row">
 	<div class="col-md-offset-6 col-md-6">
 	<a class="btn btn-sm btn-primary btn-block">Ver Bases</a>

@@ -27,7 +27,7 @@
 			<input type="submit" class="btn btn-block btn-primary" value="Consultar">
 		</div>
 		<div class="form-group col-md-12">
-			<img src="assets/img/20-dcsto.png" width="100%">
+			<img src="assets/img/20-dscto.png" width="100%">
 		</div>
 		</div>
 	{{ Form::close() }}
