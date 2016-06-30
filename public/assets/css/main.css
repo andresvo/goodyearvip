@@ -29,16 +29,23 @@ body {
 /* Not required for template or sticky footer method. */
 
 .container {
-  width: 300px;
-  padding: 180px 0px;
-  color: #fff;
-  margin-left: 50px;
-  margin-bottom: 100px;
+    width: 300px;
+    padding: 150px 0px;
+    color: #fff;
+    margin-left: 50px;
+    margin-bottom: 100px;
 }
 .container.grande {
-    margin-top: -30px;
     width: 360px;
     text-align: justify;
+}
+
+.container.muygrande {
+    width: 375px;
+}
+
+.container.grande form, .container.muygrande form {
+    width: 300px;
 }
 
 .container .text-muted {
@@ -52,6 +59,14 @@ body {
   padding-left: 15px;
 }
 
+h4 {
+    letter-spacing: 1.2px;
+    margin: 20px 0;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
 
 .background-person{
   position: fixed;
@@ -63,6 +78,23 @@ body {
   background-position:right center;
   background-repeat: no-repeat;
   z-index: -10000;
+}
+.background-camera{
+  position: fixed;
+  background: url('../img/fondo-concursa.png');
+  top:0;
+  left: 0;
+  width: 50%;
+  height: 90%;
+  background-position:right center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -10000;
+  text-align: center;
+}
+.background-camera img {
+    width: 65%;
+    margin-top: 3%;
 }
 .background-fondo-superior{
   position: absolute;
@@ -168,6 +200,12 @@ body {
   float:right;
   padding-right: 210px;
   margin-top: 29px;
+}
+
+.icon-float-camara{
+    float: right;
+    width: 58px;
+    margin-top: 14px;
 }
 
 .list-custom{

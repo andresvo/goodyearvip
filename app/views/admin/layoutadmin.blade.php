@@ -18,6 +18,7 @@
 	<nav>
 		<a href="{{ URL::to('admin') }}">Ventas</a>
 		<a href="{{ URL::to('admin/tarjetas') }}">Tarjetas</a>
+		<a href="{{ URL::to('admin/concurso') }}">Concurso</a>
 	</nav>
 	@yield('content')
 </div>

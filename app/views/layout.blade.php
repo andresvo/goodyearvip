@@ -63,9 +63,16 @@
 </script>
 </head>
 <body>
+<?php $ruta = Route::getCurrentRoute()->getPath(); $sufijo = ''; ?>
 
   <div class="boton-serviteca"><a id="aserviteca" href="{{ URL::to('/serviteca') }}"></a></div>
-  <div class="background-person"></div>
+  <?php if($ruta == 'concursa'): ?>
+      <div class="background-camera">
+          <img src="{{asset('assets/img/camara.png')}}">
+      </div>
+  <?php else: ?>
+      <div class="background-person"></div>
+  <?php endif; ?>
   <div class="background-fondo-superior">
     <div class="logo-cliente-vip"></div>
     <!-- Begin page content -->
@@ -73,13 +80,12 @@
 
   </div>
 
-<?php $ruta = Route::getCurrentRoute()->getPath(); $sufijo = ''; ?>
   <footer class="footer">
     <div class="menu">
       <a href="{{ URL::to('/') }}"><img class="btn-menu <?php if($ruta == '/') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-01' . $sufijo . '.png')}}"></a>
       <a href="{{ URL::to('/la-tarjeta-vip') }}"><img class="btn-menu <?php if($ruta == 'la-tarjeta-vip') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-02' . $sufijo . '.png')}}"></a>
       <a href="{{ URL::to('/como-funciona') }}"><img class="btn-menu <?php if($ruta == 'como-funciona') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-03' . $sufijo . '.png')}}"></a>
-      <img src="{{asset('assets/img/btn-04.png')}}" data-globo= "glb-01" data-toggle="tooltip" data-placement="top" title="." id="opcion4"/>
+      <a href="{{ URL::to('/concursa') }}"><img class="btn-menu <?php if($ruta == 'concursa') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-04' . $sufijo . '.png')}}" /></a>
       <a href="{{ URL::to('/contacto') }}"><img class="btn-menu <?php if($ruta == 'contacto') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-05' . $sufijo . '.png')}}"></a>
     </div>
   </footer>

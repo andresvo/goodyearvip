@@ -52,9 +52,37 @@ Route::get('como-funciona', function()
     return View::make('como-funciona');
 });
 
+Route::get('concursa', function()
+{
+    return View::make('concursa')->with('enviado', false);
+});
+
+Route::post('concursa', function()
+{
+    $nombre = Input::get('nombre');
+    $email = Input::get('email');
+    $marca = Input::get('marca');
+    $modelo = Input::get('modelo');
+
+    $c = new Concursante;
+    $c->nombre = $nombre;
+    $c->email = $email;
+    $c->marca = $marca;
+    $c->modelo = $modelo;
+    $c->save();
+
+    Mail::send('emails.concursa', array('nombre' => $nombre, 'email' => $email, 'marca' => $marca, 'modelo' => $modelo), function($message)
+    {
+        $message->from('noresponder@clientevipgoodyear.cl', 'Web Cliente VIP');
+        $message->to('clientevipgoodyear@clientevipgoodyear.cl', 'Goodyear Cliente VIP')->subject('Concursa');
+    });
+    return View::make('concursa')->with('enviado', true);
+});
+
+
 Route::get('contacto', function()
 {
-    return View::make('contacto')->with('enviado', false);;
+    return View::make('contacto')->with('enviado', false);
 });
 
 Route::post('contacto', function()
@@ -278,6 +306,22 @@ Route::post('admin/tarjetas/crear', array('before' => 'auth', function()
     return Redirect::to('admin/tarjetas');
 }));
 
+Route::any('admin/concurso', array('before' => 'auth', function()
+{
+	if(Auth::user()->profile == 2) {
+		$concursantes = Concursante::all();
+		return View::make('admin/concurso', array('concursantes' => $concursantes));
+	} else return 'No autorizado para acceder a esta sección';
+}));
+
+Route::get('admin/concursante/eliminar/{id}', array('before' => 'auth', function($id)
+{
+	if(Auth::user()->profile == 2) {
+        $concursante = Concursante::find($id);
+        if($concursante) $concursante->delete();
+        return Redirect::to('admin/concurso');
+	} else return 'No autorizado para acceder a esta sección';
+}));
 
 Route::get('excel/{id_empresa?}', array('before' => 'auth', function($id_empresa = null)
 {
