@@ -65,11 +65,11 @@
 <body>
 <?php $ruta = Route::getCurrentRoute()->getPath(); $sufijo = ''; ?>
 
-  <div class="boton-serviteca"><img src="{{asset('assets/img/red.png')}}" alt="La red de servitecas más grande de Chile" /></div>
   <?php if($ruta == 'concursa'): ?>
       <div class="background-camera">
       </div>
   <?php else: ?>
+      <div class="boton-serviteca"><img src="{{asset('assets/img/red.png')}}" alt="La red de servitecas más grande de Chile" /></div>
       <div class="background-person"></div>
   <?php endif; ?>
   <div class="background-fondo-superior">

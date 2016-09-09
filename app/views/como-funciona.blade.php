@@ -11,6 +11,7 @@
 	<li>Obtén un 20 % de descuento en todos los neumáticos de autos y camionetas Goodyear</li>
 	<li>En el reverso de cada tarjeta se encontrará la vigencia</li>
 	<li>Vive una experiencia de compra mejorada en atención y servicio</li>
+	<li>El portador de la tarjeta debe presentarla en el punto de venta</li>
 </ul>
 </div>
 
