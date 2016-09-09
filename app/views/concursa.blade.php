@@ -3,8 +3,8 @@
 @section('content')
 
 <div class="container muygrande">
-	<img src="{{asset('assets/img/camara-icon.png')}}" alt="Cámara" class="icon-float-camara">
-	<h3><b>¡Participa por una cámara</b><div style="color:#FFC200"><b style="font-size: 23px;">Microlab deportiva Isports Pro!</b></div></h3>
+	<img src="{{asset('assets/img/camara-ticket.png')}}" alt="Cámara" class="icon-float-camara">
+	<h3 style="color:#FFC200; font-size:35px; margin-top:0">¡Participa por estos<div><b style="font-size: 36px;">increíbles premios!</b></div></h3>
 	@if($enviado)
 	Tus datos han sido enviados. Gracias por participar.
 	@else
@@ -22,6 +22,9 @@
 		</div>
 		<div class="form-group col-md-12">
 			<input class="form-control" placeholder="Modelo" name="modelo"></input>
+		</div>
+		<div class="form-group col-md-12">
+			<input class="form-control" placeholder="Ciudad" name="ciudad"></input>
 		</div>
 		<div class="form-group col-md-12">
 			<input type="submit" class="btn btn-block btn-primary" value="Participar">

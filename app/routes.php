@@ -38,7 +38,7 @@ Route::get('comuna/listar/{id_ciudad}', function($id_ciudad)
 Route::post('distribuidores', function()
 {
 	$comuna = Input::get('comuna');
-    $distribuidores = Distribuidor::where('id_comuna','=',$comuna)->get();
+    $distribuidores = Distribuidor::leftJoin('comuna', 'comuna.id', '=', 'distribuidor.id_comuna')->where('id_comuna','=',$comuna)->select('distribuidor.*', 'comuna.nombre AS comuna')->get();
     return View::make('distribuidor')->with('distribuidores', $distribuidores);
 });
 

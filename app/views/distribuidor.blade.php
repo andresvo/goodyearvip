@@ -4,7 +4,11 @@
 
 <div class="container distribuidores">
 	@foreach($distribuidores as $i => $dist)
+	<?php
+	if($dist['ubicacion'] != '') $address = $dist['ubicacion'];
+	else $address = str_replace('#', '', $dist['direccion']) . ', ' . $dist['comuna']; ?>
 		<div>
+
 			<table><tr><td>
 			<strong>{{ $dist->nombre }}</strong><br>
 			{{ $dist->direccion }}<br>
@@ -14,6 +18,10 @@
 			</td></tr></table>
 
 			<div class="mapa" id="map-canvas{{ $dist->id }}"></div>
+
+			<p>
+				<a href="http://maps.google.com/maps?&z=10&q=<?php echo $address ?>" target="_blank">Ver mapa ampliado</a>
+			</p>
 
 			<script>
 			var geocoder, map{{ $i }};

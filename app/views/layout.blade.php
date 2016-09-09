@@ -17,7 +17,7 @@
 	{{HTML::style('assets/css/ie10-viewport-bug-workaround.css')}}
 
   <!-- Custom styles for this template -->
-	{{HTML::style('assets/css/main.css?v=2')}}
+	{{HTML::style('assets/css/main.css?v=3')}}
 
 	{{HTML::script('jquery-1.11.1.min.js')}}
 
@@ -65,10 +65,9 @@
 <body>
 <?php $ruta = Route::getCurrentRoute()->getPath(); $sufijo = ''; ?>
 
-  <div class="boton-serviteca"><a id="aserviteca" href="{{ URL::to('/serviteca') }}"></a></div>
+  <div class="boton-serviteca"><img src="{{asset('assets/img/red.png')}}" alt="La red de servitecas más grande de Chile" /></div>
   <?php if($ruta == 'concursa'): ?>
       <div class="background-camera">
-          <img src="{{asset('assets/img/camara.png')}}">
       </div>
   <?php else: ?>
       <div class="background-person"></div>
@@ -82,10 +81,11 @@
 
   <footer class="footer">
     <div class="menu">
-      <a href="{{ URL::to('/') }}"><img class="btn-menu <?php if($ruta == '/') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-01' . $sufijo . '.png')}}"></a>
+      <a href="{{ URL::to('/') }}"><img class="btn-menu <?php if($ruta == '/' || $ruta == 'distribuidores') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-01' . $sufijo . '.png')}}"></a>
       <a href="{{ URL::to('/la-tarjeta-vip') }}"><img class="btn-menu <?php if($ruta == 'la-tarjeta-vip') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-02' . $sufijo . '.png')}}"></a>
       <a href="{{ URL::to('/como-funciona') }}"><img class="btn-menu <?php if($ruta == 'como-funciona') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-03' . $sufijo . '.png')}}"></a>
       <a href="{{ URL::to('/concursa') }}"><img class="btn-menu <?php if($ruta == 'concursa') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-04' . $sufijo . '.png')}}" /></a>
+      <a href="{{ URL::to('/serviteca') }}"><img class="btn-menu <?php if($ruta == 'serviteca' || $ruta == 'login' || $ruta == 'compra/revisar' || $ruta == 'venta') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-06' . $sufijo . '.png')}}" /></a>
       <a href="{{ URL::to('/contacto') }}"><img class="btn-menu <?php if($ruta == 'contacto') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-05' . $sufijo . '.png')}}"></a>
     </div>
   </footer>

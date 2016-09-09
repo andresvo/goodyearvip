@@ -30,7 +30,7 @@ body {
 
 .container {
     width: 300px;
-    padding: 150px 0px;
+    padding: 130px 0px;
     color: #fff;
     margin-left: 50px;
     margin-bottom: 100px;
@@ -81,17 +81,25 @@ h4 {
 }
 .background-camera{
   position: fixed;
-  background: url('../img/fondo-concursa.png');
+  background: url('../img/fondo-concurso.png');
   top:0;
   left: 0;
   width: 50%;
   height: 90%;
+  height: calc(100% - 216px);
   background-position:right center;
   background-repeat: no-repeat;
   background-size: cover;
   z-index: -10000;
   text-align: center;
 }
+
+@media screen and (max-width: 1599px) {
+    .background-camera {
+        height: calc(100% - 164px);
+    }
+}
+
 .background-camera img {
     width: 65%;
     margin-top: 3%;
@@ -109,20 +117,13 @@ h4 {
 
 .boton-serviteca{
   position: fixed;
-  background: url('../img/boton-serviteca.png');
-  top:0;
+  top:45px;
   left: 0;
-  width: 97px;
-  height: 100%;
-  background-position:left top;
-  background-repeat: no-repeat;
-  z-index: -9000;
+  /*z-index: -9000;*/
 }
 
-.boton-serviteca a {
-    display: block;
-    width: 97px;
-    height: 95px;
+.boton-serviteca img {
+    max-width: 50vw;
 }
 
 .distribuidores {
@@ -143,6 +144,14 @@ h4 {
     display: table-cell;
     vertical-align: middle;
     color:#000;
+}
+
+.distribuidores p {
+    text-align: center;
+}
+
+.distribuidores p a {
+    color: #052c7d;
 }
 
 .mapa {
@@ -204,13 +213,18 @@ h4 {
 
 .icon-float-camara{
     float: right;
-    width: 58px;
-    margin-top: 14px;
+    width: 80px;
+    margin-top: 34px;
 }
 
 .list-custom{
   list-style-image: url('../img/square.png');
   margin-left: -30px;
+  font-size: 16px;
+}
+
+.list-custom li {
+    margin-bottom: 10px;
 }
 
 .form-pasos{
