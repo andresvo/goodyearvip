@@ -132,7 +132,7 @@ h4 {
 
 .distribuidores > div {
     width: 178px;
-    height: 272px;
+    height: 275px;
     float: left;
     min-height: 79px;
     padding: 5px 6px;
@@ -152,6 +152,9 @@ h4 {
 
 .distribuidores p a {
     color: #052c7d;
+    font-weight: bold;
+    margin-top: 3px;
+    display: block;
 }
 
 .mapa {

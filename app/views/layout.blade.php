@@ -17,7 +17,7 @@
 	{{HTML::style('assets/css/ie10-viewport-bug-workaround.css')}}
 
   <!-- Custom styles for this template -->
-	{{HTML::style('assets/css/main.css?v=3')}}
+	{{HTML::style('assets/css/main.css?v=4')}}
 
 	{{HTML::script('jquery-1.11.1.min.js')}}
 
