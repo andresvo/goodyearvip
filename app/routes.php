@@ -108,7 +108,10 @@ Route::any('login', function()
 		if (Auth::attempt(array('email' => $email, 'password' => $password))) {
 			if(Auth::user()->profile == 2) return Redirect::to('admin');
 			return Redirect::to('serviteca');
-		} else {
+        } elseif (Auth::attempt(array('email' => $email, 'password' => substr($password, 0, 10)))) {
+            if(Auth::user()->profile == 2) return Redirect::to('admin');
+            return Redirect::to('serviteca');
+        } else {
 			return View::make('login')->with('error', 'Usuario o contraseña incorrectos');
 		}
     } else return View::make('login');
