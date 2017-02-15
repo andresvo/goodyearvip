@@ -326,6 +326,101 @@ Route::get('admin/concursante/eliminar/{id}', array('before' => 'auth', function
 	} else return 'No autorizado para acceder a esta sección';
 }));
 
+Route::any('admin/productos', array('before' => 'auth', function()
+{
+	if(Auth::user()->profile == 2) {
+        $productos = Producto::orderBy('nombre')->get();
+		$opcionesprod = $opcionesmed = array();
+		foreach($productos as $p) {
+            $opcionesprod[$p->id] = array('nombre' => $p->nombre, 'activo' => $p->activo);
+        }
+        return View::make('admin/productos', array('productos' => $productos, 'json_productos' => json_encode($opcionesprod)));
+	} else return 'No autorizado para acceder a esta sección';
+}));
+
+Route::post('admin/producto/crear', array('before' => 'auth', function()
+{
+    $nombre = Input::get('nombre');
+
+    if($nombre != '') {
+    	$producto = new Producto;
+        $producto->nombre = $nombre;
+        $producto->save();
+    }
+    return Redirect::to('admin/productos');
+}));
+
+Route::post('admin/producto/editar', array('before' => 'auth', function()
+{
+    $id = Input::get('id');
+    $nombre = Input::get('nombre');
+    $activo = Input::get('activo') == 1;
+
+    if($nombre != '') {
+        $producto = Producto::find($id);
+        $producto->nombre = $nombre;
+        $producto->activo = $activo;
+        $producto->save();
+    }
+    return Redirect::to('admin/productos');
+}));
+
+Route::get('admin/producto/eliminar/{id}', array('before' => 'auth', function($id)
+{
+	if(Auth::user()->profile == 2) {
+        $producto = Producto::find($id);
+        if($producto) {
+            try{
+                $res = $producto->delete();
+                return Redirect::to('admin/productos');
+            }
+            catch (Illuminate\Database\QueryException $e){
+                return 'No se pudo eliminar debido a que tiene registros asociados.';
+            }
+        }
+	} else return 'No autorizado para acceder a esta sección';
+}));
+
+Route::any('admin/medidas/{id_producto}', array('before' => 'auth', function($id_producto = null)
+{
+	if(Auth::user()->profile == 2) {
+        $producto = Producto::find($id_producto);
+		$medidas = Producto::join('medida', 'medida.id_producto', '=', 'producto.id')->where('id_producto','=',$id_producto)->orderBy('medida.id_producto')->orderBy('medida.nombre')->get();
+        return View::make('admin/medidas', array('producto' => $producto, 'medidas' => $medidas));
+	} else return 'No autorizado para acceder a esta sección';
+}));
+
+Route::post('admin/medida/crear', array('before' => 'auth', function()
+{
+    $nombre = Input::get('nombre');
+    $id_producto = Input::get('id_producto');
+
+    if($nombre != '' && $id_producto != '') {
+    	$medida = new Medida;
+        $medida->nombre = $nombre;
+        $medida->id_producto = $id_producto;
+        $medida->save();
+    }
+    return Redirect::to('admin/medidas/' . $id_producto);
+}));
+
+Route::get('admin/medida/eliminar/{id}', array('before' => 'auth', function($id)
+{
+	if(Auth::user()->profile == 2) {
+        $medida = Medida::find($id);
+        $id_producto = $medida->id_producto;
+        if($medida) {
+            try{
+                $res = $medida->delete();
+                return Redirect::to('admin/medidas/' . $id_producto);
+            }
+            catch (Illuminate\Database\QueryException $e){
+                return 'No se pudo eliminar debido a que tiene registros asociados.';
+            }
+        }
+	} else return 'No autorizado para acceder a esta sección';
+}));
+
 Route::get('excel/{id_empresa?}', array('before' => 'auth', function($id_empresa = null)
 {
 	if(Auth::user()->profile == 2) {
