@@ -3,8 +3,8 @@
 @section('content')
 
 <div class="container muygrande">
-	<img src="{{asset('assets/img/camara-ticket.png')}}" alt="Cámara" class="icon-float-camara">
-	<h3 style="color:#FFC200; font-size:35px; margin-top:0">¡Participa por estos<div><b style="font-size: 36px;">increíbles premios!</b></div></h3>
+	<img src="{{asset('assets/img/camara.png')}}" alt="Cámara" class="icon-float-camara">
+	<h3 style="color:#FFC200; font-size:35px; margin-top:0">¡Participa por<div><b style="font-size: 36px;">increíbles premios!</b></div></h3>
 	@if($enviado)
 	Tus datos han sido enviados. Gracias por participar.
 	@else
