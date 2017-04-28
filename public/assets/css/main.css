@@ -112,7 +112,7 @@ h4 {
   width: 50%;
   min-height: 90%;
   background-position:left top;
-  z-index: -10000;
+  /*z-index: -10000;*/
 }
 
 .boton-serviteca{
