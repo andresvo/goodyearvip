@@ -167,6 +167,15 @@ Route::get('usuario/crear/{email}/{pwd}/{id_distribuidor}', function($email, $pw
 	return 'Ok';
 });
 
+// Route::get('usuario/cambiarpwd/{email}/{pwd}', function($email, $pwd)
+// {
+// 	$password = Hash::make($pwd);
+// 	$user = User::where('email', '=', $email)->first();
+// 	$user->password = $password;
+// 	$user->save();
+// 	return 'Ok';
+// });
+
 Route::get('medida/listar/{id_producto}', function($id_producto)
 {
     $medidas = Medida::where('activo',1)->where('id_producto', '=', $id_producto)->orderBy('nombre')->get();
