@@ -49,7 +49,7 @@
 
 				        var marker = new google.maps.Marker({
 				            map: map{{ $i }},
-				            icon: 'http://dev.crio.cl/goodyearvip/public/images/marker.png',
+				            icon: 'http://clientevipgoodyear.cl/images/marker.png',
 				            position: results[0].geometry.location
 				        });
 				    }
