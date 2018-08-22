@@ -21,6 +21,7 @@
 			<th>Sufijo</th>
 			<th>Tarjetas</th>
 			<th>Rango</th>
+			<th>Códigos</th>
 			<th>Opciones</th>
 		</tr>
 		@foreach($empresas as $empresa)
@@ -29,7 +30,15 @@
 			<td>{{ $empresa->sufijo }}</td>
 			<td>{{ $empresa->tarjetas }}</td>
 			<td>{{ $empresa->minimo . ' - ' . $empresa->maximo }}</td>
-			<td><a href="#" onclick="$('#t_id_empresa').val({{ $empresa->id }}); $('#creartarjetas').show()">Crear tarjetas</a></td>
+			<td>
+			@if(isset($codempresa[$empresa->id]))
+				{{ implode(', ', $codempresa[$empresa->id]) }}
+			@endif
+			</td>
+			<td>
+				<a href="#" onclick="mostrarCrearTarjetas({{ $empresa->id }}, '{{ $empresa->nombre }}')">Crear tarjetas</a> |
+				<a href="#" onclick="mostrarCrearCodigo({{ $empresa->id }}, '{{ $empresa->nombre }}')">Crear código</a>
+			</td>
 		</tr>
 		@endforeach
 		</table>
@@ -39,12 +48,30 @@
 		<div class="sombra"></div>
 		<div class="popup">
 			<a class="cerrar" href="#" onclick="$('#creartarjetas').hide(); return false;">X</a>
-			Crear tarjetas para <span id="empresa-crear"></span>:
+			Crear tarjetas para <span id="empresa-creart"></span>:
 			<div class="bloque">
 				{{ Form::open(array('url' => 'admin/tarjetas/crear')) }}
 					<input type="hidden" value="" name="id_empresa" id="t_id_empresa">
 					<input type="text" value="" name="cantidad" maxlength="4">
 					<input type="submit" value="Crear" name="creartarjetas">
+				{{ Form::close() }}
+			</div>
+		</div>
+	</div>
+
+	<div id="crearcodigo">
+		<div class="sombra"></div>
+		<div class="popup">
+			<a class="cerrar" href="#" onclick="$('#crearcodigo').hide(); return false;">X</a>
+			Crear código personalizado para <span id="empresa-crearc"></span>:
+			<div class="bloque">
+				{{ Form::open(array('url' => 'admin/codigo/crear')) }}
+					<input type="hidden" value="" name="id_empresa" id="c_id_empresa">
+					<label>Código:</label>
+					<input type="text" value="" name="codigo" maxlength="100" style="text-transform:uppercase" required><br>
+					<label>Cupo:</label>
+					<input type="number" value="" name="cupo"  min="1" max="99999999" required><br>
+					<input type="submit" value="Crear" name="crearcodigo">
 				{{ Form::close() }}
 			</div>
 		</div>
@@ -78,5 +105,18 @@
 			</div>
 		</div>
 	</div>
+
+<script>
+function mostrarCrearTarjetas(id, nombre) {
+	$('#t_id_empresa').val(id);
+	$('#empresa-creart').html(nombre);
+	$('#creartarjetas').show();
+}
+function mostrarCrearCodigo(id, nombre) {
+	$('#c_id_empresa').val(id);
+	$('#empresa-crearc').html(nombre);
+	$('#crearcodigo').show();
+}
+</script>
 
 @stop

@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=0.8">
 	{{HTML::script('jquery-1.11.1.min.js')}}
-	{{HTML::style('principal.css?v=2')}}
+	{{HTML::style('principal.css?v=3')}}
 </head>
 <body>
 

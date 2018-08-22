@@ -267,8 +267,14 @@ Route::any('admin', array('before' => 'auth', function()
 Route::any('admin/tarjetas', array('before' => 'auth', function()
 {
 	if(Auth::user()->profile == 2) {
-		$empresas = DB::select( DB::raw("SELECT e.*, count(t.id) as tarjetas, min(codigo) as minimo, max(codigo) as maximo FROM empresa e LEFT JOIN tarjeta t ON t.id_empresa = e.id GROUP BY e.id ORDER BY e.id") );
-		return View::make('admin/tarjetas', array('empresas' => $empresas));
+		$empresas = DB::select( DB::raw("SELECT e.*, count(t.id) as tarjetas, min(codigo) as minimo, max(codigo) as maximo
+            FROM empresa e LEFT JOIN tarjeta t ON t.id_empresa = e.id AND t.tipo = 1
+            GROUP BY e.id ORDER BY e.id") );
+        $codigos = Tarjeta::where('tipo', '=', 2)->get();
+        foreach ($codigos as $key => $row) {
+            $codempresa[$row['id_empresa']][] = $row['codigo'];
+        }
+		return View::make('admin/tarjetas', array('empresas' => $empresas, 'codempresa' => $codempresa));
 	} else return 'No autorizado para acceder a esta sección';
 }));
 
@@ -303,7 +309,7 @@ Route::post('admin/tarjetas/crear', array('before' => 'auth', function()
 
     $emp = Empresa::find($id_empresa);
     $sufijo = $emp->sufijo;
-    $cant_actual = Tarjeta::where('id_empresa', $id_empresa)->count();
+    $cant_actual = Tarjeta::where('id_empresa', $id_empresa)->where('tipo', '=', 1)->count();
     $primera_nueva = $cant_actual + 1;
     $ultima_nueva = $cant_actual + $cantidad;
     for($i=$primera_nueva; $i<=$ultima_nueva; $i++) {
@@ -313,8 +319,22 @@ Route::post('admin/tarjetas/crear', array('before' => 'auth', function()
         $tarj->cupo_inicial = 4;
         $tarj->cupo_actual = 4;
         $tarj->id_empresa = $id_empresa;
+        $tarj->tipo = 1;
         $tarj->save();
     }
+    return Redirect::to('admin/tarjetas');
+}));
+
+Route::post('admin/codigo/crear', array('before' => 'auth', function()
+{
+    $tarj = new Tarjeta;
+    $tarj->codigo = strtoupper(Input::get('codigo'));
+    $tarj->cupo_inicial = Input::get('cupo');
+    $tarj->cupo_actual = Input::get('cupo');
+    $tarj->id_empresa = Input::get('id_empresa');
+    $tarj->tipo = 2;
+    $tarj->save();
+
     return Redirect::to('admin/tarjetas');
 }));
 
