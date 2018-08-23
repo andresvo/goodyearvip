@@ -140,7 +140,8 @@ Route::any('serviteca', array('before' => 'auth', function()
         }
 		$tarjeta = Tarjeta::where('codigo','=',strtoupper($codigo))->get();
 		if(isset($tarjeta[0])) {
-			$cupo = $tarjeta[0]->cupo_actual;
+            if($tarjeta[0]->cupo_actual > 4) $cupo = 4;
+			else $cupo = $tarjeta[0]->cupo_actual;
 			$id_tarjeta = $tarjeta[0]->id;
 		}
 		else {
