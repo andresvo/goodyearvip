@@ -271,6 +271,7 @@ Route::any('admin/tarjetas', array('before' => 'auth', function()
             FROM empresa e LEFT JOIN tarjeta t ON t.id_empresa = e.id AND t.tipo = 1
             GROUP BY e.id ORDER BY e.id") );
         $codigos = Tarjeta::where('tipo', '=', 2)->get();
+        $codempresa = array();
         foreach ($codigos as $key => $row) {
             $codempresa[$row['id_empresa']][] = $row['codigo'];
         }
