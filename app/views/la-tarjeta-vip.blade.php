@@ -12,7 +12,7 @@
 
 <div class="row">
 	<div class="col-md-offset-6 col-md-6">
-	<a class="btn btn-sm btn-primary btn-block" href="{{ URL::to('/descargas') }}/bases.pdf" target="_blank">Ver Bases</a>
+	<a class="btn btn-sm btn-primary btn-block" href="{{ URL::to('/descargas') }}/BASES PROGRAMA CLIENTE VIP 2018 FINAL.docx" target="_blank">Ver Bases</a>
 	</div>
 </div>
 </div>
