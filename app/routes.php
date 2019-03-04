@@ -52,34 +52,6 @@ Route::get('como-funciona', function()
     return View::make('como-funciona');
 });
 
-Route::get('concursa', function()
-{
-    return View::make('concursa')->with('enviado', false);
-});
-
-Route::post('concursa', function()
-{
-    $nombre = Input::get('nombre');
-    $email = Input::get('email');
-    $marca = Input::get('marca');
-    $modelo = Input::get('modelo');
-
-    $c = new Concursante;
-    $c->nombre = $nombre;
-    $c->email = $email;
-    $c->marca = $marca;
-    $c->modelo = $modelo;
-    $c->save();
-
-    Mail::send('emails.concursa', array('nombre' => $nombre, 'email' => $email, 'marca' => $marca, 'modelo' => $modelo), function($message)
-    {
-        $message->from('noresponder@clientevipgoodyear.cl', 'Web Cliente VIP');
-        $message->to('clientevipgoodyear@clientevipgoodyear.cl', 'Goodyear Cliente VIP')->subject('Concursa');
-    });
-    return View::make('concursa')->with('enviado', true);
-});
-
-
 Route::get('contacto', function()
 {
     return View::make('contacto')->with('enviado', false);

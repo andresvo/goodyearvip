@@ -84,7 +84,6 @@
       <a href="{{ URL::to('/') }}"><img class="btn-menu <?php if($ruta == '/' || $ruta == 'distribuidores') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-01' . $sufijo . '.png')}}"></a>
       <a href="{{ URL::to('/la-tarjeta-vip') }}"><img class="btn-menu <?php if($ruta == 'la-tarjeta-vip') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-02' . $sufijo . '.png')}}"></a>
       <a href="{{ URL::to('/como-funciona') }}"><img class="btn-menu <?php if($ruta == 'como-funciona') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-03' . $sufijo . '.png')}}"></a>
-      <a href="{{ URL::to('/concursa') }}"><img class="btn-menu <?php if($ruta == 'concursa') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-04' . $sufijo . '.png')}}" /></a>
       <a href="{{ URL::to('/serviteca') }}"><img class="btn-menu <?php if($ruta == 'serviteca' || $ruta == 'login' || $ruta == 'compra/revisar' || $ruta == 'venta') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-06' . $sufijo . '.png')}}" /></a>
       <a href="{{ URL::to('/contacto') }}"><img class="btn-menu <?php if($ruta == 'contacto') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-05' . $sufijo . '.png')}}"></a>
     </div>
