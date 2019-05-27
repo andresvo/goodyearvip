@@ -4,8 +4,8 @@
 	<title>Goodyear VIP</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=0.8">
-	{{HTML::script('jquery-1.11.1.min.js')}}
-	{{HTML::style('principal.css?v=3')}}
+	<link rel="stylesheet"  href="{{ asset('principal.css?v=3') }}" type="text/css" media="all" />
+	<script type="text/javascript" src="{{ asset('jquery-1.11.1.min.js') }}"></script>
 </head>
 <body>
 

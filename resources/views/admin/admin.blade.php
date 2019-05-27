@@ -5,11 +5,28 @@
 
 	<div class="filtro">
 		<div><strong>Ventas</strong></div>
-		{{ Form::open(array('url' => 'admin')) }}
-		{{ Form::select('id_empresa', $opcionesemp, $id_empresa) }} &nbsp;
-		{{ Form::select('id_usuario', $opciones, $id_usuario) }}
-		{{ Form::submit('Filtrar') }}
-		{{ Form::close() }}
+		<form action="{{ url('admin') }}" method="post">
+		{{ csrf_field() }}
+		<select name="id_empresa" id="id_empresa">
+			@foreach($opcionesemp as $i => $row)
+				@if($i == $id_empresa)
+				<option value="{{ $i }}" selected>{{ $row }}</option>
+				@else
+				<option value="{{ $i }}">{{ $row }}</option>
+				@endif
+			@endforeach
+			</select> &nbsp;
+			<select name="id_usuario" id="id_usuario">
+			@foreach($opciones as $i => $row)
+				@if($i == $id_usuario)
+				<option value="{{ $i }}" selected>{{ $row }}</option>
+				@else
+				<option value="{{ $i }}">{{ $row }}</option>
+				@endif
+			@endforeach
+			</select>
+			<input type="submit" value="Filtrar">
+		</form>
 	</div>
 
 	@if($id_empresa != null)

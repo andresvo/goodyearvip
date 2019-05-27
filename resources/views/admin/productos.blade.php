@@ -43,10 +43,11 @@
 			<a class="cerrar" href="#" onclick="$('#nuevoprod').hide(); return false;">X</a>
 			Crear producto:
 			<div class="bloque">
-				{{ Form::open(array('url' => 'admin/producto/crear')) }}
+				<form action="{{ url('admin/producto/crear') }}" method="post">
+					{{ csrf_field() }}
 					Diseño: <input type="text" value="" id="nombre" name="nombre">
 					<input type="submit" value="Crear" name="nuevoprod">
-				{{ Form::close() }}
+				</form>
 			</div>
 		</div>
 	</div>
@@ -57,12 +58,13 @@
 			<a class="cerrar" href="#" onclick="$('#renombrar').hide(); return false;">X</a>
 			Cambiar nombre:
 			<div class="bloque">
-				{{ Form::open(array('url' => 'admin/producto/editar')) }}
+				<form action="{{ url('admin/producto/editar') }}" method="post">
+					{{ csrf_field() }}
 					<input type="hidden" value="" name="id" id="r_id_producto">
 					<input type="text" value="" id="r_nombre" name="nombre" size="55"><br>
 					<p><input type="checkbox" name="activo" id="r_activo" value="1"> Activo </p>
 					<input type="submit" value="Guardar" name="guardar">
-				{{ Form::close() }}
+				</form>
 			</div>
 		</div>
 	</div>

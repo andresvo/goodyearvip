@@ -50,11 +50,12 @@
 			<a class="cerrar" href="#" onclick="$('#creartarjetas').hide(); return false;">X</a>
 			Crear tarjetas para <span id="empresa-creart"></span>:
 			<div class="bloque">
-				{{ Form::open(array('url' => 'admin/tarjetas/crear')) }}
+				<form action="{{ url('admin/tarjetas/crear') }}" method="post">
+					{{ csrf_field() }}
 					<input type="hidden" value="" name="id_empresa" id="t_id_empresa">
 					<input type="text" value="" name="cantidad" maxlength="4">
 					<input type="submit" value="Crear" name="creartarjetas">
-				{{ Form::close() }}
+				</form>
 			</div>
 		</div>
 	</div>
@@ -65,14 +66,15 @@
 			<a class="cerrar" href="#" onclick="$('#crearcodigo').hide(); return false;">X</a>
 			Crear código personalizado para <span id="empresa-crearc"></span>:
 			<div class="bloque">
-				{{ Form::open(array('url' => 'admin/codigo/crear')) }}
+				<form action="{{ url('admin/codigo/crear') }}" method="post">
+					{{ csrf_field() }}
 					<input type="hidden" value="" name="id_empresa" id="c_id_empresa">
 					<label>Código:</label>
 					<input type="text" value="" name="codigo" maxlength="100" style="text-transform:uppercase" required><br>
 					<label>Cupo:</label>
 					<input type="number" value="" name="cupo"  min="1" max="99999999" required><br>
 					<input type="submit" value="Crear" name="crearcodigo">
-				{{ Form::close() }}
+				</form>
 			</div>
 		</div>
 	</div>
@@ -83,10 +85,11 @@
 			<a class="cerrar" href="#" onclick="$('#nuevaemp').hide(); return false;">X</a>
 			Crear empresa:
 			<div class="bloque">
-				{{ Form::open(array('url' => 'admin/empresa/crear')) }}
+				<form action="{{ url('admin/empresa/crear') }}" method="post">
+					{{ csrf_field() }}
 					<input type="text" value="" id="nombre" name="nombre">
 					<input type="submit" value="Crear" name="nuevaemp">
-				{{ Form::close() }}
+				</form>
 			</div>
 		</div>
 	</div>
@@ -97,11 +100,12 @@
 			<a class="cerrar" href="#" onclick="$('#renombrar').hide(); return false;">X</a>
 			Cambiar nombre:
 			<div class="bloque">
-				{{ Form::open(array('url' => 'admin/empresa/renombrar')) }}
+				<form action="{{ url('admin/empresa/renombrar') }}" method="post">
+					{{ csrf_field() }}
 					<input type="hidden" value="" name="id" id="r_id_empresa">
 					<input type="text" value="" id="nombre" name="nombre">
 					<input type="submit" value="Guardar" name="guardar">
-				{{ Form::close() }}
+				</form>
 			</div>
 		</div>
 	</div>
