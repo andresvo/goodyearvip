@@ -404,21 +404,8 @@ Route::get('admin/medida/eliminar/{id}', ['middleware' => 'auth', function($id) 
 
 Route::get('excel/{id_empresa?}', ['middleware' => 'auth', function($id_empresa = null) {
 	if(Auth::user()->profile == 2) {
-        $where = '';
-		if($id_empresa != null) $where = ' WHERE tarjeta.id_empresa = ' . intval($id_empresa);
-
-		$compras = DB::select( DB::raw("SELECT usuario.email, medida.nombre AS mnombre, producto.nombre AS pnombre, cantidad, tarjeta.codigo, compra.created_at, precio, boleta, factura FROM compra JOIN usuario ON compra.id_usuario = usuario.id JOIN medida ON compra.id_medida = medida.id JOIN producto ON medida.id_producto = producto.id JOIN tarjeta ON compra.id_tarjeta = tarjeta.id $where ORDER BY compra.id DESC") );
-
-		Excel::create('ClienteVIP', function($excel) use($compras) {
-
-			$excel->sheet('Ventas', function ($sheet) use($compras) {
-			 	$row=1;
-			 	$sheet->row($row, array('Usuario', 'Diseño', 'Medida', 'Cantidad', 'Tarjeta', 'Precio unitario', 'Boleta', 'Factura', 'Fecha creación'));
-			 	foreach($compras as $c) {
-			 		$row++;
-			 		$sheet->row($row, array($c->email, $c->pnombre, $c->mnombre, $c->cantidad, $c->codigo, $c->precio, $c->boleta, $c->factura, $c->created_at));
-			 	}
-			});
-		})->export('xls');
+		$export = new App\Exports\ComprasExport;
+		$export->id_empresa = $id_empresa;
+		return Excel::download($export, 'ventas.xlsx');
 	} else return 'No autorizado para acceder a esta sección';
 }]);
