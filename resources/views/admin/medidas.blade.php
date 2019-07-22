@@ -37,11 +37,11 @@
 			<a class="cerrar" href="#" onclick="$('#nuevamed').hide(); return false;">X</a>
 			Crear medida:
 			<div class="bloque">
-				{{ Form::open(array('url' => 'admin/medida/crear/')) }}
+				<form action="{{ url('admin/medida/crear/') }}" method="post">
 					<input type="hidden" value="{{ $producto->id }}" name="id_producto">
 					Nombre: <input type="text" value="" id="nombre" name="nombre">
 					<input type="submit" value="Crear" name="nuevamed">
-				{{ Form::close() }}
+				</form>
 			</div>
 		</div>
 	</div>
@@ -52,11 +52,11 @@
 			<a class="cerrar" href="#" onclick="$('#renombrar').hide(); return false;">X</a>
 			Cambiar nombre:
 			<div class="bloque">
-				{{ Form::open(array('url' => 'admin/producto/renombrar')) }}
+				<form action="{{ url('admin/producto/renombrar') }}" method="post">
 					<input type="hidden" value="" name="id" id="r_id_medida">
 					<input type="text" value="" id="nombre" name="nombre">
 					<input type="submit" value="Guardar" name="guardar">
-				{{ Form::close() }}
+				</form>
 			</div>
 		</div>
 	</div>
