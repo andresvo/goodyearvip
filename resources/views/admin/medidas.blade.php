@@ -38,6 +38,7 @@
 			Crear medida:
 			<div class="bloque">
 				<form action="{{ url('admin/medida/crear/') }}" method="post">
+					{{ csrf_field() }}
 					<input type="hidden" value="{{ $producto->id }}" name="id_producto">
 					Nombre: <input type="text" value="" id="nombre" name="nombre">
 					<input type="submit" value="Crear" name="nuevamed">
