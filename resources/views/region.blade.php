@@ -2,36 +2,47 @@
 
 @section('content')
 	<div class="container">
-	<h3>Encuentra tu serviteca<br><b>más cercana</b></h3>
-	<form action="{{ url('distribuidores') }}" onsubmit="return validar()" method="post">
-		{{ csrf_field() }}
 		<div class="row">
-		<div class="form-group col-md-12">
-			<select name="region" id="region" class="form-control">
-				<option value="0">Región</option>
-			@foreach($regiones as $region)
-			    <option value="{{ $region->id }}">{{ $region->nombre }}</option>
-			@endforeach
-			</select>
+			<div class="col-lg-6">
+				<h3>¿Cómo funciona?</h3>
+				<ul class="list-custom">
+					<li>Para hacer uso de los beneficios, el portador debe acercarse con su tarjeta a cualquier serviteca adherida al programa</li>
+					<li>Cada tarjeta VIP tiene un código único al respaldo de la tarjeta</li>
+					<li>Obtén un 20 % de descuento en todos los neumáticos de autos y camionetas Goodyear</li>
+					<li>En el reverso de cada tarjeta se encontrará la vigencia</li>
+					<li>Vive una experiencia de compra mejorada en atención y servicio</li>
+				</ul>
+			</div>
+			<div class="col-lg-6">
+				<h3>Encuentra tu serviteca<br><b>más cercana</b></h3>
+				<form action="{{ url('distribuidores') }}" onsubmit="return validar()" method="post">
+					{{ csrf_field() }}
+					<div class="row">
+						<div class="form-group col-md-12">
+							<select name="region" id="region" class="form-control">
+								<option value="0">Región</option>
+							@foreach($regiones as $region)
+								<option value="{{ $region->id }}">{{ $region->nombre }}</option>
+							@endforeach
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<select name="ciudad" id="ciudad" class="form-control">
+								<option value="0">Ciudad</option>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<select name="comuna" id="comuna" class="form-control">
+								<option value="0">Comuna</option>
+							</select>
+						</div>
+						<div class="form-group col-md-12">
+							<input type="submit" class="btn btn-block btn-primary" value="Consultar">
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
-		<div class="form-group col-md-6">
-			<select name="ciudad" id="ciudad" class="form-control">
-				<option value="0">Ciudad</option>
-			</select>
-		</div>
-		<div class="form-group col-md-6">
-			<select name="comuna" id="comuna" class="form-control">
-				<option value="0">Comuna</option>
-			</select>
-		</div>
-		<div class="form-group col-md-12">
-			<input type="submit" class="btn btn-block btn-primary" value="Consultar">
-		</div>
-		<div class="form-group col-md-12">
-			<img src="assets/img/20-dscto.png" width="100%">
-		</div>
-		</div>
-	</form>
 	</div>
 
 	<script type="text/javascript">
