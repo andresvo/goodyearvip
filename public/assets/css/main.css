@@ -10,19 +10,62 @@ body {
   min-width:1000px;
   background-color: #000;
 }
+header {
+    background: #004990;
+    color: #fff;
+    text-align: center;
+    font-family: 'trade', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 5px;
+	line-height: 36px;
+	padding-top: 6px;
+	position: fixed;
+	z-index: 10;
+	width: 100%;
+}
+header img {
+	width: 150px;
+    vertical-align: text-bottom;
+}
 .footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  min-width: 1000px;
-  /* Set the fixed height of the footer here */
-  height: 216px;
-  background-image: url('../img/footer.png');
-  background-size:1920px auto;
-  background-repeat: no-repeat;
-  background-position:center bottom;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 180px;
 }
 
+.franja-blanca {
+	background-color: #fff;
+	font-family: 'trade', sans-serif;
+	color: #004990;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	padding: 20px 0;
+	padding-top: 30px;
+	text-align: center;
+}
+
+.abajo {
+	background-color: #0c0c0c;
+	text-align: center;
+	height: 110px;
+    padding-top: 23px;
+}
+.abajo img {
+	width: 250px;
+}
+
+@font-face{
+	font-family:'trade';
+	font-weight: normal;
+	src:url('../fonts/TradeGothicLTStd Cn18.otf')
+}
+@font-face{
+	font-family:'trade';
+	font-weight: bold;
+	src:url('../fonts/TradeGothicLTStd-BdCn20.otf')
+}
 
 /* Custom page CSS
 -------------------------------------------------- */
@@ -70,49 +113,24 @@ h4 {
 
 .background-person{
   position: fixed;
-  background: url('../img/foto.png');
-  top:0;
+  background: url('../img/Foto joven con tarjeta.jpg');
+  top:42px;
   left: 0;
   width: 50%;
   height: 90%;
-  background-position:right center;
-  background-repeat: no-repeat;
-  z-index: -10000;
-}
-.background-camera{
-  position: fixed;
-  background: url('../img/fondo-concurso2.png');
-  top:0;
-  left: 0;
-  width: 50%;
-  height: 90%;
-  height: calc(100% - 216px);
   background-position:right center;
   background-repeat: no-repeat;
   background-size: cover;
-  z-index: -10000;
-  text-align: center;
-}
-
-@media screen and (max-width: 1599px) {
-    .background-camera {
-        height: calc(100% - 164px);
-    }
-}
-
-.background-camera img {
-    width: 65%;
-    margin-top: 3%;
 }
 .background-fondo-superior{
   position: absolute;
-  background: url('../img/fondo-superior.png');
-  top:0;
+  background: url('../img/foto fondo neumatico.jpg');
+  top:40px;
   right: 0;
   width: 50%;
   min-height: 90%;
   background-position:left top;
-  /*z-index: -10000;*/
+  background-size: cover;
 }
 
 .boton-serviteca{
@@ -162,32 +180,41 @@ h4 {
     height: 160px;
 }
 
-.logo-cliente-vip{
-  position: absolute;
-  background: url('../img/cliente-vip.png');
-  top:30px;
-  left: 475px;
-  width: 196px;
-  height: 100%;
-  background-position:left top;
-  background-repeat: no-repeat;
-  z-index: -9000;
-}
-
 .menu{
   margin-top: -50px;
   text-align: center;
   position: relative;
 }
 
-.btn-menu{
-  transition: all .2s ease-in-out;
+.menu a {
+	background-color: #fff;
+	display: inline-block;
+	transition: all .2s ease-in-out;
+	width: 150px;
+	padding-top: 8px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	padding-bottom: 20px;
+	position: relative;
+    top: 20px;
+	margin: 0 1px;
+	margin-top: -20px;
+}
+
+.menu a:nth-child(1) img, .menu a:nth-child(3) img {
+	height: 42px;
+	margin-top: 0;
+}
+
+.menu a img {
+	height: 32px;
+	margin-top: 10px;
 }
 .btn-active{
   transform: translate(0,-1em);
 }
 
-.btn-menu:hover{
+.menu a:hover{
   transform: translate(0,-1em);
 }
 
@@ -263,19 +290,4 @@ input[type='radio']:checked:before {
   border-radius:50%;
   outline:none;
   background: #FFC200;
-}
-
-@media screen and (max-width: 1599px) {
-
-    .footer {
-        height: 164px;
-        background-image: url('../img/footer.png');
-        background-size:1366px auto;
-    }
-    .container {
-        padding-top:60px;
-    }
-    .logo-cliente-vip {
-        left: 450px;
-    }
 }

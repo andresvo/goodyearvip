@@ -65,29 +65,30 @@
 <body>
 <?php $ruta = Request::url(); $sufijo = ''; ?>
 
-  <?php if($ruta == 'concursa'): ?>
-      <div class="background-camera">
-      </div>
-  <?php else: ?>
-      <div class="boton-serviteca"><img src="{{asset('assets/img/red.png')}}" alt="La red de servitecas más grande de Chile" /></div>
-      <div class="background-person"></div>
-  <?php endif; ?>
-  <div class="background-fondo-superior">
-    <div class="logo-cliente-vip"></div>
-    <!-- Begin page content -->
-	@yield('content')
+	<header>
+		PROGRAMA CLIENTE VIP <img src="{{ asset('assets/img/Logo gy arriba.svg') }}" alt="Goodyear">
+	</header>
+	<div class="background-person"></div>
+	<div class="background-fondo-superior">
+		@yield('content')
+	</div>
 
-  </div>
-
-  <footer class="footer">
-    <div class="menu">
-      <a href="{{ URL::to('/') }}"><img class="btn-menu <?php if($ruta == '/' || $ruta == 'distribuidores') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-01' . $sufijo . '.png')}}"></a>
-      <a href="{{ URL::to('/la-tarjeta-vip') }}"><img class="btn-menu <?php if($ruta == 'la-tarjeta-vip') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-02' . $sufijo . '.png')}}"></a>
-      <a href="{{ URL::to('/como-funciona') }}"><img class="btn-menu <?php if($ruta == 'como-funciona') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-03' . $sufijo . '.png')}}"></a>
-      <a href="{{ URL::to('/serviteca') }}"><img class="btn-menu <?php if($ruta == 'serviteca' || $ruta == 'login' || $ruta == 'compra/revisar' || $ruta == 'venta') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-06' . $sufijo . '.png')}}" /></a>
-      <a href="{{ URL::to('/contacto') }}"><img class="btn-menu <?php if($ruta == 'contacto') {echo 'btn-active'; $sufijo = '-sel';} else $sufijo = ''; ?>" src="{{asset('assets/img/btn-05' . $sufijo . '.png')}}"></a>
-    </div>
-  </footer>
+	<footer class="footer">
+		<div class="menu">
+			<a href="{{ url('/') }}"><img class="btn-menu <?php if($ruta == '/' || $ruta == 'distribuidores') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_programa cliente vip.svg')}}"></a>
+			<a href="{{ url('/la-tarjeta-vip') }}"><img class="btn-menu <?php if($ruta == 'la-tarjeta-vip') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_compra online.svg')}}"></a>
+			<a href="{{ url('/la-tarjeta-vip') }}"><img class="btn-menu <?php if($ruta == 'la-tarjeta-vip') echo 'btn-active'; ?>" src="{{asset('assets/img/Artboard 18.svg')}}"></a>
+			<a href="{{ url('/como-funciona') }}"><img class="btn-menu <?php if($ruta == 'como-funciona') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_bases.svg')}}"></a>
+			<a href="{{ url('/contacto') }}"><img class="btn-menu <?php if($ruta == 'contacto') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_contactanos.svg')}}"></a>
+			<a href="{{ url('/serviteca') }}"><img class="btn-menu <?php if($ruta == 'serviteca' || $ruta == 'login' || $ruta == 'compra/revisar' || $ruta == 'venta') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_usuarios.svg')}}" /></a>
+		</div>
+		<div class="franja-blanca">
+			Cliente Vip es un programa exclusivo para clientes Goodyear
+		</div>
+		<div class="abajo">
+			<img src="{{ asset('assets/img/Logo gy arriba.svg') }}" alt="Goodyear">
+		</div>
+	</footer>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
