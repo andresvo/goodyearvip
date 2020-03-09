@@ -76,9 +76,9 @@
 	<footer class="footer">
 		<div class="menu">
 			<a href="{{ url('/') }}"><img class="btn-menu <?php if($ruta == '/' || $ruta == 'distribuidores') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_programa cliente vip.svg')}}"></a>
-			<a href="{{ url('/la-tarjeta-vip') }}"><img class="btn-menu <?php if($ruta == 'la-tarjeta-vip') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_compra online.svg')}}"></a>
-			<a href="{{ url('/la-tarjeta-vip') }}"><img class="btn-menu <?php if($ruta == 'la-tarjeta-vip') echo 'btn-active'; ?>" src="{{asset('assets/img/Artboard 18.svg')}}"></a>
-			<a href="{{ url('/como-funciona') }}"><img class="btn-menu <?php if($ruta == 'como-funciona') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_bases.svg')}}"></a>
+			<a href="{{ url('/compra-online') }}"><img class="btn-menu <?php if($ruta == 'compra-online') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_compra online.svg')}}"></a>
+			<a href="{{ url('/compra-en-servitecas') }}"><img class="btn-menu <?php if($ruta == 'compra-en-servitecas') echo 'btn-active'; ?>" src="{{asset('assets/img/Artboard 18.svg')}}"></a>
+			<a href="{{ url('/bases') }}"><img class="btn-menu <?php if($ruta == 'bases') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_bases.svg')}}"></a>
 			<a href="{{ url('/contacto') }}"><img class="btn-menu <?php if($ruta == 'contacto') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_contactanos.svg')}}"></a>
 			<a href="{{ url('/serviteca') }}"><img class="btn-menu <?php if($ruta == 'serviteca' || $ruta == 'login' || $ruta == 'compra/revisar' || $ruta == 'venta') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_usuarios.svg')}}" /></a>
 		</div>

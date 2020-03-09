@@ -5,10 +5,10 @@ html {
   min-height: 100%;
 }
 body {
-  /* Margin bottom by footer height */
   margin-bottom: 60px;
   min-width:1000px;
   background-color: #000;
+  font-size: 13px;
 }
 header {
     background: #004990;
@@ -32,7 +32,7 @@ header img {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	height: 180px;
+	height: 162px;
 }
 
 .franja-blanca {
@@ -73,14 +73,14 @@ header img {
 
 .container {
     width: 86%;
-    padding: 130px 0px;
+	padding: 30px 0px;
+	padding-bottom: 140px;
     color: #fff;
     margin-left: 50px;
     margin-bottom: 100px;
 }
 .container.grande {
     width: 360px;
-    text-align: justify;
 }
 
 .container.muygrande {
@@ -100,6 +100,18 @@ header img {
 }
 .container .push-padding{
   padding-left: 15px;
+}
+
+h3 {
+	font-family: 'trade', sans-serif;
+	text-transform: uppercase;
+	color: #ffdd00;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+h3 b {
+	color: #fff;
 }
 
 h4 {
@@ -150,12 +162,12 @@ h4 {
 
 .distribuidores > div {
     width: 178px;
-    height: 275px;
+    height: 295px;
     float: left;
     min-height: 79px;
     padding: 5px 6px;
     margin: 15px;
-    background-color: #ffc700;
+    background-color: #ffdd00;
     font-size: 9pt;
     border-radius: 12px;
     text-align: left;
@@ -218,6 +230,15 @@ h4 {
   transform: translate(0,-1em);
 }
 
+.btn {
+	font-size: 19px;
+	padding-bottom: 2px;
+}
+
+.form-control {
+	font-size: 13px;
+}
+
 .glb-01 {
   position: absolute;
   background-image: url('../img/globo-01.png');
@@ -230,35 +251,67 @@ h4 {
 }
 
 .icon-float{
-  float:right;
-  padding-right: 175px;
-  margin-top: 10px;
+	float:right;
+	margin-top: 10px;
+	width: 200px;
 }
 
-.icon-float-carta{
-  float:right;
-  padding-right: 210px;
-  margin-top: 29px;
+.icon-carro {
+	width: 50px;
 }
 
-.icon-float-camara{
-    float: right;
-    width: 80px;
-    margin-top: 34px;
+.icon-ctn {
+	width: 120px;
+    vertical-align: text-top;
+    margin-left: 20px;
+}
+
+.icon-tarjeta {
+	width: 50px;
+    vertical-align: sub;
+    margin-left: 10px;
+}
+
+.icon-bases {
+	width: 30px;
+    vertical-align: baseline;
+    margin-left: 10px;
+}
+
+.icon-carta {
+	width: 38px;
+    vertical-align: baseline;
+    margin-left: 10px;
+    position: relative;
+    top: 5px;
 }
 
 .list-custom{
-  list-style-image: url('../img/square.png');
-  margin-left: -30px;
-  font-size: 16px;
+	margin-left: -30px;
+	font-size: 12px;
+	list-style: none;
+}
+
+.list-custom li::before {
+	content: "\2022";
+	color: #ffdd00;
+	font-weight: bold;
+	display: inline-block; 
+	width: 1em;
+	margin-left: -1em;
 }
 
 .list-custom li {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
+	text-align: justify;
 }
 
 .form-pasos{
-  width: 365px;"
+  width: 365px;
+}
+
+.form-contacto {
+	max-width: 340px;
 }
 
 input[type='radio'] {
@@ -290,4 +343,30 @@ input[type='radio']:checked:before {
   border-radius:50%;
   outline:none;
   background: #FFC200;
+}
+
+.contacto-ctn {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	float: left;
+	margin-right: 30px;
+	font-size: 11px;
+}
+
+.contacto-ctn li {
+	display: inline-block;
+	white-space: nowrap;
+	margin-right: 20px;
+}
+
+.contacto-ctn img {
+    float: left;
+    width: 20px;
+    margin-right: 5px;
+    padding-bottom: 10px;
+}
+
+.font-trade {
+	font-family: 'trade', sans-serif;
 }

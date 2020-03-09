@@ -3,12 +3,12 @@
 @section('content')
 
 <div class="container">
-	<img src="{{asset('assets/img/carta-icon.png')}}" alt="Carta" class="icon-float-carta" style="padding-right: 100px;">
-	<h3>Formulario<br><b>de contacto</b></h3>
+	
+	<h3><b>Formulario</b> de contacto <img src="{{asset('assets/img/Icono_formulario de contacto.svg')}}" alt="" class="icon-carta"></h3>
 	@if($enviado)
 	Tu comentario ha sido enviado. Gracias por contactarnos.
 	@else
-	<form action="{{ url('contacto') }}">
+	<form action="{{ url('contacto') }}" class="form-contacto">
 		{{ csrf_field() }}
 		<div class="row">
 			<div class="form-group col-md-12">
@@ -28,6 +28,27 @@
 		</div>
 	</form>
 	@endif
+
+	<div>
+	<br>
+		<ul class="contacto-ctn">
+		<li>
+				<img src="{{ asset('assets/img/icono celular.svg') }}" alt="">
+				<strong>Call Center:</strong><br>
+				2 2993 7710
+			</li>
+			<li>
+				<img src="{{ asset('assets/img/icono whatsapp.svg') }}" alt="">
+				<strong>Whatsapp:</strong><br>
+				996923287
+			</li>
+			<li>
+				<img src="{{ asset('assets/img/icono_messenger fb.svg') }}" alt="">
+				<strong>Messenger Facebook:</strong><br>
+				fb.com/cambiatuneumatico
+			</li>
+		</ul>
+	</div>
 </div>
 
 <script>

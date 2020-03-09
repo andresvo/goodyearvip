@@ -11,8 +11,15 @@
 |
 */
 
-Route::get('/', function()
-{
+Route::get('/', function() {
+    return View::make('programa');
+});
+
+Route::get('compra-online', function() {
+    return View::make('online');
+});
+
+Route::get('compra-en-servitecas', function() {
     $regiones = App\Region::orderBy('numero')->get();
     return View::make('region')->with('regiones', $regiones);
 });
@@ -42,23 +49,15 @@ Route::post('distribuidores', function()
     return View::make('distribuidor')->with('distribuidores', $distribuidores);
 });
 
-Route::get('la-tarjeta-vip', function()
-{
-    return View::make('la-tarjeta-vip');
+Route::get('bases', function() {
+    return View::make('bases');
 });
 
-Route::get('como-funciona', function()
-{
-    return View::make('como-funciona');
-});
-
-Route::get('contacto', function()
-{
+Route::get('contacto', function() {
     return View::make('contacto')->with('enviado', false);
 });
 
-Route::post('contacto', function()
-{
+Route::post('contacto', function() {
     $nombre = Input::get('nombre');
     $email = Input::get('email');
     $comentario = Input::get('comentario');
@@ -70,10 +69,7 @@ Route::post('contacto', function()
     return View::make('contacto')->with('enviado', true);
 });
 
-
-
-Route::any('login', function()
-{
+Route::any('login', function() {
 	$email = Input::get('email');
 	$password = Input::get('password');
 	if($email) {
@@ -89,8 +85,7 @@ Route::any('login', function()
     } else return View::make('login');
 })->name('login');
 
-Route::get('logout', function()
-{
+Route::get('logout', function() {
 	Auth::logout();
 	return Redirect::to('login');
 });

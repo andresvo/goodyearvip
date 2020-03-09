@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container form-pasos">
-<h3>Paso 1<br><b>Ingreso de datos</b></h3>
+<h3>Paso 1<br><b>Ingresa</b> datos de acceso</h3>
 @if(isset($error))
 <p class="error">{{ $error }}</p>
 @endif
