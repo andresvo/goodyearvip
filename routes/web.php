@@ -409,3 +409,16 @@ Route::get('excel/{id_empresa?}', ['middleware' => 'auth', function($id_empresa 
 		return Excel::download($export, 'ventas.xlsx');
 	} else return 'No autorizado para acceder a esta sección';
 }]);
+
+Route::get('tarjeta', function() {
+	$tarjetas = App\Tarjeta::where('tipo', 1)->where('id_empresa', 28)->take(10)->get();
+
+	foreach($tarjetas as $tarjeta) {
+		$im = imagecreatefrompng(storage_path('app/tarjeta/dacsa.png'));
+		$negro = imagecolorallocate($im, 0, 0, 0);
+		$fuente = storage_path('app/tarjeta/OpenSans-SemiBold.ttf');
+		imagettftext($im, 24, 0, 350 , 223, $negro, $fuente, $tarjeta->codigo);
+		imagepng($im, storage_path('app/public/' . $tarjeta->codigo . '.png'));
+		imagedestroy($im);
+	}
+});
