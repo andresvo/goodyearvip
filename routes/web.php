@@ -229,75 +229,12 @@ Route::any('admin', ['middleware' => 'auth', function() {
 	} else return 'No autorizado para acceder a esta sección';
 }]);
 
-Route::any('admin/tarjetas', ['middleware' => 'auth', function() {
-	if(Auth::user()->profile == 2) {
-		$empresas = DB::select( DB::raw("SELECT e.*, count(t.id) as tarjetas, min(codigo) as minimo, max(codigo) as maximo
-            FROM empresa e LEFT JOIN tarjeta t ON t.id_empresa = e.id AND t.tipo = 1
-            GROUP BY e.id ORDER BY e.id") );
-        $codigos = App\Tarjeta::where('tipo', '=', 2)->get();
-        $codempresa = array();
-        foreach ($codigos as $key => $row) {
-            $codempresa[$row['id_empresa']][] = $row['codigo'];
-        }
-		return View::make('admin/tarjetas', array('empresas' => $empresas, 'codempresa' => $codempresa));
-	} else return 'No autorizado para acceder a esta sección';
-}]);
-
-Route::post('admin/empresa/crear', ['middleware' => 'auth', function() {
-    $nombre = Input::get('nombre');
-
-    $emp = App\Empresa::select(DB::raw('max(CAST(substring(sufijo,2) AS UNSIGNED)) as sufijo'))->first();
-    $sufijo = 'E' . ($emp->sufijo + 1);
-	$emp = new App\Empresa;
-    $emp->nombre = $nombre;
-    $emp->sufijo = $sufijo;
-	$emp->save();
-    return Redirect::to('admin/tarjetas');
-}]);
-
-Route::post('admin/empresa/renombrar', ['middleware' => 'auth', function() {
-    $id = Input::get('id');
-    $nombre = Input::get('nombre');
-
-    $emp = App\Empresa::find($id);
-    $emp->nombre = $nombre;
-	$emp->save();
-    return Redirect::to('admin/tarjetas');
-}]);
-
-Route::post('admin/tarjetas/crear', ['middleware' => 'auth', function() {
-    $id_empresa = Input::get('id_empresa');
-    $cantidad = Input::get('cantidad');
-
-    $emp = App\Empresa::find($id_empresa);
-    $sufijo = $emp->sufijo;
-    $cant_actual = App\Tarjeta::where('id_empresa', $id_empresa)->where('tipo', '=', 1)->count();
-    $primera_nueva = $cant_actual + 1;
-    $ultima_nueva = $cant_actual + $cantidad;
-    for($i=$primera_nueva; $i<=$ultima_nueva; $i++) {
-        $numero = 'GY' . str_pad($i, 4, '0', STR_PAD_LEFT) . $sufijo;
-        $tarj = new App\Tarjeta;
-        $tarj->codigo = $numero;
-        $tarj->cupo_inicial = 4;
-        $tarj->cupo_actual = 4;
-        $tarj->id_empresa = $id_empresa;
-        $tarj->tipo = 1;
-        $tarj->save();
-    }
-    return Redirect::to('admin/tarjetas');
-}]);
-
-Route::post('admin/codigo/crear', ['middleware' => 'auth', function() {
-    $tarj = new App\Tarjeta;
-    $tarj->codigo = strtoupper(Input::get('codigo'));
-    $tarj->cupo_inicial = Input::get('cupo');
-    $tarj->cupo_actual = Input::get('cupo');
-    $tarj->id_empresa = Input::get('id_empresa');
-    $tarj->tipo = 2;
-    $tarj->save();
-
-    return Redirect::to('admin/tarjetas');
-}]);
+Route::any('admin/tarjetas', 'TarjetaController@getIndex')->middleware('auth');
+Route::post('admin/tarjetas/crear', 'TarjetaController@postCrear')->middleware('auth');
+Route::get('tarjeta', 'TarjetaController@postDescargar');
+Route::post('admin/codigo/crear', 'TarjetaController@postCodigoCrear')->middleware('auth');
+Route::post('admin/empresa/crear', 'TarjetaController@postEmpresaCrear')->middleware('auth');
+Route::post('admin/empresa/renombrar', 'TarjetaController@postEmpresaRenombrar')->middleware('auth');
 
 Route::any('admin/concurso', ['middleware' => 'auth', function() {
 	if(Auth::user()->profile == 2) {
@@ -409,16 +346,3 @@ Route::get('excel/{id_empresa?}', ['middleware' => 'auth', function($id_empresa 
 		return Excel::download($export, 'ventas.xlsx');
 	} else return 'No autorizado para acceder a esta sección';
 }]);
-
-Route::get('tarjeta', function() {
-	$tarjetas = App\Tarjeta::where('tipo', 1)->where('id_empresa', 28)->take(10)->get();
-
-	foreach($tarjetas as $tarjeta) {
-		$im = imagecreatefrompng(storage_path('app/tarjeta/dacsa.png'));
-		$negro = imagecolorallocate($im, 0, 0, 0);
-		$fuente = storage_path('app/tarjeta/OpenSans-SemiBold.ttf');
-		imagettftext($im, 24, 0, 350 , 223, $negro, $fuente, $tarjeta->codigo);
-		imagepng($im, storage_path('app/public/' . $tarjeta->codigo . '.png'));
-		imagedestroy($im);
-	}
-});

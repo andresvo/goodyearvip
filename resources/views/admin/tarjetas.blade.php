@@ -26,7 +26,7 @@
 		</tr>
 		@foreach($empresas as $empresa)
 		<tr>
-			<td><a href="#" onclick="$('#r_id_empresa').val({{ $empresa->id }}); $('#renombrar').show()" class="linkoculto">{{ $empresa->nombre }}</a></td>
+			<td><a href="#" onclick="renombrarEmpresa({{ $empresa->id }}, '{{ $empresa->nombre }}')" class="linkoculto">{{ $empresa->nombre }}</a></td>
 			<td>{{ $empresa->sufijo }}</td>
 			<td>{{ $empresa->tarjetas }}</td>
 			<td>{{ $empresa->minimo . ' - ' . $empresa->maximo }}</td>
@@ -37,7 +37,8 @@
 			</td>
 			<td>
 				<a href="#" onclick="mostrarCrearTarjetas({{ $empresa->id }}, '{{ $empresa->nombre }}')">Crear tarjetas</a> |
-				<a href="#" onclick="mostrarCrearCodigo({{ $empresa->id }}, '{{ $empresa->nombre }}')">Crear código</a>
+				<a href="#" onclick="mostrarCrearCodigo({{ $empresa->id }}, '{{ $empresa->nombre }}')">Crear código</a> |
+				<a href="#" onclick="mostrarDescargar({{ $empresa->id }}, '{{ $empresa->nombre }}', '{{ $empresa->minimo }}', '{{ $empresa->maximo }}', '{{ $empresa->sufijo }}')">Descargar</a>
 			</td>
 		</tr>
 		@endforeach
@@ -103,14 +104,39 @@
 				<form action="{{ url('admin/empresa/renombrar') }}" method="post">
 					{{ csrf_field() }}
 					<input type="hidden" value="" name="id" id="r_id_empresa">
-					<input type="text" value="" id="nombre" name="nombre">
+					<input type="text" value="" id="r_nombre" name="nombre">
 					<input type="submit" value="Guardar" name="guardar">
 				</form>
 			</div>
 		</div>
 	</div>
 
+	<div id="descargar" class="oculto">
+		<div class="sombra"></div>
+		<div class="popup">
+			<a class="cerrar" href="#" onclick="$('#descargar').hide(); return false;">X</a>
+			Descargar tarjetas de <span id="empresa-descargar"></span>:
+			<div class="bloque">
+				<form action="{{ url('admin/tarjetas/descargar') }}" method="post">
+					{{ csrf_field() }}
+					<input type="hidden" value="" name="id_empresa" id="d_id_empresa">
+					Desde:<br>
+					<input type="number" value="1" name="desde" min="1" max="4"><br>
+					Cantidad:<br>
+					<input type="number" value="1" name="cantidad" min="1" max="10"><br>
+					<input type="submit" value="Descargar" name="descargar">
+				</form>
+			</div>
+		</div>
+	</div>
+
+
 <script>
+function renombrarEmpresa(id, nombre) {
+	$('#r_id_empresa').val(id); 
+	$('#r_nombre').val(nombre); 
+	$('#renombrar').show()
+}
 function mostrarCrearTarjetas(id, nombre) {
 	$('#t_id_empresa').val(id);
 	$('#empresa-creart').html(nombre);
@@ -120,6 +146,15 @@ function mostrarCrearCodigo(id, nombre) {
 	$('#c_id_empresa').val(id);
 	$('#empresa-crearc').html(nombre);
 	$('#crearcodigo').show();
+}
+function mostrarDescargar(id, nombre, minimo, maximo, sufijo) {
+	minimo = parseInt(minimo.replace(sufijo, '').replace('GY', ''));
+	maximo = parseInt(maximo.replace(sufijo, '').replace('GY', ''));
+	$('#descargar input[name=desde]').val(minimo);
+	$('#descargar input[name=desde]').attr('max', maximo);
+	$('#descargar input[name=cantidad]').val('1');
+	$('#empresa-descargar').html(nombre);
+	$('#descargar').show();
 }
 </script>
 
