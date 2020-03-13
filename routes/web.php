@@ -231,7 +231,7 @@ Route::any('admin', ['middleware' => 'auth', function() {
 
 Route::any('admin/tarjetas', 'TarjetaController@getIndex')->middleware('auth');
 Route::post('admin/tarjetas/crear', 'TarjetaController@postCrear')->middleware('auth');
-Route::get('tarjeta', 'TarjetaController@postDescargar');
+Route::post('admin/tarjetas/descargar', 'TarjetaController@postDescargar');
 Route::post('admin/codigo/crear', 'TarjetaController@postCodigoCrear')->middleware('auth');
 Route::post('admin/empresa/crear', 'TarjetaController@postEmpresaCrear')->middleware('auth');
 Route::post('admin/empresa/renombrar', 'TarjetaController@postEmpresaRenombrar')->middleware('auth');

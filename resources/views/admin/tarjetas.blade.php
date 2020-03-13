@@ -150,6 +150,7 @@ function mostrarCrearCodigo(id, nombre) {
 function mostrarDescargar(id, nombre, minimo, maximo, sufijo) {
 	minimo = parseInt(minimo.replace(sufijo, '').replace('GY', ''));
 	maximo = parseInt(maximo.replace(sufijo, '').replace('GY', ''));
+	$('#d_id_empresa').val(id);
 	$('#descargar input[name=desde]').val(minimo);
 	$('#descargar input[name=desde]').attr('max', maximo);
 	$('#descargar input[name=cantidad]').val('1');

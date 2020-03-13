@@ -7,6 +7,8 @@ use Auth;
 use DB;
 use App\Tarjeta;
 use App\Empresa;
+use ZipArchive;
+use Illuminate\Support\Facades\Storage;
 
 class TarjetaController extends Controller
 {
@@ -77,8 +79,15 @@ class TarjetaController extends Controller
 		return redirect('admin/tarjetas');
 	}
 
-	public function postDescargar() {
-		$tarjetas = Tarjeta::where('tipo', 1)->where('id_empresa', 28)->take(10)->get();
+	public function postDescargar(Request $request) {
+		$id_empresa = intval($request->input('id_empresa'));
+		$desde = intval($request->input('desde'));
+		$cantidad = intval($request->input('cantidad'));
+		$empresa = Empresa::find($id_empresa);
+		$codigo = 'GY' . str_pad($desde, 4, '0', STR_PAD_LEFT) . $empresa->sufijo;
+		$tarjetas = Tarjeta::where('tipo', 1)->where('id_empresa', $id_empresa)
+		->where('codigo', '>=', $codigo)->take($cantidad)->get();
+		$resp = [];
 		foreach($tarjetas as $tarjeta) {
 			$im = imagecreatefrompng(storage_path('app/tarjeta/dacsa.png'));
 			$negro = imagecolorallocate($im, 0, 0, 0);
@@ -86,6 +95,18 @@ class TarjetaController extends Controller
 			imagettftext($im, 24, 0, 350 , 223, $negro, $fuente, $tarjeta->codigo);
 			imagepng($im, storage_path('app/public/' . $tarjeta->codigo . '.png'));
 			imagedestroy($im);
+			$resp[] = $tarjeta->codigo;
 		}
+		$zip = new ZipArchive;
+		if ($zip->open(storage_path('app/public/tarjetas.zip'), ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+			foreach($resp as $filename) {
+				$zip->addFile(storage_path('app/public/' . $filename . '.png'), $filename . '.png');
+			}
+			$zip->close();
+			foreach($resp as $filename) {
+				unlink(storage_path('app/public/' . $filename . '.png'));
+			}
+		}
+		return response()->download(storage_path('app/public/tarjetas.zip'), 'tarjetas.zip', ['Content-Type' => 'application/octet-stream']);
 	}
 }
