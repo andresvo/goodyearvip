@@ -123,7 +123,7 @@
 					Desde:<br>
 					<input type="number" value="1" name="desde" min="1" max="4"><br>
 					Cantidad:<br>
-					<input type="number" value="1" name="cantidad" min="1" max="10"><br>
+					<input type="number" value="1" name="cantidad" min="1" max="100"><br>
 					<input type="submit" value="Descargar" name="descargar">
 				</form>
 			</div>
