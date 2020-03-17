@@ -231,7 +231,7 @@ Route::any('admin', ['middleware' => 'auth', function() {
 
 Route::any('admin/tarjetas', ['middleware' => 'auth', function() {
 	if(Auth::user()->profile == 2) {
-		$empresas = DB::select( DB::raw("SELECT e.*, count(t.id) as tarjetas, min(codigo) as minimo, max(codigo) as maximo
+		$empresas = DB::select( DB::raw("SELECT e.*, count(t.id) as tarjetas, min(numero) as minimo, max(numero) as maximo
             FROM empresa e LEFT JOIN tarjeta t ON t.id_empresa = e.id AND t.tipo = 1
             GROUP BY e.id ORDER BY e.id") );
         $codigos = App\Tarjeta::where('tipo', '=', 2)->get();
@@ -278,6 +278,7 @@ Route::post('admin/tarjetas/crear', ['middleware' => 'auth', function() {
         $numero = 'GY' . str_pad($i, 4, '0', STR_PAD_LEFT) . $sufijo;
         $tarj = new App\Tarjeta;
         $tarj->codigo = $numero;
+        $tarj->numero = $i;
         $tarj->cupo_inicial = 4;
         $tarj->cupo_actual = 4;
         $tarj->id_empresa = $id_empresa;
