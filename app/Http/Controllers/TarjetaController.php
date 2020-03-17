@@ -14,7 +14,7 @@ class TarjetaController extends Controller
 {
     public function getIndex() {
 		if(Auth::user()->profile == 2) {
-			$empresas = DB::select( DB::raw("SELECT e.*, count(t.id) as tarjetas, min(codigo) as minimo, max(codigo) as maximo
+			$empresas = DB::select( DB::raw("SELECT e.*, count(t.id) as tarjetas, min(numero) as minimo, max(numero) as maximo
 				FROM empresa e LEFT JOIN tarjeta t ON t.id_empresa = e.id AND t.tipo = 1
 				GROUP BY e.id ORDER BY e.id") );
 			$codigos = Tarjeta::where('tipo', '=', 2)->get();
@@ -36,9 +36,10 @@ class TarjetaController extends Controller
 		$primera_nueva = $cant_actual + 1;
 		$ultima_nueva = $cant_actual + $cantidad;
 		for($i=$primera_nueva; $i<=$ultima_nueva; $i++) {
-			$numero = 'GY' . str_pad($i, 4, '0', STR_PAD_LEFT) . $sufijo;
+			$codigo = 'GY' . str_pad($i, 4, '0', STR_PAD_LEFT) . $sufijo;
 			$tarj = new Tarjeta;
-			$tarj->codigo = $numero;
+			$tarj->codigo = $codigo;
+			$tarj->numero = $i;
 			$tarj->cupo_inicial = 4;
 			$tarj->cupo_actual = 4;
 			$tarj->id_empresa = $id_empresa;

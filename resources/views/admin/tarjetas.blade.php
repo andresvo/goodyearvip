@@ -29,7 +29,10 @@
 			<td><a href="#" onclick="renombrarEmpresa({{ $empresa->id }}, '{{ $empresa->nombre }}')" class="linkoculto">{{ $empresa->nombre }}</a></td>
 			<td>{{ $empresa->sufijo }}</td>
 			<td>{{ $empresa->tarjetas }}</td>
-			<td>{{ $empresa->minimo . ' - ' . $empresa->maximo }}</td>
+			<td>
+				{{ 'GY' . str_pad($empresa->minimo, 4, '0', STR_PAD_LEFT) . $empresa->sufijo }} - 
+				{{ 'GY' . str_pad($empresa->maximo, 4, '0', STR_PAD_LEFT) . $empresa->sufijo }}
+			</td>
 			<td>
 			@if(isset($codempresa[$empresa->id]))
 				{{ implode(', ', $codempresa[$empresa->id]) }}
