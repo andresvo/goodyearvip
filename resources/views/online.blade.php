@@ -18,8 +18,7 @@
 	o Instalación en un taller).</li>
 		<li><strong>Indica la forma de pago:</strong> Selecciona el método de pago de tu conveniencia.
 	(Débito, tarjeta crédito o transferencia).</li>
-		<li><strong>Obtén tu descuento:</strong> Ingresa el código que aparece en tu tarjeta para disfrutar del
-	beneficio de 25% de descuento.</li>
+		<li><strong>Obtén tu descuento:</strong> Ingresa el código que aparece en tu tarjeta para disfrutar de este	beneficio.</li>
 	</ol>
 	<p><strong>¡Vive una experiencia de compra mejorada en atención y servicio!</strong></p>
 	<br>
@@ -43,7 +42,7 @@
 		</ul>
 	</div>
 	<p>
-		<a href="#" class="btn btn-primary">Busca tu neumático</a>
+		<a href="#" class="btn btn-primary">Encuentra aquí tu neumático</a>
 	</p>
 </div>
 
