@@ -42,11 +42,6 @@
 				<strong>Whatsapp:</strong><br>
 				996923287
 			</li>
-			<li>
-				<img src="{{ asset('assets/img/icono_messenger fb.svg') }}" alt="">
-				<strong>Messenger Facebook:</strong><br>
-				fb.com/cambiatuneumatico
-			</li>
 		</ul>
 	</div>
 </div>
