@@ -17,7 +17,7 @@
 	<link rel="stylesheet"  href="{{ asset('assets/css/ie10-viewport-bug-workaround.css') }}" type="text/css" media="all" />
 
   <!-- Custom styles for this template -->
-	<link rel="stylesheet"  href="{{ asset('assets/css/main.css?v=7') }}" type="text/css" media="all" />
+	<link rel="stylesheet"  href="{{ asset('assets/css/main.css?v=8') }}" type="text/css" media="all" />
 
 	<script type="text/javascript" src="{{ asset('jquery-1.11.1.min.js') }}"></script>
 

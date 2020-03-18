@@ -8,7 +8,7 @@
 enfocado en entregar una experiencia de compra mejorada para que puedas adquirir 
 neumáticos Goodyear con descuentos preferenciales, 
 además de otros beneficios como el despacho, instalación y balanceo en el lugar de tu
-conveniencia.</p>
+conveniencia, incluso a domicilio.</p>
 <br><br>
 	<div>
 		<div class="row font-trade">
