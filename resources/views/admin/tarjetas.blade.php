@@ -124,9 +124,20 @@
 					{{ csrf_field() }}
 					<input type="hidden" value="" name="id_empresa" id="d_id_empresa">
 					Desde:<br>
-					<input type="number" value="1" name="desde" min="1" max="4"><br>
+					<input type="number" value="1" name="desde" min="1" max="999999" required><br>
 					Cantidad:<br>
-					<input type="number" value="1" name="cantidad" min="1" max="100"><br>
+					<input type="number" value="1" name="cantidad" min="1" max="100" required><br>
+					Diseño:<br>
+					<div class="scroll">
+						<table border="1">
+						@foreach($disenos as $diseno)
+							<tr>
+								<td><input type="radio" name="diseno" id="diseno{{ $diseno->id }}" value="{{ $diseno->id }}" required> <label for="diseno{{ $diseno->id }}">{{ $diseno->nombre }}</label></td>
+								<td><label for="diseno{{ $diseno->id }}"><img src="{{ $diseno->imagen }}" width="200" alt="Tarjeta"></label></td>
+							</tr>
+						@endforeach
+						</table>
+					</div>
 					<input type="submit" value="Descargar" name="descargar">
 				</form>
 			</div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use DB;
 use App\Tarjeta;
+use App\Diseno;
 use App\Empresa;
 use ZipArchive;
 use Illuminate\Support\Facades\Storage;
@@ -22,7 +23,11 @@ class TarjetaController extends Controller
 			foreach ($codigos as $key => $row) {
 				$codempresa[$row['id_empresa']][] = $row['codigo'];
 			}
-			return view('admin/tarjetas')->with(compact('empresas', 'codempresa'));
+			$disenos = Diseno::orderBy('nombre')->get();
+			foreach($disenos as $diseno) {
+				$diseno->imagen = url('admin/diseno/imagen/' . $diseno->id);
+			}
+			return view('admin/tarjetas')->with(compact('empresas', 'codempresa', 'disenos'));
 		} else return 'No autorizado para acceder a esta sección';
 	}
 
@@ -84,13 +89,15 @@ class TarjetaController extends Controller
 		$id_empresa = intval($request->input('id_empresa'));
 		$desde = intval($request->input('desde'));
 		$cantidad = intval($request->input('cantidad'));
+		$id_diseno = intval($request->input('diseno'));
 		$empresa = Empresa::find($id_empresa);
 		$codigo = 'GY' . str_pad($desde, 4, '0', STR_PAD_LEFT) . $empresa->sufijo;
 		$tarjetas = Tarjeta::where('tipo', 1)->where('id_empresa', $id_empresa)
-		->where('codigo', '>=', $codigo)->take($cantidad)->get();
+		->where('numero', '>=', $desde)->take($cantidad)->get();
+		$diseno = Diseno::find($id_diseno);
 		$resp = [];
 		foreach($tarjetas as $tarjeta) {
-			$im = imagecreatefrompng(storage_path('app/tarjeta/dacsa.png'));
+			$im = imagecreatefrompng(storage_path('app/' . $diseno->archivo));
 			$negro = imagecolorallocate($im, 0, 0, 0);
 			$fuente = storage_path('app/tarjeta/OpenSans-SemiBold.ttf');
 			imagettftext($im, 24, 0, 350 , 223, $negro, $fuente, $tarjeta->codigo);

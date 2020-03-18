@@ -337,6 +337,17 @@ a.linkoculto:hover {
 	font-size: 13px;
 }
 
+.popup td label {
+	display: inline;
+}
+
+.popup .scroll {
+	height: 200px;
+	border: 1px solid #1e3d72;
+	overflow-y: scroll;
+	margin-bottom: 1rem;
+}
+
 
 @media screen and (max-width: 400px) {
 	#header > div {

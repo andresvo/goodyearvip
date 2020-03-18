@@ -18,6 +18,7 @@
 	<nav>
 		<a href="<?php echo e(URL::to('admin')); ?>">Ventas</a>
 		<a href="<?php echo e(URL::to('admin/tarjetas')); ?>">Tarjetas</a>
+		<a href="<?php echo e(URL::to('admin/disenos')); ?>">Diseños Tarjetas</a>
 		<a href="<?php echo e(URL::to('admin/concurso')); ?>">Concurso</a>
 		<a href="<?php echo e(URL::to('admin/productos')); ?>">Productos</a>
 	</nav>
