@@ -4,7 +4,7 @@
 	<title>Goodyear VIP</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=0.8">
-	<link rel="stylesheet"  href="{{ asset('principal.css?v=3') }}" type="text/css" media="all" />
+	<link rel="stylesheet"  href="{{ asset('principal.css?v=4') }}" type="text/css" media="all" />
 	<script type="text/javascript" src="{{ asset('jquery-1.11.1.min.js') }}"></script>
 </head>
 <body>
@@ -18,6 +18,7 @@
 	<nav>
 		<a href="{{ URL::to('admin') }}">Ventas</a>
 		<a href="{{ URL::to('admin/tarjetas') }}">Tarjetas</a>
+		<a href="{{ URL::to('admin/disenos') }}">Diseños Tarjetas</a>
 		<a href="{{ URL::to('admin/concurso') }}">Concurso</a>
 		<a href="{{ URL::to('admin/productos') }}">Productos</a>
 	</nav>
