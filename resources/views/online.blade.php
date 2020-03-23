@@ -39,7 +39,7 @@
 		</ul>
 	</div>
 	<p>
-		<a href="#" class="btn btn-primary" style="position: relative; top: -14px;">Encuentra aquí<br>tu neumático</a>
+		<a href="https://goodyear.cambiatuneumatico.com/" class="btn btn-primary" style="position: relative; top: -14px;">Encuentra aquí<br>tu neumático</a>
 	</p>
 </div>
 
