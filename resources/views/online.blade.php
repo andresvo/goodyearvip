@@ -10,13 +10,8 @@
 	<p>Adquiere de manera fácil, rápida y cómoda tus neumáticos por
 	internet. Si tienes dudas, contáctanos y te asesoraremos con el proceso.</p>
 	<br>
-	<ol class="list-custom">
-		<li>Pincha el botón encuentra tus neumáticos.</li>
-		<li>Indica cuáles y cuántos neumáticos necesitas.</li>
-		<li>Elige cuándo y dónde instalar tus neumáticos (podrás optar por despacho a domicilio	o instalación en un taller).</li>
-		<li>Ingresa el código que aparece en tu tarjeta para obtener tu descuento.</li>
-		<li>Elige la forma de pago de tu conveniencia (Débito, tarjeta crédito o transferencia).</li>
-	</ol>
+	<a href="https://goodyear.cambiatuneumatico.com/" class="btn btn-primary" style="position: relative; top: -14px;">Compra aquí tus neumáticos</a>
+
 	<p><strong>¡Vive una experiencia de compra mejorada!</strong></p>
 	<br>
 	<div>
@@ -38,9 +33,6 @@
 			</li>
 		</ul>
 	</div>
-	<p>
-		<a href="https://goodyear.cambiatuneumatico.com/" class="btn btn-primary" style="position: relative; top: -14px;">Encuentra aquí<br>tu neumático</a>
-	</p>
 </div>
 
 @stop
