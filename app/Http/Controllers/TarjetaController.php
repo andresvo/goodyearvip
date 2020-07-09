@@ -41,7 +41,7 @@ class TarjetaController extends Controller
 		$primera_nueva = $cant_actual + 1;
 		$ultima_nueva = $cant_actual + $cantidad;
 		for($i=$primera_nueva; $i<=$ultima_nueva; $i++) {
-			$codigo = 'GY' . str_pad($i, 4, '0', STR_PAD_LEFT) . $sufijo;
+			$codigo = $this->generarAleatorio();
 			$tarj = new Tarjeta;
 			$tarj->codigo = $codigo;
 			$tarj->numero = $i;
@@ -52,6 +52,16 @@ class TarjetaController extends Controller
 			$tarj->save();
 		}
 		return redirect('admin/tarjetas');
+	}
+
+	protected function generarAleatorio() {
+		$random = strtoupper(bin2hex(random_bytes(3)));
+		$tarjeta = Tarjeta::where('codigo', $random)->first();
+		while($tarjeta) {
+			$random = strtoupper(bin2hex(random_bytes(3)));
+			$tarjeta = Tarjeta::where('codigo', $random)->first();
+		}
+		return $random;
 	}
 
 	public function postCodigoCrear(Request $request) {
