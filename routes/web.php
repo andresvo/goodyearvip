@@ -232,6 +232,7 @@ Route::any('admin', ['middleware' => 'auth', function() {
 Route::any('admin/tarjetas', 'TarjetaController@getIndex')->middleware('auth');
 Route::post('admin/tarjetas/crear', 'TarjetaController@postCrear')->middleware('auth');
 Route::post('admin/tarjetas/descargar', 'TarjetaController@postDescargar');
+Route::get('admin/tarjetas/exportar/{id_empresa}', 'TarjetaController@exportar');
 Route::any('admin/disenos', 'DisenoController@getIndex')->middleware('auth');
 Route::any('admin/diseno/imagen/{id}', 'DisenoController@displayImage')->middleware('auth');
 Route::post('admin/diseno/crear', 'DisenoController@postCrear')->middleware('auth');

@@ -10,6 +10,8 @@ use App\Diseno;
 use App\Empresa;
 use ZipArchive;
 use Illuminate\Support\Facades\Storage;
+use App\Exports\TarjetasExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TarjetaController extends Controller
 {
@@ -126,5 +128,13 @@ class TarjetaController extends Controller
 			}
 		}
 		return response()->download(storage_path('app/public/tarjetas.zip'), 'tarjetas.zip', ['Content-Type' => 'application/octet-stream']);
+	}
+
+	public function exportar($id_empresa) {
+		if(Auth::user()->profile == 2) {
+			$export = new TarjetasExport;
+			$export->id_empresa = $id_empresa;
+			return Excel::download($export, 'tarjetas.xlsx');
+		} else return 'No autorizado para acceder a esta sección';
 	}
 }
