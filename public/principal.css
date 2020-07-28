@@ -245,6 +245,10 @@ a.x {
 	padding: 8px 20px;
 }
 
+.contenido nav a.active {
+	background-color: #345896;
+}
+
 .contenido table {
 	border-collapse:collapse;
 	width:100%;
