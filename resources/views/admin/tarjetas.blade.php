@@ -122,7 +122,7 @@
 					Desde:<br>
 					<input type="number" value="1" name="desde" min="1" max="999999" required><br>
 					Cantidad:<br>
-					<input type="number" value="1" name="cantidad" min="1" max="100" required><br>
+					<input type="number" value="1" name="cantidad" min="1" max="999999" required><br>
 					Diseño:<br>
 					<div class="scroll">
 						<table border="1">
