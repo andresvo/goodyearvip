@@ -43,7 +43,7 @@ class TarjetaController extends Controller
 		$primera_nueva = $cant_actual + 1;
 		$ultima_nueva = $cant_actual + $cantidad;
 		for($i=$primera_nueva; $i<=$ultima_nueva; $i++) {
-			$codigo = $this->generarAleatorio();
+			$codigo = $this->generarAleatorio() . $sufijo;
 			$tarj = new Tarjeta;
 			$tarj->codigo = $codigo;
 			$tarj->numero = $i;
