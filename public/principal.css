@@ -157,12 +157,10 @@ option {
 }
 
 #footer {
-	background-image: url(images/footer-bg.png);
-	height: 50px;
-	width: 100%;
-	position: fixed;
-	bottom:0;
-	overflow: hidden;
+	height: 20px;
+    width: 100%;
+    overflow: hidden;
+    background-color: #f1d609;
 }
 
 #footer > div {
@@ -229,6 +227,7 @@ a.x {
 	margin: 20px auto;
 	padding:20px;
 	padding-top: 5px;
+	overflow: auto;
 }
 
 .contenido nav {
