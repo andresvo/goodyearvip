@@ -352,3 +352,9 @@ Route::get('excel/{id_empresa?}', ['middleware' => 'auth', function($id_empresa 
 		return Excel::download($export, 'ventas.xlsx');
 	} else return 'No autorizado para acceder a esta sección';
 }]);
+
+
+Route::get('productos/importar', function() {
+	$result = Maatwebsite\Excel\Facades\Excel::import(new App\Imports\ProductosImport, 'productos.xlsx');
+	return response()->json($result);
+});
