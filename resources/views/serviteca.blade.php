@@ -39,7 +39,7 @@
 				<select class="form-control" name="producto" id="producto">
 					<option value="0">Selecciona diseño</option>
 				@foreach($productos as $producto)
-					<option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+					<option value="{{ $producto->id }}">{{ $producto->marca . ' ' . $producto->nombre }}</option>
 				@endforeach
 				</select>
 			</div>
@@ -73,7 +73,7 @@
 			</div><!-- /input-group -->
 			</div><!-- /.col-lg-6 -->
 			<div class="form-group col-md-12">
-				<input type="text" class="form-control" name="precio" id="precio" placeholder="Ingresa precio unitario" />
+				<input type="text" class="form-control" name="precio" id="precio" placeholder="Ingresa precio unitario (precio a público de lista)" />
 			</div>
 			<div class="form-group col-md-12">
 			<input type="submit" class="btn btn-block btn-primary" value="Continuar">

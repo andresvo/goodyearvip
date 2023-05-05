@@ -29,10 +29,12 @@
 		</form>
 	</div>
 
-	@if($id_empresa != null)
-	<p><a href="{{ URL::to('/excel') . '/' . $id_empresa }}">Descargar Excel</a></p>
-	@else
-	<p><a href="{{ URL::to('/excel') }}">Descargar Excel</a></p>
+	@if(count($compras) > 0)
+		@if($id_empresa != null)
+		<p><a href="{{ URL::to('/excel') . '/' . $id_empresa }}">Descargar Excel</a></p>
+		@else
+		<p><a href="{{ URL::to('/excel') }}">Descargar Excel</a></p>
+		@endif
 	@endif
 
 	@if(count($compras) == 0)
