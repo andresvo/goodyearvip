@@ -25,7 +25,7 @@ Route::get('compra-online', function() {
 });
 
 Route::get('compra-en-servitecas', function() {
-    $regiones = App\Region::orderBy('numero')->get();
+    $regiones = App\Models\Region::orderBy('numero')->get();
     return View::make('region')->with('regiones', $regiones);
 });
 
