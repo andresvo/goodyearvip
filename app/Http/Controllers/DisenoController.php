@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Diseno;
+use App\Models\Diseno;
 use Auth;
 
 class DisenoController extends Controller

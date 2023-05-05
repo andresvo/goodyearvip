@@ -1,5 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use App\Http\Controllers\TarjetaController;
+use App\Http\Controllers\DisenoController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +18,8 @@
 
 Route::get('/', function()
 {
-    $regiones = App\Region::orderBy('numero')->get();
-    return View::make('region')->with('regiones', $regiones);
+    $regiones = App\Models\Region::orderBy('numero')->get();
+    return view('region')->with('regiones', $regiones);
 });
 
 Route::get('migrate', function() {
@@ -25,57 +30,57 @@ Route::get('migrate', function() {
 
 Route::get('ciudad/listar/{id_region}', function($id_region)
 {
-    $ciudades = App\Ciudad::where('id_region', '=', $id_region)->orderBy('nombre')->get();
-    return Response::json($ciudades);
+    $ciudades = App\Models\Ciudad::where('id_region', '=', $id_region)->orderBy('nombre')->get();
+    return response()->json($ciudades);
 });
 
 Route::get('comuna/listar/{id_ciudad}', function($id_ciudad)
 {
-    $comunas = App\Comuna::where('id_ciudad', '=', $id_ciudad)->orderBy('nombre')->get();
-    return Response::json($comunas);
+    $comunas = App\Models\Comuna::where('id_ciudad', '=', $id_ciudad)->orderBy('nombre')->get();
+    return response()->json($comunas);
 });
 
-Route::post('distribuidores', function()
+Route::post('distribuidores', function(Request $request)
 {
-	$comuna = Input::get('comuna');
-    $distribuidores = App\Distribuidor::leftJoin('comuna', 'comuna.id', '=', 'distribuidor.id_comuna')->where('id_comuna','=',$comuna)->select('distribuidor.*', 'comuna.nombre AS comuna')->get();
-    return View::make('distribuidor')->with('distribuidores', $distribuidores);
+	$comuna = $request->input('comuna');
+    $distribuidores = App\Models\Distribuidor::leftJoin('comuna', 'comuna.id', '=', 'distribuidor.id_comuna')->where('id_comuna','=',$comuna)->select('distribuidor.*', 'comuna.nombre AS comuna')->get();
+    return view('distribuidor')->with('distribuidores', $distribuidores);
 });
 
 Route::get('la-tarjeta-vip', function()
 {
-    return View::make('la-tarjeta-vip');
+    return view('la-tarjeta-vip');
 });
 
 Route::get('como-funciona', function()
 {
-    return View::make('como-funciona');
+    return view('como-funciona');
 });
 
 Route::get('contacto', function()
 {
-    return View::make('contacto')->with('enviado', false);
+    return view('contacto')->with('enviado', false);
 });
 
-Route::post('contacto', function()
+Route::post('contacto', function(Request $request)
 {
-    $nombre = Input::get('nombre');
-    $email = Input::get('email');
-    $comentario = Input::get('comentario');
+    $nombre = $request->input('nombre');
+    $email = $request->input('email');
+    $comentario = $request->input('comentario');
     Mail::send('emails.contacto', array('nombre' => $nombre, 'email' => $email, 'comentario' => $comentario), function($message)
     {
         $message->from('noresponder@clientevipgoodyear.cl', 'Web Cliente VIP');
         $message->to('clientevipgoodyear@clientevipgoodyear.cl', 'Goodyear Cliente VIP')->subject('Contacto');
     });
-    return View::make('contacto')->with('enviado', true);
+    return view('contacto')->with('enviado', true);
 });
 
 
 
-Route::any('login', function()
+Route::any('login', function(Request $request)
 {
-	$email = Input::get('email');
-	$password = Input::get('password');
+	$email = $request->input('email');
+	$password = $request->input('password');
 	if($email) {
 		if (Auth::attempt(array('email' => $email, 'password' => $password))) {
 			if(Auth::user()->profile == 2) return Redirect::to('admin');
@@ -84,9 +89,9 @@ Route::any('login', function()
             if(Auth::user()->profile == 2) return Redirect::to('admin');
             return Redirect::to('serviteca');
         } else {
-			return View::make('login')->with('error', 'Usuario o contraseña incorrectos');
+			return view('login')->with('error', 'Usuario o contraseña incorrectos');
 		}
-    } else return View::make('login');
+    } else return view('login');
 })->name('login');
 
 Route::get('logout', function()
@@ -96,18 +101,18 @@ Route::get('logout', function()
 });
 
 
-Route::any('serviteca', ['middleware' => 'auth', function() {
-	$codigo = Input::get('codigo');
+Route::any('serviteca', ['middleware' => 'auth', function(Request $request) {
+	$codigo = $request->input('codigo');
 	$mensaje = '';
 	if($codigo) {
-		$productos = App\Producto::where('activo',1)->orderBy('nombre')->get();
+		$productos = App\Models\Producto::where('activo',1)->orderBy('nombre')->get();
         if(strlen($codigo) == 4) $codigo = 'GY'.$codigo;
         if(substr($codigo, 0, 1) == 'E') {
             $codigo = str_replace('-','', $codigo);
             $empresa = substr($codigo, 0, 2);
             $codigo = 'GY' . substr($codigo, 2) . $empresa;
         }
-		$tarjeta = App\Tarjeta::where('codigo','=',strtoupper($codigo))->get();
+		$tarjeta = App\Models\Tarjeta::where('codigo','=',strtoupper($codigo))->get();
 		if(isset($tarjeta[0])) {
             if($tarjeta[0]->cupo_actual > 4) $cupo = 4;
 			else $cupo = $tarjeta[0]->cupo_actual;
@@ -115,20 +120,20 @@ Route::any('serviteca', ['middleware' => 'auth', function() {
 		}
 		else {
 			$mensaje = 'sasdca';
-			return View::make('serviteca', array('mensaje' => $mensaje));
+			return view('serviteca', array('mensaje' => $mensaje));
 		}
 	} else {
 		$productos = null;
 		$cupo = null;
 		$id_tarjeta = null;
 	}
-	return View::make('serviteca', array('codigo' => $codigo, 'mensaje' => $mensaje, 'productos' => $productos, 'cupo' => $cupo, 'id_tarjeta' => $id_tarjeta));
+	return view('serviteca', array('codigo' => $codigo, 'mensaje' => $mensaje, 'productos' => $productos, 'cupo' => $cupo, 'id_tarjeta' => $id_tarjeta));
 }]);
 
 Route::get('usuario/crear/{email}/{pwd}/{id_distribuidor}', function($email, $pwd, $id_distribuidor)
 {
 	$password = Hash::make($pwd);
-	$user = new App\User;
+	$user = new App\Models\User;
 	$user->name = 'Prueba';
 	$user->email = $email;
 	$user->password = $password;
@@ -148,41 +153,41 @@ Route::get('usuario/crear/{email}/{pwd}/{id_distribuidor}', function($email, $pw
 
 Route::get('medida/listar/{id_producto}', function($id_producto)
 {
-    $medidas = App\Medida::where('activo',1)->where('id_producto', '=', $id_producto)->orderBy('nombre')->get();
-    return Response::json($medidas);
+    $medidas = App\Models\Medida::where('activo',1)->where('id_producto', '=', $id_producto)->orderBy('nombre')->get();
+    return response()->json($medidas);
 });
 
-Route::post('compra/revisar', ['middleware' => 'auth', function() {
-	$id_tarjeta = Input::get('id_tarjeta');
-	$t = App\Tarjeta::find($id_tarjeta);
-	$cantidad = Input::get('cantidad');
-	$id_producto = Input::get('producto');
-	$p = App\Producto::find($id_producto);
-	$id_medida = Input::get('medida');
-	$m = App\Medida::find($id_medida);
-	$boleta = Input::get('boleta');
-    $factura = Input::get('factura');
-    $precio = Input::get('precio');
+Route::post('compra/revisar', ['middleware' => 'auth', function(Request $request) {
+	$id_tarjeta = $request->input('id_tarjeta');
+	$t = App\Models\Tarjeta::find($id_tarjeta);
+	$cantidad = $request->input('cantidad');
+	$id_producto = $request->input('producto');
+	$p = App\Models\Producto::find($id_producto);
+	$id_medida = $request->input('medida');
+	$m = App\Models\Medida::find($id_medida);
+	$boleta = $request->input('boleta');
+    $factura = $request->input('factura');
+    $precio = $request->input('precio');
 
-	return View::make('venta', array('id_tarjeta' => $id_tarjeta, 'codigo' => $t->codigo, 'cantidad' => $cantidad, 'producto' => $p, 'medida' => $m, 'boleta' => $boleta, 'factura' => $factura, 'precio' => $precio));
+	return view('venta', array('id_tarjeta' => $id_tarjeta, 'codigo' => $t->codigo, 'cantidad' => $cantidad, 'producto' => $p, 'medida' => $m, 'boleta' => $boleta, 'factura' => $factura, 'precio' => $precio));
 
 }]);
 
-Route::post('compra/crear', ['middleware' => 'auth', function() {
-	$id_tarjeta = Input::get('id_tarjeta');
-	$cantidad = Input::get('cantidad');
+Route::post('compra/crear', ['middleware' => 'auth', function(Request $request) {
+	$id_tarjeta = $request->input('id_tarjeta');
+	$cantidad = $request->input('cantidad');
 
-	$compra = new App\Compra;
+	$compra = new App\Models\Compra;
 	$compra->id_usuario = Auth::user()->id;
-	$compra->id_medida = Input::get('medida');
+	$compra->id_medida = $request->input('medida');
 	$compra->id_tarjeta = $id_tarjeta;
 	$compra->cantidad = $cantidad;
-	$compra->boleta = Input::get('boleta');
-    $compra->factura = Input::get('factura');
-    $compra->precio = Input::get('precio');
+	$compra->boleta = $request->input('boleta');
+    $compra->factura = $request->input('factura');
+    $compra->precio = $request->input('precio');
 	$compra->save();
 
-	$tarjeta = App\Tarjeta::find($id_tarjeta);
+	$tarjeta = App\Models\Tarjeta::find($id_tarjeta);
 	$cupo = $tarjeta->cupo_actual;
 	$tarjeta->cupo_actual = $cupo - $cantidad;
 	$tarjeta->save();
@@ -190,13 +195,13 @@ Route::post('compra/crear', ['middleware' => 'auth', function() {
 }]);
 
 Route::get('compra/anular/{id_compra}', ['middleware' => 'auth', function($id_compra) {
-	$compra = App\Compra::find($id_compra);
+	$compra = App\Models\Compra::find($id_compra);
 	$cantidad = $compra->cantidad;
 	$id_tarjeta = $compra->id_tarjeta;
 	$compra->cantidad = 0;
 	$compra->save();
 
-	$tarjeta = App\Tarjeta::find($id_tarjeta);
+	$tarjeta = App\Models\Tarjeta::find($id_tarjeta);
 	$cupo = $tarjeta->cupo_actual;
 	$tarjeta->cupo_actual = $cupo + $cantidad;
 	$tarjeta->save();
@@ -204,54 +209,54 @@ Route::get('compra/anular/{id_compra}', ['middleware' => 'auth', function($id_co
 }]);
 
 Route::get('venta', ['middleware' => 'auth', function() {
-    return View::make('venta')->with('ingresada',true);
+    return view('venta')->with('ingresada',true);
 }]);
 
-Route::any('admin', ['middleware' => 'auth', function() {
+Route::any('admin', ['middleware' => 'auth', function(Request $request) {
 	if(Auth::user()->profile == 2) {
 		$where = '';
-        $id_empresa = Input::get('id_empresa');
+        $id_empresa = $request->input('id_empresa');
 		if($id_empresa) $where .= ' AND tarjeta.id_empresa = ' . intval($id_empresa);
-        $id_usuario = Input::get('id_usuario');
+        $id_usuario = $request->input('id_usuario');
 		if($id_usuario) $where .= ' AND compra.id_usuario = ' . intval($id_usuario);
 
 		$compras = DB::select( DB::raw("SELECT compra.id, usuario.email, medida.nombre AS mnombre, producto.nombre AS pnombre, cantidad, tarjeta.codigo, compra.created_at FROM compra JOIN usuario ON compra.id_usuario = usuario.id JOIN medida ON compra.id_medida = medida.id JOIN producto ON medida.id_producto = producto.id JOIN tarjeta ON compra.id_tarjeta = tarjeta.id WHERE true $where ORDER BY compra.id DESC") );
 
-        $empresas = App\Empresa::all();
+        $empresas = App\Models\Empresa::all();
 		$opcionesemp = array('' => 'Todas las empresas');
 		foreach($empresas as $e) $opcionesemp[$e->id] = $e->nombre;
 
-        $usuarios = App\User::all();
+        $usuarios = App\Models\User::all();
 		$opciones = array('' => 'Todos los usuarios');
 		foreach($usuarios as $u) $opciones[$u->id] = $u->email;
 
-		return View::make('admin/admin', array('compras' => $compras, 'id_usuario' => $id_usuario, 'id_empresa' => $id_empresa, 'opciones' => $opciones, 'opcionesemp' => $opcionesemp));
+		return view('admin/admin', array('compras' => $compras, 'id_usuario' => $id_usuario, 'id_empresa' => $id_empresa, 'opciones' => $opciones, 'opcionesemp' => $opcionesemp));
 	} else return 'No autorizado para acceder a esta sección';
 }]);
 
-Route::any('admin/tarjetas', 'TarjetaController@getIndex')->middleware('auth');
-Route::post('admin/tarjetas/crear', 'TarjetaController@postCrear')->middleware('auth');
-Route::post('admin/tarjetas/descargar', 'TarjetaController@postDescargar');
-Route::get('admin/tarjetas/exportar/{id_empresa}', 'TarjetaController@exportar');
-Route::any('admin/disenos', 'DisenoController@getIndex')->middleware('auth');
-Route::any('admin/diseno/imagen/{id}', 'DisenoController@displayImage')->middleware('auth');
-Route::post('admin/diseno/crear', 'DisenoController@postCrear')->middleware('auth');
-Route::post('admin/diseno/renombrar', 'DisenoController@postRenombrar')->middleware('auth');
-Route::any('admin/diseno/eliminar/{id}', 'DisenoController@getEliminar')->middleware('auth');
-Route::post('admin/codigo/crear', 'TarjetaController@postCodigoCrear')->middleware('auth');
-Route::post('admin/empresa/crear', 'TarjetaController@postEmpresaCrear')->middleware('auth');
-Route::post('admin/empresa/renombrar', 'TarjetaController@postEmpresaRenombrar')->middleware('auth');
+Route::any('admin/tarjetas', [TarjetaController::class, 'getIndex'])->middleware('auth');
+Route::post('admin/tarjetas/crear', [TarjetaController::class, 'postCrear'])->middleware('auth');
+Route::post('admin/tarjetas/descargar', [TarjetaController::class, 'postDescargar']);
+Route::get('admin/tarjetas/exportar/{id_empresa}', [TarjetaController::class, 'exportar']);
+Route::any('admin/disenos', [DisenoController::class, 'getIndex'])->middleware('auth');
+Route::any('admin/diseno/imagen/{id}', [DisenoController::class, 'displayImage'])->middleware('auth');
+Route::post('admin/diseno/crear', [DisenoController::class, 'postCrear'])->middleware('auth');
+Route::post('admin/diseno/renombrar', [DisenoController::class, 'postRenombrar'])->middleware('auth');
+Route::any('admin/diseno/eliminar/{id}', [DisenoController::class, 'getEliminar'])->middleware('auth');
+Route::post('admin/codigo/crear', [TarjetaController::class, 'postCodigoCrear'])->middleware('auth');
+Route::post('admin/empresa/crear', [TarjetaController::class, 'postEmpresaCrear'])->middleware('auth');
+Route::post('admin/empresa/renombrar', [TarjetaController::class, 'postEmpresaRenombrar'])->middleware('auth');
 
 Route::any('admin/concurso', ['middleware' => 'auth', function() {
 	if(Auth::user()->profile == 2) {
-		$concursantes = App\Concursante::all();
-		return View::make('admin/concurso', array('concursantes' => $concursantes));
+		$concursantes = App\Models\Concursante::all();
+		return view('admin/concurso', array('concursantes' => $concursantes));
 	} else return 'No autorizado para acceder a esta sección';
 }]);
 
 Route::get('admin/concursante/eliminar/{id}', ['middleware' => 'auth', function($id) {
 	if(Auth::user()->profile == 2) {
-        $concursante = App\Concursante::find($id);
+        $concursante = App\Models\Concursante::find($id);
         if($concursante) $concursante->delete();
         return Redirect::to('admin/concurso');
 	} else return 'No autorizado para acceder a esta sección';
@@ -259,33 +264,33 @@ Route::get('admin/concursante/eliminar/{id}', ['middleware' => 'auth', function(
 
 Route::any('admin/productos', ['middleware' => 'auth', function() {
 	if(Auth::user()->profile == 2) {
-        $productos = App\Producto::orderBy('nombre')->get();
+        $productos = App\Models\Producto::orderBy('nombre')->get();
 		$opcionesprod = $opcionesmed = array();
 		foreach($productos as $p) {
             $opcionesprod[$p->id] = array('nombre' => $p->nombre, 'activo' => $p->activo);
         }
-        return View::make('admin/productos', array('productos' => $productos, 'json_productos' => json_encode($opcionesprod)));
+        return view('admin/productos', array('productos' => $productos, 'json_productos' => json_encode($opcionesprod)));
 	} else return 'No autorizado para acceder a esta sección';
 }]);
 
-Route::post('admin/producto/crear', ['middleware' => 'auth', function() {
-    $nombre = Input::get('nombre');
+Route::post('admin/producto/crear', ['middleware' => 'auth', function(Request $request) {
+    $nombre = $request->input('nombre');
 
     if($nombre != '') {
-    	$producto = new App\Producto;
+    	$producto = new App\Models\Producto;
         $producto->nombre = $nombre;
         $producto->save();
     }
     return Redirect::to('admin/productos');
 }]);
 
-Route::post('admin/producto/editar', ['middleware' => 'auth', function() {
-    $id = Input::get('id');
-    $nombre = Input::get('nombre');
-    $activo = Input::get('activo') == 1;
+Route::post('admin/producto/editar', ['middleware' => 'auth', function(Request $request) {
+    $id = $request->input('id');
+    $nombre = $request->input('nombre');
+    $activo = $request->input('activo') == 1;
 
     if($nombre != '') {
-        $producto = App\Producto::find($id);
+        $producto = App\Models\Producto::find($id);
         $producto->nombre = $nombre;
         $producto->activo = $activo;
         $producto->save();
@@ -295,7 +300,7 @@ Route::post('admin/producto/editar', ['middleware' => 'auth', function() {
 
 Route::get('admin/producto/eliminar/{id}', ['middleware' => 'auth', function($id) {
 	if(Auth::user()->profile == 2) {
-        $producto = App\Producto::find($id);
+        $producto = App\Models\Producto::find($id);
         if($producto) {
             try{
                 $res = $producto->delete();
@@ -310,18 +315,18 @@ Route::get('admin/producto/eliminar/{id}', ['middleware' => 'auth', function($id
 
 Route::any('admin/medidas/{id_producto}', ['middleware' => 'auth', function($id_producto = null) {
 	if(Auth::user()->profile == 2) {
-        $producto = App\Producto::find($id_producto);
-		$medidas = App\Producto::join('medida', 'medida.id_producto', '=', 'producto.id')->where('id_producto','=',$id_producto)->orderBy('medida.id_producto')->orderBy('medida.nombre')->get();
-        return View::make('admin/medidas', array('producto' => $producto, 'medidas' => $medidas));
+        $producto = App\Models\Producto::find($id_producto);
+		$medidas = App\Models\Producto::join('medida', 'medida.id_producto', '=', 'producto.id')->where('id_producto','=',$id_producto)->orderBy('medida.id_producto')->orderBy('medida.nombre')->get();
+        return view('admin/medidas', array('producto' => $producto, 'medidas' => $medidas));
 	} else return 'No autorizado para acceder a esta sección';
 }]);
 
-Route::post('admin/medida/crear', ['middleware' => 'auth', function() {
-    $nombre = Input::get('nombre');
-    $id_producto = Input::get('id_producto');
+Route::post('admin/medida/crear', ['middleware' => 'auth', function(Request $request) {
+    $nombre = $request->input('nombre');
+    $id_producto = $request->input('id_producto');
 
     if($nombre != '' && $id_producto != '') {
-    	$medida = new App\Medida;
+    	$medida = new App\Models\Medida;
         $medida->nombre = $nombre;
         $medida->id_producto = $id_producto;
         $medida->save();
@@ -331,7 +336,7 @@ Route::post('admin/medida/crear', ['middleware' => 'auth', function() {
 
 Route::get('admin/medida/eliminar/{id}', ['middleware' => 'auth', function($id) {
 	if(Auth::user()->profile == 2) {
-        $medida = App\Medida::find($id);
+        $medida = App\Models\Medida::find($id);
         $id_producto = $medida->id_producto;
         if($medida) {
             try{

@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Compra;
+use App\Models\Compra;
 use DB;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
