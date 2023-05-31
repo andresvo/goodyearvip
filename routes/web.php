@@ -17,14 +17,6 @@ use App\Http\Controllers\DisenoController;
 */
 
 Route::get('/', function() {
-    return View::make('programa');
-});
-
-Route::get('compra-online', function() {
-    return View::make('online');
-});
-
-Route::get('compra-en-servitecas', function() {
     $regiones = App\Models\Region::orderBy('numero')->get();
     return View::make('region')->with('regiones', $regiones);
 });
