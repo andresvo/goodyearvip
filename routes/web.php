@@ -218,7 +218,7 @@ Route::any('admin', ['middleware' => 'auth', function(Request $request) {
         $id_usuario = $request->input('id_usuario');
 		if($id_usuario) $where .= ' AND compra.id_usuario = ' . intval($id_usuario);
 
-		$compras = DB::select( DB::raw("SELECT compra.id, usuario.email, medida.nombre AS mnombre, producto.nombre AS pnombre, cantidad, tarjeta.codigo, compra.created_at FROM compra JOIN usuario ON compra.id_usuario = usuario.id JOIN medida ON compra.id_medida = medida.id JOIN producto ON medida.id_producto = producto.id JOIN tarjeta ON compra.id_tarjeta = tarjeta.id WHERE true $where ORDER BY compra.id DESC") );
+		$compras = DB::select( DB::raw("SELECT compra.id, usuario.email, medida.nombre AS mnombre, producto.nombre AS pnombre, cantidad, tarjeta.codigo, compra.created_at FROM compra JOIN usuario ON compra.id_usuario = usuario.id JOIN medida ON compra.id_medida = medida.id JOIN producto ON medida.id_producto = producto.id JOIN tarjeta ON compra.id_tarjeta = tarjeta.id WHERE YEAR(compra.created_at) > 2021 $where ORDER BY compra.id DESC") );
 
         $empresas = App\Models\Empresa::all();
 		$opcionesemp = array('' => 'Todas las empresas');

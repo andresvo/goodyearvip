@@ -16,8 +16,8 @@ class ComprasExport implements FromArray, WithHeadings, ShouldAutoSize, WithEven
 
 	public function array(): array
     {
-		$where = '';
-		if($this->id_empresa != null) $where = ' WHERE tarjeta.id_empresa = ' . intval($this->id_empresa);
+		$where = 'WHERE YEAR(compra.created_at) > 2021';
+		if($this->id_empresa != null) $where .= ' AND tarjeta.id_empresa = ' . intval($this->id_empresa);
 
 		$compras = DB::select( DB::raw("SELECT usuario.email, medida.nombre AS mnombre, producto.nombre AS pnombre, cantidad, tarjeta.codigo, compra.created_at, precio, boleta, factura, medida.sku FROM compra JOIN usuario ON compra.id_usuario = usuario.id JOIN medida ON compra.id_medida = medida.id JOIN producto ON medida.id_producto = producto.id JOIN tarjeta ON compra.id_tarjeta = tarjeta.id $where ORDER BY compra.id DESC") );
 		
