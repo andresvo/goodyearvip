@@ -23,7 +23,7 @@
 			<div class="form-group col-md-12">
 				<input type="submit" class="btn btn-block btn-primary" value="Enviar">
 				<br>
-				clientevipgoodyear@clientevipgoodyear.cl
+				contacto@contactogoodyear.cl
 			</div>
 		</div>
 	</form>
@@ -40,7 +40,7 @@
 			<li>
 				<img src="{{ asset('assets/img/icono whatsapp.svg') }}" alt="">
 				<strong>Whatsapp:</strong><br>
-				996923287
+				+56979597683
 			</li>
 		</ul>
 	</div>
