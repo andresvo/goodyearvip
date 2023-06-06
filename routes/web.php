@@ -267,7 +267,7 @@ Route::any('admin/productos', ['middleware' => 'auth', function() {
 		foreach($productos as $p) {
             $opcionesprod[$p->id] = array('nombre' => $p->nombre, 'activo' => $p->activo);
         }
-        return view('admin/productos', array('productos' => $productos, 'json_productos' => json_encode($opcionesprod)));
+        return view('admin/productos', array('productos' => $productos, 'opcionesprod' => $opcionesprod));
 	} else return 'No autorizado para acceder a esta sección';
 }]);
 

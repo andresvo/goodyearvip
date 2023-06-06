@@ -61,8 +61,8 @@
 				<form action="{{ url('admin/producto/editar') }}" method="post">
 					{{ csrf_field() }}
 					<input type="hidden" value="" name="id" id="r_id_producto">
-					<input type="text" value="" id="r_nombre" name="nombre" size="55"><br>
-					<p><input type="checkbox" name="activo" id="r_activo" value="1"> Activo </p>
+					<input type="text" value="" id="r_nombre" name="nombre" size="40"><br>
+					<p><input type="checkbox" name="activo" id="r_activo" value="1"><label class="inline text-base" for="r_activo"> Activo</label> </p>
 					<input type="submit" value="Guardar" name="guardar">
 				</form>
 			</div>
@@ -70,7 +70,7 @@
 	</div>
 
 <script>
-productos = {{ $json_productos }};
+productos = {!! json_encode($opcionesprod) !!};
 
 function editar(id_producto) {
 	$('#r_id_producto').val(id_producto);

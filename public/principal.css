@@ -340,8 +340,12 @@ a.linkoculto:hover {
 	font-size: 13px;
 }
 
-.popup td label {
+.popup td label, .popup label.inline {
 	display: inline;
+}
+
+.popup label.text-base {
+	font-size: 1rem;
 }
 
 .popup .scroll {
