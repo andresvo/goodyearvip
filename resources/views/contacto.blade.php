@@ -29,21 +29,6 @@
 	</form>
 	@endif
 
-	<div>
-	<br>
-		<ul class="contacto-ctn">
-		<li>
-				<img src="{{ asset('assets/img/icono celular.svg') }}" alt="">
-				<strong>Call Center:</strong><br>
-				2 2993 7710
-			</li>
-			<li>
-				<img src="{{ asset('assets/img/icono whatsapp.svg') }}" alt="">
-				<strong>Whatsapp:</strong><br>
-				+56979597683
-			</li>
-		</ul>
-	</div>
 </div>
 
 <script>

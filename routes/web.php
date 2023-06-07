@@ -56,6 +56,11 @@ Route::get('como-funciona', function()
     return view('como-funciona');
 });
 
+Route::get('bases', function()
+{
+    return redirect('descargas/BASES PROGRAMA CLIENTE VIPv3.2023.06.01.docx.pdf');
+});
+
 Route::get('contacto', function()
 {
     return view('contacto')->with('enviado', false);

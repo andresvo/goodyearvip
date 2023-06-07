@@ -6,12 +6,11 @@
 			<div class="col-lg-6">
 				<h3>¿Cómo funciona?</h3>
 				<ul class="list-custom">
-					<li>Para hacer uso de los beneficios, el portador debe acercarse con su tarjeta a cualquier serviteca adherida al programa</li>
-					<li>Cada tarjeta VIP tiene un código único al respaldo de la tarjeta</li>
-					<li>Obtén un 20 % de descuento en todos los neumáticos de autos y camionetas Goodyear</li>
-					<li>En el reverso de cada tarjeta se encontrará la vigencia</li>
-					<li>Vive una experiencia de compra mejorada en atención y servicio</li>
+					<li>Para hacer uso del beneficio, el portador debe acercarse con su tarjeta a cualquier serviteca adherida al programa.</li>
+					<li>Cada tarjeta VIP tiene un código único.</li>
+					<li>Obtén un 20% de descuento en todos los neumáticos de autos y camioneta marca Goodyear.</li>
 				</ul>
+				<p>Vive una experiencia de compra única y mejorada en atención y servicio.</p>
 			</div>
 			<div class="col-lg-6">
 				<h3>Encuentra tu serviteca<br><b>más cercana</b></h3>
