@@ -19,6 +19,10 @@ class DisenoController extends Controller
 	}
 
 	public function postCrear(Request $request) {
+		$validated = $request->validate([
+			'nombre' => 'required',
+			'imagen' => 'required|mimes:png',
+		]);
 		$nombre = $request->input('nombre');
         $path = $request->file('imagen')->store('tarjeta');
 		$diseno = new Diseno;

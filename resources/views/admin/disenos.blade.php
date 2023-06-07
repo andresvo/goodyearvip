@@ -8,6 +8,16 @@
 </div>
 	<p><a href="#" onclick="$('#nuevodiseno').show()">Nuevo diseño</a></p>
 
+	@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+	@endif
+
 	@if(count($disenos) == 0)
 		<table border="1">
 		<tr>
