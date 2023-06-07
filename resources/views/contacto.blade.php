@@ -8,14 +8,14 @@
 	@if($enviado)
 	Tu comentario ha sido enviado. Gracias por contactarnos.
 	@else
-	<form action="{{ url('contacto') }}" class="form-contacto">
-		{{ csrf_field() }}
+	<form action="{{ url('contacto') }}" method="post" class="form-contacto">
+		@csrf
 		<div class="row">
 			<div class="form-group col-md-12">
-				<input class="form-control" placeholder="Nombre" name="nombre"></input>
+				<input type="text" class="form-control" placeholder="Nombre" name="nombre" />
 			</div>
 			<div class="form-group col-md-12">
-				<input class="form-control" placeholder="Mail" name="email"></input>
+				<input type="email" class="form-control" placeholder="Mail" name="email" />
 			</div>
 			<div class="form-group col-md-12">
 				<textarea class="form-control" placeholder="Comentario" name="comentario"  rows="4" cols="50"></textarea>
