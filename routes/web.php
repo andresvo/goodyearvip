@@ -73,7 +73,7 @@ Route::post('contacto', function(Request $request)
     $comentario = $request->input('comentario');
     Mail::send('emails.contacto', array('nombre' => $nombre, 'email' => $email, 'comentario' => $comentario), function($message)
     {
-        $message->from('noresponder@clientevipgoodyear.cl', 'Web Cliente VIP');
+        $message->from('goodyear@sp.garage71.cl', 'Web Cliente VIP');
         $message->to('contacto@contactogoodyear.cl', 'Goodyear Cliente VIP')->subject('Contacto Cliente VIP');
     });
     return view('contacto')->with('enviado', true);
