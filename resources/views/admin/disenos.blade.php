@@ -44,7 +44,7 @@
 					Nombre:<br>
 					<input type="text" value="" id="nombre" name="nombre" required><br>
 					Imagen (PNG 720px de ancho):<br>
-					<input name="imagen" type="file" required /><br><br>
+					<input name="imagen" type="file" accept=".png" required /><br><br>
 					<input type="submit" value="Crear" name="nuevodiseno">
 				</form>
 			</div>
