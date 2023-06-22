@@ -35,9 +35,11 @@
 			</td>
 			<td>
 				<a href="#" onclick="mostrarCrearTarjetas({{ $empresa->id }}, '{{ $empresa->nombre }}')">Crear tarjetas</a> |
-				<a href="#" onclick="mostrarCrearCodigo({{ $empresa->id }}, '{{ $empresa->nombre }}')">Crear código</a> |
-				<a href="{{ url('admin/tarjetas/exportar/' . $empresa->id) }}">Excel</a> |
-				<a href="#" onclick="mostrarDescargar({{ $empresa->id }}, '{{ $empresa->nombre }}', '{{ $empresa->minimo }}', '{{ $empresa->maximo }}', '{{ $empresa->sufijo }}')">Descargar</a>
+				<a href="#" onclick="mostrarCrearCodigo({{ $empresa->id }}, '{{ $empresa->nombre }}')">Crear código</a>
+				@if($empresa->tarjetas > 0)
+				 | <a href="{{ url('admin/tarjetas/exportar/' . $empresa->id) }}">Excel</a>
+				 | <a href="#" onclick="mostrarDescargar({{ $empresa->id }}, '{{ $empresa->nombre }}', '{{ $empresa->minimo }}', '{{ $empresa->maximo }}', '{{ $empresa->sufijo }}')">Descargar</a>
+				@endif
 			</td>
 		</tr>
 		@endforeach
