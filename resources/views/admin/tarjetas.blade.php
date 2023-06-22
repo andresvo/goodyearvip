@@ -53,7 +53,8 @@
 				<form action="{{ url('admin/tarjetas/crear') }}" method="post">
 					{{ csrf_field() }}
 					<input type="hidden" value="" name="id_empresa" id="t_id_empresa">
-					<input type="text" value="" name="cantidad" maxlength="4">
+					<label>Cantidad:</label>
+					<input type="number" value="" name="cantidad" min="1" required>
 					<input type="submit" value="Crear" name="creartarjetas">
 				</form>
 			</div>
