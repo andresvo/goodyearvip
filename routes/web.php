@@ -58,7 +58,7 @@ Route::get('como-funciona', function()
 
 Route::get('bases', function()
 {
-    return redirect('descargas/BASES PROGRAMA CLIENTE VIPv3.2023.06.01.docx.pdf');
+    return redirect('descargas/BASES PROGRAMA CLIENTE VIP GOODYEAR.pdf');
 });
 
 Route::get('contacto', function()
