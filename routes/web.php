@@ -58,7 +58,7 @@ Route::get('como-funciona', function()
 
 Route::get('bases', function()
 {
-    return redirect('descargas/BASES PROGRAMA CLIENTE VIP GOODYEAR.pdf');
+    return redirect('descargas/Bases programa cliente VIP 2023.pdf');
 });
 
 Route::get('contacto', function()
