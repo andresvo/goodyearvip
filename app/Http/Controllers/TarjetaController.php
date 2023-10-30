@@ -98,6 +98,7 @@ class TarjetaController extends Controller
 	}
 
 	public function postDescargar(Request $request) {
+		set_time_limit(120);
 		$id_empresa = intval($request->input('id_empresa'));
 		$desde = intval($request->input('desde'));
 		$cantidad = intval($request->input('cantidad'));
@@ -127,7 +128,8 @@ class TarjetaController extends Controller
 				unlink(storage_path('app/public/' . $filename . '.png'));
 			}
 		}
-		return response()->download(storage_path('app/public/tarjetas.zip'), 'tarjetas.zip', ['Content-Type' => 'application/octet-stream']);
+		$zip_filename = 'tarjetas-' . $empresa->sufijo . '-' . $desde . '-' . ($desde + $cantidad -1) . '.zip';
+		return response()->download(storage_path('app/public/tarjetas.zip'), $zip_filename, ['Content-Type' => 'application/octet-stream']);
 	}
 
 	public function exportar($id_empresa) {
