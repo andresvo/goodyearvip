@@ -109,10 +109,10 @@ class TarjetaController extends Controller
 		->where('numero', '>=', $desde)->take($cantidad)->get();
 		$diseno = Diseno::find($id_diseno);
 		$resp = [];
+		$fuente = storage_path('app/tarjeta/OpenSans-SemiBold.ttf');
 		foreach($tarjetas as $tarjeta) {
 			$im = imagecreatefrompng(storage_path('app/' . $diseno->archivo));
 			$negro = imagecolorallocate($im, 0, 0, 0);
-			$fuente = storage_path('app/tarjeta/OpenSans-SemiBold.ttf');
 			imagettftext($im, 24, 0, 350 , 223, $negro, $fuente, $tarjeta->codigo);
 			imagepng($im, storage_path('app/public/' . $tarjeta->codigo . '.png'));
 			imagedestroy($im);
