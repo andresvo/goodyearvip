@@ -239,6 +239,7 @@ Route::any('admin', ['middleware' => 'auth', function(Request $request) {
 
 Route::any('admin/tarjetas', [TarjetaController::class, 'getIndex'])->middleware('auth');
 Route::post('admin/tarjetas/crear', [TarjetaController::class, 'postCrear'])->middleware('auth');
+Route::post('admin/tarjetas/generar', [TarjetaController::class, 'postGenerar']);
 Route::post('admin/tarjetas/descargar', [TarjetaController::class, 'postDescargar']);
 Route::get('admin/tarjetas/exportar/{id_empresa}', [TarjetaController::class, 'exportar']);
 Route::any('admin/disenos', [DisenoController::class, 'getIndex'])->middleware('auth');

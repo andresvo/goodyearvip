@@ -119,7 +119,7 @@
 			<a class="cerrar" href="#" onclick="$('#descargar').hide(); return false;">X</a>
 			Descargar tarjetas de <span id="empresa-descargar"></span>:
 			<div class="bloque">
-				<form action="{{ url('admin/tarjetas/descargar') }}" method="post">
+				<form name="descarga" action="{{ url('admin/tarjetas/descargar') }}" method="post">
 					{{ csrf_field() }}
 					<input type="hidden" value="" name="id_empresa" id="d_id_empresa">
 					Desde:<br>
@@ -137,7 +137,13 @@
 						@endforeach
 						</table>
 					</div>
-					<input type="submit" value="Descargar" name="descargar">
+					<p>Formato:</p>
+					<input type="radio" value="jpg" name="formato" id="formato1" required> <label for="formato1" class="inline">JPG</label> &nbsp;&nbsp;&nbsp;
+					<input type="radio" value="pdf" name="formato" id="formato2" required> <label for="formato2" class="inline">PDF</label>
+					<br>
+					<br>
+					<br>
+					<input type="submit" value="Generar descarga" name="generar">
 				</form>
 			</div>
 		</div>
@@ -170,6 +176,15 @@ function mostrarDescargar(id, nombre, minimo, maximo, sufijo) {
 	$('#empresa-descargar').html(nombre);
 	$('#descargar').show();
 }
+$('form[name=descarga]').submit(function(event) {
+	event.preventDefault();
+	console.log('aaa');
+	const id_empresa = $('#d_id_empresa').val();
+	$.post( "{{ url('admin/tarjetas/generar') }}", { id_empresa })
+	.done(function( data ) {
+		alert( "Load was performed." );
+	});
+})
 </script>
 
 @stop

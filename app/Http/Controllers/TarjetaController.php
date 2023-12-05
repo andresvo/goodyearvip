@@ -97,6 +97,13 @@ class TarjetaController extends Controller
 		return redirect('admin/tarjetas');
 	}
 
+	public function postGenerar(Request $request) {
+		exec('php ' . base_path() . '/artisan tarjetas:imagenes > /dev/null &', $output);
+	
+		// $exitCode = Artisan::call('tarjetas:imagenes');
+		return json_encode($output);
+	}
+
 	public function postDescargar(Request $request) {
 		set_time_limit(120);
 		$id_empresa = intval($request->input('id_empresa'));
