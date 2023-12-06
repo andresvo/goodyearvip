@@ -131,7 +131,7 @@
 						<table border="1">
 						@foreach($disenos as $diseno)
 							<tr>
-								<td><input type="radio" name="diseno" id="diseno{{ $diseno->id }}" value="{{ $diseno->id }}" required> <label for="diseno{{ $diseno->id }}">{{ $diseno->nombre }}</label></td>
+								<td><input type="radio" name="id_diseno" id="diseno{{ $diseno->id }}" value="{{ $diseno->id }}" required> <label for="diseno{{ $diseno->id }}">{{ $diseno->nombre }}</label></td>
 								<td><label for="diseno{{ $diseno->id }}"><img src="{{ $diseno->imagen }}" width="200" alt="Tarjeta"></label></td>
 							</tr>
 						@endforeach
@@ -151,6 +151,12 @@
 
 
 <script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 function renombrarEmpresa(id, nombre) {
 	$('#r_id_empresa').val(id); 
 	$('#r_nombre').val(nombre); 
@@ -179,9 +185,14 @@ function mostrarDescargar(id, nombre, minimo, maximo, sufijo) {
 $('form[name=descarga]').submit(function(event) {
 	event.preventDefault();
 	console.log('aaa');
-	const id_empresa = $('#d_id_empresa').val();
-	$.post( "{{ url('admin/tarjetas/generar') }}", { id_empresa })
+	const id_empresa = $('#descargar input[name=id_empresa]').val();
+	const desde = $('#descargar input[name=desde]').val();
+	const cantidad = $('#descargar input[name=cantidad]').val();
+	const id_diseno = $('#descargar input[name=id_diseno]').val();
+	console.log({ id_empresa, desde, cantidad, id_diseno });
+	$.post( "{{ url('admin/tarjetas/generar') }}", { id_empresa, desde, cantidad, id_diseno })
 	.done(function( data ) {
+		console.log(data);
 		alert( "Load was performed." );
 	});
 })

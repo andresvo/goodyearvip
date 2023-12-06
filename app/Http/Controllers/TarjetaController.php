@@ -98,9 +98,12 @@ class TarjetaController extends Controller
 	}
 
 	public function postGenerar(Request $request) {
-		exec('php ' . base_path() . '/artisan tarjetas:imagenes > /dev/null &', $output);
-	
-		// $exitCode = Artisan::call('tarjetas:imagenes');
+		$id_empresa = intval($request->input('id_empresa'));
+		$desde = intval($request->input('desde'));
+		$cantidad = intval($request->input('cantidad'));
+		$id_diseno = intval($request->input('id_diseno'));
+		exec(implode(' ', ['php', base_path() . '/artisan tarjetas:imagenes', $id_empresa, $desde, $cantidad, $id_diseno, '> /dev/null &']), $output);
+		return implode(' ', ['php', base_path() . '/artisan tarjetas:imagenes', $id_empresa, $desde, $cantidad, $id_diseno, '> /dev/null &']);
 		return json_encode($output);
 	}
 
