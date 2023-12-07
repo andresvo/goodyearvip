@@ -103,41 +103,18 @@ class TarjetaController extends Controller
 		$cantidad = intval($request->input('cantidad'));
 		$id_diseno = intval($request->input('id_diseno'));
 		exec(implode(' ', ['php', base_path() . '/artisan tarjetas:imagenes', $id_empresa, $desde, $cantidad, $id_diseno, '> /dev/null &']), $output);
-		return implode(' ', ['php', base_path() . '/artisan tarjetas:imagenes', $id_empresa, $desde, $cantidad, $id_diseno, '> /dev/null &']);
 		return json_encode($output);
 	}
 
+	public function getGenerarProgreso() {
+		return file_get_contents(storage_path('logs/bg.log'));
+	}
+
 	public function postDescargar(Request $request) {
-		set_time_limit(120);
 		$id_empresa = intval($request->input('id_empresa'));
 		$desde = intval($request->input('desde'));
 		$cantidad = intval($request->input('cantidad'));
-		$id_diseno = intval($request->input('diseno'));
-		$empresa = Empresa::find($id_empresa);
-		$codigo = 'GY' . str_pad($desde, 4, '0', STR_PAD_LEFT) . $empresa->sufijo;
-		$tarjetas = Tarjeta::where('tipo', 1)->where('id_empresa', $id_empresa)
-		->where('numero', '>=', $desde)->take($cantidad)->get();
-		$diseno = Diseno::find($id_diseno);
-		$resp = [];
-		$fuente = storage_path('app/tarjeta/OpenSans-SemiBold.ttf');
-		foreach($tarjetas as $tarjeta) {
-			$im = imagecreatefrompng(storage_path('app/' . $diseno->archivo));
-			$negro = imagecolorallocate($im, 0, 0, 0);
-			imagettftext($im, 24, 0, 350 , 223, $negro, $fuente, $tarjeta->codigo);
-			imagepng($im, storage_path('app/public/' . $tarjeta->codigo . '.png'));
-			imagedestroy($im);
-			$resp[] = $tarjeta->codigo;
-		}
-		$zip = new ZipArchive;
-		if ($zip->open(storage_path('app/public/tarjetas.zip'), ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
-			foreach($resp as $filename) {
-				$zip->addFile(storage_path('app/public/' . $filename . '.png'), $filename . '.png');
-			}
-			$zip->close();
-			foreach($resp as $filename) {
-				unlink(storage_path('app/public/' . $filename . '.png'));
-			}
-		}
+        $empresa = Empresa::find($id_empresa);
 		$zip_filename = 'tarjetas-' . $empresa->sufijo . '-' . $desde . '-' . ($desde + $cantidad -1) . '.zip';
 		return response()->download(storage_path('app/public/tarjetas.zip'), $zip_filename, ['Content-Type' => 'application/octet-stream']);
 	}

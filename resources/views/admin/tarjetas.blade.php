@@ -138,12 +138,13 @@
 						</table>
 					</div>
 					<p>Formato:</p>
-					<input type="radio" value="jpg" name="formato" id="formato1" required> <label for="formato1" class="inline">JPG</label> &nbsp;&nbsp;&nbsp;
-					<input type="radio" value="pdf" name="formato" id="formato2" required> <label for="formato2" class="inline">PDF</label>
+					<input type="radio" value="jpg" name="formato" id="formato1" checked required> <label for="formato1" class="inline">JPG</label> &nbsp;&nbsp;&nbsp;
+					<!-- <input type="radio" value="pdf" name="formato" id="formato2" required> <label for="formato2" class="inline">PDF</label> -->
 					<br>
 					<br>
 					<br>
 					<input type="submit" value="Generar descarga" name="generar">
+					<p class="progreso" style="display:none">Generando imágenes... (<span>0</span>%)</p>
 				</form>
 			</div>
 		</div>
@@ -173,6 +174,9 @@ function mostrarCrearCodigo(id, nombre) {
 	$('#crearcodigo').show();
 }
 function mostrarDescargar(id, nombre, minimo, maximo, sufijo) {
+	descargaLista = false;
+	$( ".progreso" ).hide();
+	$( ".progreso span" ).html('0');
 	minimo = parseInt(minimo.replace(sufijo, '').replace('GY', ''));
 	maximo = parseInt(maximo.replace(sufijo, '').replace('GY', ''));
 	$('#d_id_empresa').val(id);
@@ -182,20 +186,36 @@ function mostrarDescargar(id, nombre, minimo, maximo, sufijo) {
 	$('#empresa-descargar').html(nombre);
 	$('#descargar').show();
 }
+
+var intervalID;
+var descargaLista = false;
+
 $('form[name=descarga]').submit(function(event) {
-	event.preventDefault();
-	console.log('aaa');
-	const id_empresa = $('#descargar input[name=id_empresa]').val();
-	const desde = $('#descargar input[name=desde]').val();
-	const cantidad = $('#descargar input[name=cantidad]').val();
-	const id_diseno = $('#descargar input[name=id_diseno]').val();
-	console.log({ id_empresa, desde, cantidad, id_diseno });
-	$.post( "{{ url('admin/tarjetas/generar') }}", { id_empresa, desde, cantidad, id_diseno })
-	.done(function( data ) {
-		console.log(data);
-		alert( "Load was performed." );
-	});
+	if(!descargaLista) {
+		event.preventDefault();
+		$( "#descargar input[type=submit]" ).prop('disabled', true);
+		const id_empresa = $('#descargar input[name=id_empresa]').val();
+		const desde = $('#descargar input[name=desde]').val();
+		const cantidad = $('#descargar input[name=cantidad]').val();
+		const id_diseno = $('#descargar input[name=id_diseno]').val();
+		$('.progreso').show();
+		$.post( "{{ url('admin/tarjetas/generar') }}", { id_empresa, desde, cantidad, id_diseno })
+		.done(function( data ) {
+			intervalID = setInterval(getProgreso, 1000);
+		});
+	}
 })
+
+function getProgreso() {
+	$.get( "{{ url('admin/tarjetas/generar/progreso') }}", function( data ) {
+		$( ".progreso span" ).html( data );
+		if(data == '100') {
+			clearInterval(intervalID);
+			$( "#descargar input[type=submit]" ).prop('disabled', false).val( 'Descargar' );
+			descargaLista = true;
+		}
+	});
+}
 </script>
 
 @stop
