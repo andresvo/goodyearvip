@@ -138,8 +138,8 @@
 						</table>
 					</div>
 					<p>Formato:</p>
-					<input type="radio" value="jpg" name="formato" id="formato1" checked required> <label for="formato1" class="inline">JPG</label> &nbsp;&nbsp;&nbsp;
-					<!-- <input type="radio" value="pdf" name="formato" id="formato2" required> <label for="formato2" class="inline">PDF</label> -->
+					<input type="radio" value="png" name="formato" id="formato1" checked required> <label for="formato1" class="inline">PNG</label> &nbsp;&nbsp;&nbsp;
+					<input type="radio" value="pdf" name="formato" id="formato2" required> <label for="formato2" class="inline">PDF</label>
 					<br>
 					<br>
 					<br>
@@ -183,6 +183,7 @@ function mostrarDescargar(id, nombre, minimo, maximo, sufijo) {
 	$('#descargar input[name=desde]').val(minimo);
 	$('#descargar input[name=desde]').attr('max', maximo);
 	$('#descargar input[name=cantidad]').val('1');
+	$('#descargar input[type=submit]').val( 'Generar descarga' );
 	$('#empresa-descargar').html(nombre);
 	$('#descargar').show();
 }
@@ -198,13 +199,23 @@ $('form[name=descarga]').submit(function(event) {
 		const desde = $('#descargar input[name=desde]').val();
 		const cantidad = $('#descargar input[name=cantidad]').val();
 		const id_diseno = $('#descargar input[name=id_diseno]').val();
+		const formato = $('#descargar input[name=formato]:checked').val();
 		$('.progreso').show();
-		$.post( "{{ url('admin/tarjetas/generar') }}", { id_empresa, desde, cantidad, id_diseno })
+		$.post( "{{ url('admin/tarjetas/generar') }}", { id_empresa, desde, cantidad, id_diseno, formato })
 		.done(function( data ) {
 			intervalID = setInterval(getProgreso, 1000);
 		});
 	}
 })
+
+$('form[name=descarga] input').change(function() {
+	if(descargaLista) {
+		$( "#descargar input[type=submit]" ).prop('disabled', false).val( 'Generar descarga' );
+		descargaLista = false;
+		$( ".progreso" ).hide();
+		$( ".progreso span" ).html('0');
+	}
+});
 
 function getProgreso() {
 	$.get( "{{ url('admin/tarjetas/generar/progreso') }}", function( data ) {

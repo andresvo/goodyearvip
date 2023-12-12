@@ -108,7 +108,9 @@ class TarjetaController extends Controller
 		$desde = intval($request->input('desde'));
 		$cantidad = intval($request->input('cantidad'));
 		$id_diseno = intval($request->input('id_diseno'));
-		exec(implode(' ', ['php', base_path() . '/artisan tarjetas:pdf', $id_empresa, $desde, $cantidad, $id_diseno, '> /dev/null &']), $output);
+		$formato = $request->input('formato');
+		$command = $formato === 'png'? 'imagenes' : 'pdf';
+		exec(implode(' ', ['php', base_path() . '/artisan tarjetas:' . $command, $id_empresa, $desde, $cantidad, $id_diseno, '> /dev/null &']), $output);
 		return json_encode($output);
 	}
 
