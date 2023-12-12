@@ -10,6 +10,7 @@ use App\Models\Diseno;
 use App\Models\Empresa;
 use ZipArchive;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Query\JoinClause;
 use App\Exports\TarjetasExport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -17,9 +18,14 @@ class TarjetaController extends Controller
 {
     public function getIndex() {
 		if(Auth::user()->profile == 2) {
-			$empresas = DB::select( DB::raw("SELECT e.*, count(t.id) as tarjetas, min(numero) as minimo, max(numero) as maximo
-				FROM empresa e LEFT JOIN tarjeta t ON t.id_empresa = e.id AND t.tipo = 1
-				GROUP BY e.id ORDER BY e.id") );
+			$empresas = Empresa::selectRaw('empresa.*, count(tarjeta.id) as tarjetas, min(tarjeta.numero) as minimo, max(tarjeta.numero) as maximo')
+				->leftJoin('tarjeta', function (JoinClause $join) {
+					$join->on('tarjeta.id_empresa', '=', 'empresa.id')
+						 ->where('tarjeta.tipo', 1);
+				})
+				->groupBy('empresa.id')
+				->orderBy('empresa.id')
+				->get();
 			$codigos = Tarjeta::where('tipo', '=', 2)->get();
 			$codempresa = array();
 			foreach ($codigos as $key => $row) {

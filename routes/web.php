@@ -219,12 +219,21 @@ Route::any('admin', ['middleware' => 'auth', function(Request $request) {
 	if(Auth::user()->profile == 2) {
 		$where = '';
         $id_empresa = $request->input('id_empresa');
-		if($id_empresa) $where .= ' AND tarjeta.id_empresa = ' . intval($id_empresa);
         $id_usuario = $request->input('id_usuario');
-		if($id_usuario) $where .= ' AND compra.id_usuario = ' . intval($id_usuario);
 
-		$compras = DB::select( DB::raw("SELECT compra.id, usuario.email, medida.nombre AS mnombre, producto.nombre AS pnombre, cantidad, tarjeta.codigo, compra.created_at FROM compra JOIN usuario ON compra.id_usuario = usuario.id JOIN medida ON compra.id_medida = medida.id JOIN producto ON medida.id_producto = producto.id JOIN tarjeta ON compra.id_tarjeta = tarjeta.id WHERE YEAR(compra.created_at) > 2021 $where ORDER BY compra.id DESC") );
+		$compras = App\Models\Compra::join('usuario', 'compra.id_usuario', '=', 'usuario.id')
+            ->join('medida', 'compra.id_medida', '=', 'medida.id')
+            ->join('producto', 'medida.id_producto', '=', 'producto.id')
+            ->join('tarjeta', 'compra.id_tarjeta', '=', 'tarjeta.id')
+            ->whereYear('compra.created_at', '>', '2021')
+            ->select('compra.id', 'usuario.email', 'medida.nombre AS mnombre', 'producto.nombre AS pnombre', 'cantidad', 'tarjeta.codigo', 'compra.created_at')
+            ->orderBy('compra.id', 'DESC');
 
+        if($id_empresa) $compras->where('tarjeta.id_empresa', intval($id_empresa));
+        if($id_usuario) $compras->where('compra.id_usuario', intval($id_usuario));
+
+        $compras = $compras->get();
+    
         $empresas = App\Models\Empresa::all();
 		$opcionesemp = array('' => 'Todas las empresas');
 		foreach($empresas as $e) $opcionesemp[$e->id] = $e->nombre;
