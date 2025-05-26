@@ -16,11 +16,16 @@ class ComprasExport implements FromArray, WithHeadings, ShouldAutoSize, WithEven
 
 	public function array(): array
     {
-		$where = 'WHERE YEAR(compra.created_at) > 2021';
-		if($this->id_empresa != null) $where .= ' AND tarjeta.id_empresa = ' . intval($this->id_empresa);
+		$compras = Compra::join('usuario', 'compra.id_usuario', '=', 'usuario.id')
+			->join('medida', 'compra.id_medida', '=', 'medida.id')
+			->join('producto', 'medida.id_producto', '=', 'producto.id')
+			->join('tarjeta', 'compra.id_tarjeta', '=', 'tarjeta.id')
+			->whereRaw('YEAR(compra.created_at) > 2021');
+		if($this->id_empresa != null) $compras->where('tarjeta.id_empresa', '=', $this->id_empresa);
 
-		$compras = DB::select( DB::raw("SELECT usuario.email, medida.nombre AS mnombre, producto.nombre AS pnombre, cantidad, tarjeta.codigo, compra.created_at, precio, boleta, factura, medida.sku FROM compra JOIN usuario ON compra.id_usuario = usuario.id JOIN medida ON compra.id_medida = medida.id JOIN producto ON medida.id_producto = producto.id JOIN tarjeta ON compra.id_tarjeta = tarjeta.id $where ORDER BY compra.id DESC") );
-		
+		$compras = $compras->orderBy('compra.id', 'DESC')
+			->select('usuario.email', 'medida.nombre AS mnombre', 'producto.nombre AS pnombre', 'cantidad', 'tarjeta.codigo', 'compra.created_at', 'precio', 'boleta', 'factura', 'medida.sku')
+			->get();
 		foreach($compras as $c) {
 			$sheet[] = [$c->email, $c->pnombre, $c->mnombre, $c->cantidad, $c->codigo, $c->precio, $c->boleta, $c->factura, $c->created_at, $c->sku, round($c->precio * 0.12)];
 		}
