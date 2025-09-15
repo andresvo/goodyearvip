@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Query\JoinClause;
 use App\Exports\TarjetasExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Log;
 
 class TarjetaController extends Controller
 {
@@ -111,6 +112,7 @@ class TarjetaController extends Controller
 		$formato = $request->input('formato');
 		$command = $formato === 'png'? 'imagenes' : 'pdf';
 		exec(implode(' ', ['php', base_path() . '/artisan tarjetas:' . $command, $id_empresa, $desde, $cantidad, $id_diseno, '> /dev/null &']), $output);
+		Log::debug(implode(' ', ['php', base_path() . '/artisan tarjetas:' . $command, $id_empresa, $desde, $cantidad, $id_diseno, '> /dev/null &']));
 		return json_encode($output);
 	}
 
@@ -122,8 +124,9 @@ class TarjetaController extends Controller
 		$id_empresa = intval($request->input('id_empresa'));
 		$desde = intval($request->input('desde'));
 		$cantidad = intval($request->input('cantidad'));
-        $empresa = Empresa::find($id_empresa);
-		$zip_filename = 'tarjetas-' . $empresa->sufijo . '-' . $desde . '-' . ($desde + $cantidad -1) . '.zip';
+		$id_diseno = intval($request->input('id_diseno'));
+		$empresa = Empresa::find($id_empresa);
+		$zip_filename = 'tarjetas-' . $empresa->sufijo . '-' . $id_diseno . '-' . $desde . '-' . ($desde + $cantidad -1) . '.zip';
 		return response()->download(storage_path('app/public/tarjetas.zip'), $zip_filename, ['Content-Type' => 'application/octet-stream']);
 	}
 
