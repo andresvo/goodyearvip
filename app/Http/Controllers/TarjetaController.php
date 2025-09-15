@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Query\JoinClause;
 use App\Exports\TarjetasExport;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Log;
 
 class TarjetaController extends Controller
 {
@@ -112,7 +111,6 @@ class TarjetaController extends Controller
 		$formato = $request->input('formato');
 		$command = $formato === 'png'? 'imagenes' : 'pdf';
 		exec(implode(' ', ['php', base_path() . '/artisan tarjetas:' . $command, $id_empresa, $desde, $cantidad, $id_diseno, '> /dev/null &']), $output);
-		Log::debug(implode(' ', ['php', base_path() . '/artisan tarjetas:' . $command, $id_empresa, $desde, $cantidad, $id_diseno, '> /dev/null &']));
 		return json_encode($output);
 	}
 

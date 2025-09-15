@@ -198,7 +198,7 @@ $('form[name=descarga]').submit(function(event) {
 		const id_empresa = $('#descargar input[name=id_empresa]').val();
 		const desde = $('#descargar input[name=desde]').val();
 		const cantidad = $('#descargar input[name=cantidad]').val();
-		const id_diseno = $('#descargar input[name=id_diseno]').val();
+		const id_diseno = $('#descargar input[name=id_diseno]:checked').val();
 		const formato = $('#descargar input[name=formato]:checked').val();
 		$('.progreso').show();
 		$.post( "{{ url('admin/tarjetas/generar') }}", { id_empresa, desde, cantidad, id_diseno, formato })
