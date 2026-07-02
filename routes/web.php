@@ -19,41 +19,13 @@ use App\Http\Controllers\DisenoController;
 Route::get('/', function() {
     $regiones = App\Models\Region::orderBy('numero')->get();
     return View::make('region')->with('regiones', $regiones);
-});
-
-Route::get('migrate', function() {
-	define('STDIN',fopen("php://stdin","r"));
-	$output = Artisan::call('migrate', ['--quiet' => true, '--force' => true]);
-	dd($output);
-});
-
-Route::get('ciudad/listar/{id_region}', function($id_region)
-{
-    $ciudades = App\Models\Ciudad::where('id_region', '=', $id_region)->orderBy('nombre')->get();
-    return response()->json($ciudades);
-});
-
-Route::get('comuna/listar/{id_ciudad}', function($id_ciudad)
-{
-    $comunas = App\Models\Comuna::where('id_ciudad', '=', $id_ciudad)->orderBy('nombre')->get();
-    return response()->json($comunas);
-});
+})->name('home');
 
 Route::post('distribuidores', function(Request $request)
 {
 	$comuna = $request->input('comuna');
     $distribuidores = App\Models\Distribuidor::leftJoin('comuna', 'comuna.id', '=', 'distribuidor.id_comuna')->where('id_comuna','=',$comuna)->select('distribuidor.*', 'comuna.nombre AS comuna')->get();
     return view('distribuidor')->with('distribuidores', $distribuidores);
-});
-
-Route::get('la-tarjeta-vip', function()
-{
-    return view('la-tarjeta-vip');
-});
-
-Route::get('como-funciona', function()
-{
-    return view('como-funciona');
 });
 
 Route::get('bases', function()
@@ -133,17 +105,17 @@ Route::any('serviteca', ['middleware' => 'auth', function(Request $request) {
 	return view('serviteca', array('codigo' => $codigo, 'mensaje' => $mensaje, 'productos' => $productos, 'cupo' => $cupo, 'id_tarjeta' => $id_tarjeta));
 }]);
 
-Route::get('usuario/crear/{email}/{pwd}/{id_distribuidor}', function($email, $pwd, $id_distribuidor)
-{
-	$password = Hash::make($pwd);
-	$user = new App\Models\User;
-	$user->name = 'Prueba';
-	$user->email = $email;
-	$user->password = $password;
-	$user->id_distribuidor = $id_distribuidor;
-	$user->save();
-	return 'Ok';
-});
+// Route::get('usuario/crear/{email}/{pwd}/{id_distribuidor}', function($email, $pwd, $id_distribuidor)
+// {
+// 	$password = Hash::make($pwd);
+// 	$user = new App\Models\User;
+// 	$user->name = 'Prueba';
+// 	$user->email = $email;
+// 	$user->password = $password;
+// 	$user->id_distribuidor = $id_distribuidor;
+// 	$user->save();
+// 	return 'Ok';
+// });
 
 // Route::get('usuario/cambiarpwd/{email}/{pwd}', function($email, $pwd)
 // {
@@ -153,12 +125,6 @@ Route::get('usuario/crear/{email}/{pwd}/{id_distribuidor}', function($email, $pw
 // 	$user->save();
 // 	return 'Ok';
 // });
-
-Route::get('medida/listar/{id_producto}', function($id_producto)
-{
-    $medidas = App\Models\Medida::where('activo',1)->where('id_producto', '=', $id_producto)->orderBy('nombre')->get();
-    return response()->json($medidas);
-});
 
 Route::post('compra/revisar', ['middleware' => 'auth', function(Request $request) {
 	$id_tarjeta = $request->input('id_tarjeta');

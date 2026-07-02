@@ -4,33 +4,15 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="icon" href="favicon.ico">
 
   <title>Cliente VIP Goodyear</title>
 
-  <!-- Bootstrap core CSS -->
-	<link rel="stylesheet"  href="{{ asset('dist/css/bootstrap.css') }}" type="text/css" media="all" />
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<link rel="stylesheet"  href="{{ asset('assets/css/ie10-viewport-bug-workaround.css') }}" type="text/css" media="all" />
-
-  <!-- Custom styles for this template -->
-	<link rel="stylesheet"  href="{{ asset('assets/css/main.css?v=9') }}" type="text/css" media="all" />
+	@vite('resources/css/app.css')
 
 	<script type="text/javascript" src="{{ asset('jquery-1.11.1.min.js') }}"></script>
-
-  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-  <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-	<script type="text/javascript" src="{{ asset('assets/js/ie-emulation-modes-warning.js') }}"></script>
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyA5HcGlu9gQbQRE3THOh7KvWK5Q_9kod0Q"></script>
 <script>
     var styles = [
@@ -65,37 +47,18 @@
 <body>
 <?php $ruta = Request::url(); $sufijo = ''; ?>
 
-	<header>
-		PROGRAMA CLIENTE VIP <img src="{{ asset('assets/img/Logo gy arriba.svg') }}" alt="Goodyear">
+	<header class="flex justify-center items-center gap-x-4 pt-4 pb-6">
+		<h1 class="text-3xl font-normal pt-2">Programa <strong>CLIENTE VIP</strong></h1> <img class="w-60" src="{{ asset('img/logo-goodyear.svg') }}" alt="Goodyear">
 	</header>
-	<div class="background-person"></div>
-	<div class="background-fondo-superior">
-		@yield('content')
-	</div>
+
+  @yield('content')
 
 	<footer class="footer">
-		<div class="menu">
-			<a href="{{ url('/') }}"><img class="btn-menu <?php if($ruta == 'compra-en-servitecas') echo 'btn-active'; ?>" src="{{asset('assets/img/Artboard 18.svg')}}"></a>
-			<a href="{{ url('/bases') }}"><img class="btn-menu <?php if($ruta == 'bases') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_bases.svg')}}"></a>
-			<a href="{{ url('/contacto') }}"><img class="btn-menu <?php if($ruta == 'contacto') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_contactanos.svg')}}"></a>
-			<a href="{{ url('/serviteca') }}"><img class="btn-menu <?php if($ruta == 'serviteca' || $ruta == 'login' || $ruta == 'compra/revisar' || $ruta == 'venta') echo 'btn-active'; ?>" src="{{asset('assets/img/Menu_usuarios.svg')}}" /></a>
-		</div>
 		<div class="franja-blanca">
 			Cliente Vip es un programa exclusivo para clientes Goodyear
 		</div>
-		<div class="abajo">
-			<img src="{{ asset('assets/img/Logo gy arriba.svg') }}" alt="Goodyear">
-		</div>
 	</footer>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="dist/js/bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="assets/js/ie10-viewport-bug-workaround.js"></script>
 <script type="text/javascript"></script>
 <script>
   $(function () {

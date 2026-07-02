@@ -90,7 +90,7 @@
        (function() {
           $("#producto").change(function() {
              $.ajax({
-                url: '{{ URL::to('/medida/listar') }}/' + $("#producto").val(),
+                url: '{{ url('api/medida/listar') }}/' + $("#producto").val(),
                 type: 'GET',
                 dataType: 'JSON',
                 beforeSend: function() {

@@ -1,0 +1,295 @@
+@import "tailwindcss";
+
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../storage/framework/views/*.php";
+@source "../**/*.blade.php";
+@source "../**/*.js";
+
+@theme {
+    --color-primary: #082858;
+    --color-black: #221f20;
+    --color-gray: #707379;
+    --color-gold: #ffbe00;
+    --color-light-gray: rgba(77, 77, 77, 0.36);
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    font-family: "pt-sans", sans-serif;
+}
+header {
+    background: var(--color-black);
+    color: #fff;
+}
+
+.franja-blanca {
+    background-color: #fff;
+    color: var(--color-light-gray);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    padding: 20px 0;
+    padding-top: 30px;
+    text-align: center;
+    height: 70px;
+}
+
+.abajo {
+    background-color: #0c0c0c;
+    text-align: center;
+    height: 110px;
+    padding-top: 23px;
+}
+.abajo img {
+    width: 250px;
+}
+
+@font-face {
+    font-family: "pt-sans";
+    font-weight: normal;
+    src: url("../fonts/PTSans-Regular-01.woff2");
+}
+@font-face {
+    font-family: "pt-sans";
+    font-weight: bold;
+    src: url("../fonts/PTSans-Bold-08.woff2");
+}
+@font-face {
+    font-family: "pt-sans";
+    font-weight: bold;
+    font-style: italic;
+    src: url("../fonts/PTSans-BoldItalic-07.woff2");
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+
+h3 {
+    text-transform: uppercase;
+    font-size: 30px;
+}
+
+h4 {
+    letter-spacing: 1.2px;
+    margin: 20px 0;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.background-person {
+    background: url("../img/fondo1-d.jpg");
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.background-fondo-superior {
+    background: url("../img/foto fondo neumatico.jpg");
+    background-position: left top;
+    background-size: cover;
+}
+
+.distribuidores {
+    width: 425px;
+}
+
+.distribuidores > div {
+    width: 178px;
+    height: 295px;
+    float: left;
+    min-height: 79px;
+    padding: 5px 6px;
+    margin: 15px;
+    background-color: #ffdd00;
+    font-size: 9pt;
+    border-radius: 12px;
+    text-align: left;
+    display: table-cell;
+    vertical-align: middle;
+    color: #000;
+}
+
+.distribuidores p {
+    text-align: center;
+}
+
+.distribuidores p a {
+    color: #052c7d;
+    font-weight: bold;
+    margin-top: 3px;
+    display: block;
+}
+
+.mapa {
+    width: 166px;
+    height: 160px;
+}
+
+.menu {
+    margin-top: -20px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.menu a {
+    background-color: var(--color-primary);
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-style: italic;
+    transition: all 0.2s ease-in-out;
+    width: 180px;
+    height: 42px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 30px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu a.btn-active {
+    background-color: var(--color-gold);
+    color: var(--color-primary);
+}
+
+.menu a:hover {
+    transform: translate(0, -0.3em);
+}
+
+.btn {
+    font-size: 30px;
+    background-color: var(--color-gray);
+    color: white;
+    border-radius: 50px;
+    width: 100%;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-top: 5px;
+}
+
+.glb-01 {
+    position: absolute;
+    background-image: url("../img/globo-01.png");
+    width: 258px;
+    height: 45px;
+    background-position: left top;
+    background-repeat: no-repeat;
+    margin-top: -42px;
+    left: -100px;
+}
+
+.icon-float {
+    float: right;
+    margin-top: 10px;
+}
+
+.icon-carro {
+    width: 50px;
+}
+
+.icon-ctn {
+    width: 120px;
+    vertical-align: text-top;
+    margin-left: 20px;
+}
+
+.icon-tarjeta {
+    width: 50px;
+    vertical-align: sub;
+    margin-left: 10px;
+}
+
+.icon-bases {
+    width: 30px;
+    vertical-align: baseline;
+    margin-left: 10px;
+}
+
+.icon-carta {
+    width: 38px;
+    vertical-align: baseline;
+    margin-left: 10px;
+    position: relative;
+    top: 5px;
+}
+
+.form-pasos {
+    width: 365px;
+}
+
+.form-contacto {
+    max-width: 340px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--color-gray);
+    color: var(--color-gray);
+    font-size: 20px;
+}
+
+input[type="radio"] {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 2px solid white;
+    border-radius: 50%;
+    outline: none;
+    background: #fff;
+}
+
+input[type="radio"]:before {
+    content: "";
+    display: block;
+    width: 14px;
+    height: 14px;
+    margin-top: -2px;
+    margin-left: -2px;
+    border-radius: 50%;
+}
+
+input[type="radio"]:checked:before {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #ffc200;
+    border-radius: 50%;
+    outline: none;
+    background: #ffc200;
+}
+
+.contacto-ctn {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    font-size: 11px;
+}
+
+.contacto-ctn li {
+    display: inline-block;
+    white-space: nowrap;
+    margin-right: 15px;
+}
+
+.contacto-ctn img {
+    float: left;
+    width: 20px;
+    margin-right: 5px;
+    padding-bottom: 10px;
+}
