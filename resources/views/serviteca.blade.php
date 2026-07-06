@@ -4,8 +4,9 @@
 
 <main class="grid lg:grid-cols-3">
 	<div class="lg:col-span-2">
-		<div class="background-login lg:aspect-[1.6]"></div>
+		<div class="hidden lg:block background-login aspect-[1.6]"></div>
 		<x-menu></x-menu>
+		<div class="lg:hidden background-login aspect-[2.1]"></div>
 	</div>
 	<div class="p-8">
 

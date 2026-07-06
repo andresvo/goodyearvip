@@ -47,11 +47,7 @@
 <body>
 <?php $ruta = Request::url(); $sufijo = ''; ?>
 
-	<header class="flex justify-center items-center pt-4 pb-6">
-		<a href="{{ url('/') }}" class="flex justify-center items-center gap-x-4">
-			<h1 class="text-3xl font-normal pt-2">Programa <strong>CLIENTE VIP</strong></h1> <img class="w-60" src="{{ asset('img/logo-goodyear.svg') }}" alt="Goodyear">
-		</a>
-	</header>
+  <x-header />
 
   @yield('content')
 
@@ -60,15 +56,6 @@
 			Cliente Vip es un programa exclusivo para clientes Goodyear
 		</div>
 	</footer>
-
-<script type="text/javascript"></script>
-<script>
-  $(function () {
-    $('#opcion4').tooltip({
-      template:'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner glb-01"></div></div>'
-    })
-  })
-</script>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
