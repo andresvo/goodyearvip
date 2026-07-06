@@ -2,14 +2,21 @@
 
 @section('content')
 
-<div class="container form-pasos">
+<main class="grid lg:grid-cols-3">
+	<div class="lg:col-span-2">
+		<div class="background-login lg:aspect-[1.6]"></div>
+		<x-menu></x-menu>
+	</div>
+	<div class="p-8">
 	@if(isset($ingresada))
 		<h3>Listo</h3>
-		<p class="error">
-			<a href="{{ URL::to('/serviteca') }}" class="x"></a>
+		<p class="my-8">
 			<span>La venta ha sido registrada</span>
 		</p>
-			<p><a href="{{ URL::to('/logout') }}" class="fuera">Cerrar sesión</a></p>
+		<p class="flex gap-x-4">
+			<a href="{{ url('/serviteca') }}" class="bg-gold text-black rounded-full px-4 py-2 mr-4">Registrar otra venta</a>
+			<a href="{{ url('/logout') }}" class="bg-black text-white rounded-full px-4 py-2">Cerrar sesión</a>
+		</p>
 
 	@else
 		<h3>Paso 4<br><b>Confirmación</b></h3>
@@ -18,7 +25,7 @@
 
 		<div class="row">
 		<div class="form-group col-md-12">
-			<a href="{{ URL::to('/serviteca') }}" class="x" onclick="$('#volver').submit();return false"></a>
+			<a href="{{ url('/serviteca') }}" class="x" onclick="$('#volver').submit();return false"></a>
 			<div id="revisar">
 			<table class="revisar">
 				<tr>
@@ -63,6 +70,6 @@
 		</form>
 
 	@endif
-</div>
+</main>
 
 @stop

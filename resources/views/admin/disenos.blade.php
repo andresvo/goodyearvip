@@ -2,11 +2,8 @@
 
 @section('content')
 
-<div class="filtro">
-	<div><strong>Diseños de Tarjeta</strong></div>
-
-</div>
-	<p><a href="#" onclick="$('#nuevodiseno').show()">Nuevo diseño</a></p>
+<div class="mb-8">
+	<p class="my-8"><a href="#" onclick="$('#nuevodiseno').show()" class="bg-black text-white px-4 py-2 rounded-full inline-block">Nuevo diseño</a></p>
 
 	@if ($errors->any())
     <div class="alert alert-danger">
@@ -54,8 +51,8 @@
 					Nombre:<br>
 					<input type="text" value="" id="nombre" name="nombre" required><br>
 					Imagen (PNG 720px de ancho):<br>
-					<input name="imagen" type="file" accept=".png" required /><br><br>
-					<input type="submit" value="Crear" name="nuevodiseno">
+					<input name="imagen" type="file" class="file:py-2 file:px-2 file:rounded-full file:bg-gold file:text-black file:border-0" accept=".png" required /><br><br>
+					<input type="submit" value="Crear" name="nuevodiseno" class="bg-black text-white px-4 py-2 rounded-full inline-block">
 				</form>
 			</div>
 		</div>
@@ -71,13 +68,13 @@
 					{{ csrf_field() }}
 					<input type="hidden" value="" name="id" id="r_id_diseno">
 					<input type="text" value="" id="r_nombre" name="nombre">
-					<input type="submit" value="Guardar" name="guardar">
+					<input type="submit" value="Guardar" name="guardar" class="bg-black text-white px-4 py-2 rounded-full inline-block">
 				</form>
 			</div>
 		</div>
 	</div>
 
-	
+</div>
 
 <script>
 function renombrarDiseno(id, nombre) {

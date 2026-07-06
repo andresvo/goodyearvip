@@ -3,11 +3,10 @@
 @section('content')
 
 <div class="filtro">
-	<div><a href="{{ URL::to('admin/productos') }}">Productos</a> &gt; <strong>Medidas de {{ $producto->nombre }}</strong></div>
+	<div class="my-8"><a href="{{ url('admin/productos') }}">Productos</a> &gt; <strong>Medidas de {{ $producto->nombre }}</strong></div>
 
-</div>
-	<p>
-		<a href="#" onclick="$('#nuevamed').show()">Nueva medida</a>
+	<p class="my-8">
+		<a href="#" onclick="$('#nuevamed').show()" class="bg-black text-white px-4 py-2 rounded-full inline-block">Nueva medida</a>
 	</p>
 
 	@if(count($medidas) == 0)
@@ -25,7 +24,7 @@
 		@foreach($medidas as $medida)
 		<tr>
 			<td><a href="#" onclick="$('#r_id_medida').val({{ $medida->id }}); $('#renombrar').show()" class="linkoculto">{{ $medida->nombre }}</a></td>
-			<td><a href="{{ URL::to('admin/medida/eliminar/'.$medida->id) }}" onclick="return confirm('¿Seguro que desea eliminar?')">Eliminar</a></td>
+			<td><a href="{{ url('admin/medida/eliminar/'.$medida->id) }}" onclick="return confirm('¿Seguro que desea eliminar?')">Eliminar</a></td>
 		</tr>
 		@endforeach
 		</table>
@@ -41,7 +40,7 @@
 					{{ csrf_field() }}
 					<input type="hidden" value="{{ $producto->id }}" name="id_producto">
 					Nombre: <input type="text" value="" id="nombre" name="nombre">
-					<input type="submit" value="Crear" name="nuevamed">
+					<input type="submit" value="Crear" name="nuevamed" class="bg-black text-white px-4 py-2 rounded-full inline-block">
 				</form>
 			</div>
 		</div>
@@ -56,10 +55,11 @@
 				<form action="{{ url('admin/producto/renombrar') }}" method="post">
 					<input type="hidden" value="" name="id" id="r_id_medida">
 					<input type="text" value="" id="nombre" name="nombre">
-					<input type="submit" value="Guardar" name="guardar">
+					<input type="submit" value="Guardar" name="guardar" class="bg-black text-white px-4 py-2 rounded-full inline-block">
 				</form>
 			</div>
 		</div>
 	</div>
+</div>
 
 @stop

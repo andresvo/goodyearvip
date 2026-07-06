@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Goodyear VIP</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=0.8">
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
-	<link rel="stylesheet"  href="{{ asset('principal.css?v=7') }}" type="text/css" media="all" />
+  <title>Cliente VIP Goodyear</title>
+
+	@vite('resources/css/app.css')
+
 	<script type="text/javascript" src="{{ asset('jquery-1.11.1.min.js') }}"></script>
 </head>
 <body>
 
-<div class="contenido">
-	<p style="float:right">
-		<a href="{{ URL::to('/logout') }}">Cerrar sesión</a>
-	</p>
-	<h2>Administrador</h2>
+	<header class="flex justify-center items-center pt-4 pb-6">
+		<a href="{{ url('/') }}" class="flex justify-center items-center gap-x-4">
+			<h1 class="text-3xl font-normal pt-2">Programa <strong>CLIENTE VIP</strong></h1> <img class="w-60" src="{{ asset('img/logo-goodyear.svg') }}" alt="Goodyear">
+		</a>
+	</header>
 
-	<nav>
-		<a class="{{ (substr(url()->current(), -5) == 'admin')? 'active' : '' }}" href="{{ URL::to('admin') }}">Ventas</a>
-		<a class="{{ (strstr(url()->current(), 'tarjetas') !== false)? 'active' : '' }}" href="{{ URL::to('admin/tarjetas') }}">Tarjetas</a>
-		<a class="{{ (strstr(url()->current(), 'disenos') !== false)? 'active' : '' }}" href="{{ URL::to('admin/disenos') }}">Diseños Tarjetas</a>
-		<a class="{{ (strstr(url()->current(), 'concurso') !== false)? 'active' : '' }}" href="{{ URL::to('admin/concurso') }}">Concurso</a>
-		<a class="{{ (strstr(url()->current(), 'productos') !== false)? 'active' : '' }}" href="{{ URL::to('admin/productos') }}">Productos</a>
-	</nav>
+<main class="contenido mx-auto max-w-5xl">
+	<div class="flex justify-between gap-x-4 my-4">
+		<h2 class="bg-gray rounded-full p-2 text-3xl text-white text-center uppercase flex-1">Administrador</h2>
+		<a href="{{ url('logout') }}" class="bg-black text-white rounded-full px-4 py-2 w-[192px] flex items-center justify-center">Cerrar sesión</a>
+	</div>
+
+	<x-menu-admin />
+	
 	@yield('content')
-</div>
+</main>
 
-<div id="footer">
-</div>
 </body>
 </html>

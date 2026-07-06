@@ -169,6 +169,14 @@ h4 {
     justify-content: center;
 }
 
+.menu.menu-admin {
+    margin: 0;
+}
+
+.menu.menu-admin a {
+    flex: 1;
+}
+
 .menu a.btn-active {
     background-color: var(--color-gold);
     color: var(--color-primary);
@@ -244,6 +252,7 @@ input[type="text"],
 input[type="email"],
 input[type="tel"],
 input[type="password"],
+input[type="number"],
 textarea {
     width: 100%;
     padding: 10px;
@@ -253,34 +262,9 @@ textarea {
     font-size: 20px;
 }
 
-input[type="radio"] {
-    -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
-    border: 2px solid white;
-    border-radius: 50%;
-    outline: none;
-    background: #fff;
-}
-
-input[type="radio"]:before {
-    content: "";
-    display: block;
-    width: 14px;
-    height: 14px;
-    margin-top: -2px;
-    margin-left: -2px;
-    border-radius: 50%;
-}
-
-input[type="radio"]:checked:before {
-    -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
-    border: 2px solid #ffc200;
-    border-radius: 50%;
-    outline: none;
-    background: #ffc200;
+select.small {
+    padding: 5px;
+    font-size: 15px;
 }
 
 .contacto-ctn {
@@ -304,4 +288,161 @@ input[type="radio"]:checked:before {
     width: 20px;
     margin-right: 5px;
     padding-bottom: 10px;
+}
+
+/* admin */
+
+.error span {
+    color: black;
+    font-size: 10pt;
+    font-style: italic;
+    background-color: white;
+    border-radius: 12px;
+    padding: 17px 10px;
+}
+
+a.fuera {
+    color: white;
+    font-size: 10pt;
+    text-transform: uppercase;
+}
+
+a.x {
+    background-image: url(images/x.png);
+    width: 32px;
+    height: 32px;
+    display: block;
+    margin: auto;
+    position: relative;
+    z-index: 10;
+}
+
+.contenido table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.contenido table a {
+    text-decoration: underline;
+    color: var(--color-primary);
+}
+.contenido td,
+th {
+    border: 1px solid silver;
+    padding: 5px;
+    font-size: 10pt;
+}
+
+div#revisar {
+    width: 310px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 12px;
+    margin: auto;
+    margin-bottom: 30px;
+    margin-top: -16px;
+}
+
+table.revisar {
+    margin: auto;
+    border-collapse: collapse;
+    border-radius: 12px;
+}
+table.revisar td {
+    background-color: white;
+    color: black;
+    padding: 8px;
+}
+
+a.linkoculto {
+    text-decoration: none;
+    color: #000;
+}
+
+a.linkoculto:hover {
+    text-decoration: underline;
+    color: blue;
+}
+
+#creartarjetas,
+#crearcodigo,
+#renombrar,
+#nuevaemp,
+.oculto {
+    display: none;
+}
+
+.sombra {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.4;
+}
+
+.popup {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    margin-left: -200px;
+    width: 400px;
+    background: white;
+    padding: 20px;
+    border: 4px solid gray;
+}
+
+.popup a.cerrar {
+    padding: 5px 10px;
+    background-color: silver;
+    color: white;
+    font-weight: bold;
+    float: right;
+    text-decoration: none;
+}
+
+.popup .bloque {
+    padding: 10px 0;
+}
+
+.popup input,
+.popup select {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.popup label {
+    display: block;
+    font-size: 15px;
+}
+
+.popup td label,
+.popup label.inline {
+    display: inline;
+}
+
+.popup label.text-base {
+    font-size: 1rem;
+}
+
+.popup .scroll {
+    height: 200px;
+    border: 1px solid #1e3d72;
+    overflow-y: scroll;
+    margin-bottom: 1rem;
+}
+
+input[type="submit"]:disabled {
+    opacity: 0.7;
+}
+
+@media screen and (max-width: 400px) {
+    #header > div {
+        background-size: 1100px;
+        background-repeat: no-repeat;
+    }
+    #header #aserviteca {
+        width: 130px;
+        height: 22px;
+        margin-left: 270px;
+    }
 }

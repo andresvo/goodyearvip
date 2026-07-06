@@ -2,10 +2,15 @@
 
 @section('content')
 
-<div class="container form-pasos">
+<main class="grid lg:grid-cols-3">
+	<div class="lg:col-span-2">
+		<div class="background-login lg:aspect-[1.6]"></div>
+		<x-menu></x-menu>
+	</div>
+	<div class="p-8">
 
 	@if (!isset($codigo))
-		<h3>Paso 2<br><b>Ingreso de código</b></h3>
+		<h3 class="mb-4">Paso 2<br><b>Ingreso de código</b></h3>
 		@if($mensaje != '')
 			<p class="error">
 				<span>Código de tarjeta no válido</span>
@@ -14,77 +19,59 @@
 		@endif
 		<form action="{{ url('serviteca') }}">
 			<div class="row">
-				<div class="form-group col-md-12">
+				<div class="form-group">
 					<input class="form-control" type="text" name="codigo" placeholder="Ingresar código" style="text-transform:uppercase" />
 				</div>
-				<div class="form-group col-md-12">
+				<div class="form-group mt-8">
 					<input type="submit" class="btn btn-block btn-primary" value="Continuar">
 				</div>
 			</div>
 		</form>
 
 	@else
-		<h3>Paso 3<br><b>Detalle de venta.</b></h3>
+		<h3 class="mb-4">Paso 3<br><b>Detalle de venta.</b></h3>
 		@if ($cupo == 0)
 			<p class="error">
-				<a href="{{ URL::to('/serviteca') }}" class="x"></a>
+				<a href="{{ url('/serviteca') }}" class="x"></a>
 				<span>Esta tarjeta tiene todos sus cupos de compra utilizados</span>
 			</p>
 		@else
 		<form action="{{ url('compra/revisar') }}" onsubmit="return validar()" id="venta" method="post">
 		{{ csrf_field() }}
 		<input type="hidden" name="id_tarjeta" value="{{ $id_tarjeta }}" />
-		<div class="row">
-			<div class="form-group col-md-12">
-				<select class="form-control" name="producto" id="producto">
+		<div class="grid lg:grid-cols-2 gap-4">
+				<select class="lg:col-span-2" name="producto" id="producto">
 					<option value="0">Selecciona diseño</option>
 				@foreach($productos as $producto)
 					<option value="{{ $producto->id }}">{{ $producto->marca . ' ' . $producto->nombre }}</option>
 				@endforeach
 				</select>
-			</div>
-			<div class="form-group col-md-6">
 				<select name="medida" id="medida" class="form-control">
 					<option value="0">Selecciona medida</option>
 				</select>
-			</div>
-			<div class="form-group col-md-6">
 				<select name="cantidad" id="cantidad" class="form-control">
 					<option value="0">Selecciona cantidad</option>
 				@for($cant=$cupo;$cant>0;$cant--)
 					<option value="{{ $cant }}">{{ $cant }}</option>
 				@endfor
 				</select>
-			</div>
-			<div class="form-group col-md-6">
-			<div class="input-group">
-				<span class="input-group-addon">
-					<input type="radio" name="bof" id="rboleta" value="b" checked="checked" />
-				</span>
+			<div class="flex items-center gap-2">
+				<input type="radio" name="bof" id="rboleta" value="b" checked="checked" />
 				<input type="text" class="form-control" name="boleta" id="boleta" placeholder="Ingresa boleta" />
-			</div><!-- /input-group -->
-			</div><!-- /.col-lg-6 -->
-			<div class="form-group col-md-6">
-			<div class="input-group">
-				<span class="input-group-addon">
-					<input type="radio" name="bof" id="rfactura" value="f" />
-				</span>
-				<input type="text" class="form-control" name="factura" id="factura" placeholder="Ingresa factura" /><br>
-			</div><!-- /input-group -->
-			</div><!-- /.col-lg-6 -->
-			<div class="form-group col-md-12">
-				<input type="text" class="form-control" name="precio" id="precio" placeholder="Ingresa precio unitario (precio a público de lista)" />
 			</div>
-			<div class="form-group col-md-12">
-			<input type="submit" class="btn btn-block btn-primary" value="Continuar">
+			<div class="flex items-center gap-2">
+				<input type="radio" name="bof" id="rfactura" value="f" />
+				<input type="text" class="form-control" name="factura" id="factura" placeholder="Ingresa factura" />
 			</div>
+				<input type="text" class="lg:col-span-2" name="precio" id="precio" placeholder="Ingresa precio unitario (precio a público de lista)" />
+				<input type="submit" class="btn lg:col-span-2" value="Continuar" >
 		</div>
-		</form>
-
-		@endif
+	</form>
 
 	@endif
-</div>
+
+	@endif
+</main>
 
 	<script type="text/javascript">
        (function() {

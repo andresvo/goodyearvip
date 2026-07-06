@@ -3,10 +3,9 @@
 @section('content')
 
 <div class="filtro">
-	<div><strong>Tarjetas</strong></div>
 
 </div>
-	<p><a href="#" onclick="$('#nuevaemp').show()">Nueva empresa</a></p>
+	<p class="text-left my-8"><a href="#" onclick="$('#nuevaemp').show()" class="bg-black text-white px-4 py-2 rounded-full inline-block">Nueva empresa</a></p>
 
 	@if(count($empresas) == 0)
 		<table border="1">
@@ -57,7 +56,7 @@
 					<input type="hidden" value="" name="id_empresa" id="t_id_empresa">
 					<label>Cantidad:</label>
 					<input type="number" value="" name="cantidad" min="1" required>
-					<input type="submit" value="Crear" name="creartarjetas">
+					<input type="submit" value="Crear" name="creartarjetas" class="bg-black text-white px-4 py-2 rounded-full inline-block">
 				</form>
 			</div>
 		</div>
@@ -76,7 +75,7 @@
 					<input type="text" value="" name="codigo" maxlength="100" style="text-transform:uppercase" required><br>
 					<label>Cupo:</label>
 					<input type="number" value="" name="cupo"  min="1" max="99999999" required><br>
-					<input type="submit" value="Crear" name="crearcodigo">
+					<input type="submit" value="Crear" name="crearcodigo" class="bg-black text-white px-4 py-2 rounded-full inline-block">
 				</form>
 			</div>
 		</div>
@@ -91,7 +90,7 @@
 				<form action="{{ url('admin/empresa/crear') }}" method="post">
 					{{ csrf_field() }}
 					<input type="text" value="" id="nombre" name="nombre">
-					<input type="submit" value="Crear" name="nuevaemp">
+					<input type="submit" value="Crear" name="nuevaemp" class="bg-black text-white px-4 py-2 rounded-full inline-block">
 				</form>
 			</div>
 		</div>
@@ -107,7 +106,7 @@
 					{{ csrf_field() }}
 					<input type="hidden" value="" name="id" id="r_id_empresa">
 					<input type="text" value="" id="r_nombre" name="nombre">
-					<input type="submit" value="Guardar" name="guardar">
+					<input type="submit" value="Guardar" name="guardar" class="bg-black text-white px-4 py-2 rounded-full inline-block">
 				</form>
 			</div>
 		</div>
@@ -143,7 +142,7 @@
 					<br>
 					<br>
 					<br>
-					<input type="submit" value="Generar descarga" name="generar">
+					<input type="submit" value="Generar descarga" name="generar" class="bg-black text-white px-4 py-2 rounded-full inline-block">
 					<p class="progreso" style="display:none">Generando imágenes... (<span>0</span>%)</p>
 				</form>
 			</div>

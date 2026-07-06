@@ -2,10 +2,8 @@
 
 @section('content')
 
-<div class="filtro">
-	<div><strong>Concurso</strong></div>
+<div class="my-8">
 
-</div>
 	@if(count($concursantes) == 0)
 		<table border="1">
 		<tr>
@@ -29,10 +27,12 @@
 			<td>{{ $c->email }}</td>
 			<td>{{ $c->marca }}</td>
 			<td>{{ $c->modelo }}</td>
-			<td><a href="{{ URL::to('admin/concursante/eliminar/' . $c->id) }}" onclick="return confirm('¿Seguro desea eliminar?')">eliminar</a></td>
+			<td><a href="{{ url('admin/concursante/eliminar/' . $c->id) }}" onclick="return confirm('¿Seguro desea eliminar?')">eliminar</a></td>
 		</tr>
 		@endforeach
 		</table>
 	@endif
+
+</div>
 
 @stop

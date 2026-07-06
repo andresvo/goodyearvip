@@ -3,11 +3,8 @@
 @section('content')
 
 <div class="filtro">
-	<div><strong>Productos</strong></div>
-
-</div>
-	<p>
-		<a href="#" onclick="$('#nuevoprod').show()">Nuevo producto</a>
+	<p class="my-8">
+		<a href="#" onclick="$('#nuevoprod').show()" class="bg-black text-white px-4 py-2 rounded-full inline-block">Nuevo producto</a>
 	</p>
 
 	@if(count($productos) == 0)
@@ -28,9 +25,9 @@
 			<td><a href="#" onclick="$('#r_id_empresa').val({{ $producto->id }}); $('#renombrar').show()" class="linkoculto">{{ $producto->nombre }}</a></td>
 			<td>{{ intval($producto->activo) }}</td>
 			<td>
-				<a href="{{ URL::to('admin/medidas/'.$producto->id) }}">Ver medidas</a> |
+				<a href="{{ url('admin/medidas/'.$producto->id) }}">Ver medidas</a> |
 				<a href="#" onclick="editar({{ $producto->id }})">Editar</a> |
-				<a href="{{ URL::to('admin/producto/eliminar/'.$producto->id) }}" onclick="return confirm('¿Seguro que desea eliminar?')">Eliminar</a>
+				<a href="{{ url('admin/producto/eliminar/'.$producto->id) }}" onclick="return confirm('¿Seguro que desea eliminar?')">Eliminar</a>
 			</td>
 		</tr>
 		@endforeach
@@ -46,7 +43,7 @@
 				<form action="{{ url('admin/producto/crear') }}" method="post">
 					{{ csrf_field() }}
 					Diseño: <input type="text" value="" id="nombre" name="nombre">
-					<input type="submit" value="Crear" name="nuevoprod">
+					<input type="submit" value="Crear" name="nuevoprod" class="bg-black text-white px-4 py-2 rounded-full inline-block">
 				</form>
 			</div>
 		</div>
@@ -62,12 +59,13 @@
 					{{ csrf_field() }}
 					<input type="hidden" value="" name="id" id="r_id_producto">
 					<input type="text" value="" id="r_nombre" name="nombre" size="40"><br>
-					<p><input type="checkbox" name="activo" id="r_activo" value="1"><label class="inline text-base" for="r_activo"> Activo</label> </p>
-					<input type="submit" value="Guardar" name="guardar">
+					<p class="my-2"><input type="checkbox" name="activo" id="r_activo" value="1"><label class="inline text-base" for="r_activo"> Activo</label> </p>
+					<input type="submit" value="Guardar" name="guardar" class="bg-black text-white px-4 py-2 rounded-full inline-block">
 				</form>
 			</div>
 		</div>
 	</div>
+</div>
 
 <script>
 productos = {!! json_encode($opcionesprod) !!};
