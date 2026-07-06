@@ -1,10 +1,13 @@
 @extends('layout')
 
 @section('content')
-
-<div class="container">
-	
-	<h3><b>Formulario</b> de contacto <img src="{{asset('assets/img/Icono_formulario de contacto.svg')}}" alt="" class="icon-carta"></h3>
+<main class="grid lg:grid-cols-3">
+	<div class="lg:col-span-2">
+		<div class="background-contacto lg:aspect-[1.6]"></div>
+		<x-menu></x-menu>
+	</div>
+	<div class="p-8">
+		<h3 class="my-4"><strong>Formulario de</strong> contacto</h3>
 	@if($enviado)
 	Tu comentario ha sido enviado. Gracias por contactarnos.
 	@else
@@ -21,8 +24,8 @@
 				<textarea class="form-control" placeholder="Comentario" name="comentario"  rows="4" cols="50"></textarea>
 			</div>
 			<div class="form-group col-md-12">
-				<input type="submit" class="btn btn-block btn-primary" value="Enviar">
-				<br>
+				<input type="submit" class="btn" value="Enviar">
+				<br><br><br>
 				contacto@contactogoodyear.cl
 			</div>
 		</div>
@@ -30,6 +33,7 @@
 	@endif
 
 </div>
+</main>
 
 <script>
 $('form').submit(function(event){

@@ -36,7 +36,7 @@ Route::get('bases', function()
 Route::get('contacto', function()
 {
     return view('contacto')->with('enviado', false);
-});
+})->name('contacto');
 
 Route::post('contacto', function(Request $request)
 {
@@ -49,7 +49,7 @@ Route::post('contacto', function(Request $request)
         $message->to('contacto@contactogoodyear.cl', 'Goodyear Cliente VIP')->subject('Contacto Cliente VIP');
     });
     return view('contacto')->with('enviado', true);
-});
+})->name('contactoPost');
 
 
 

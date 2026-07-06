@@ -82,11 +82,19 @@ h4 {
     margin-bottom: 10px;
 }
 
-.background-person {
+.background-person,
+.background-contacto,
+.background-login {
     background: url("../img/fondo1-d.jpg");
     background-position: right center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+.background-contacto {
+    background: url("../img/fondo2-d.jpg");
+}
+.background-login {
+    background: url("../img/fondo3-d.jpg");
 }
 .background-fondo-superior {
     background: url("../img/foto fondo neumatico.jpg");
@@ -95,13 +103,16 @@ h4 {
 }
 
 .distribuidores {
-    width: 425px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .distribuidores > div {
     width: 178px;
     height: 295px;
-    float: left;
     min-height: 79px;
     padding: 5px 6px;
     margin: 15px;
@@ -228,11 +239,12 @@ h4 {
     width: 365px;
 }
 
-.form-contacto {
-    max-width: 340px;
-}
-
-select {
+select,
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+textarea {
     width: 100%;
     padding: 10px;
     border-radius: 10px;
